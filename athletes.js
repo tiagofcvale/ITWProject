@@ -188,30 +188,37 @@ $(document).ready(function () {
 $(document).ajaxComplete(function (event, xhr, options) {
     $("#myModal").modal('hide');
 })
-function sortTable(columnIndex) {
-    const tableHeaders = document.querySelectorAll("th.sortable");
+let currentSortColumn = -1;
+let isAscending = true;
 
-    // Obter o nome da coluna
-    const columnName = tableHeaders[columnIndex].textContent.trim().replace(" ", "");
+// Função para ordenar a tabela
+function sortTable(columnIndex) {
+    const columnMap = {
+        1: "Name",
+        2: "BirthDate",
+        3: "BirthPlace",
+        4: "BirthCountry",
+        5: "Sex"
+    };
+    const columnName = columnMap[columnIndex];
     console.log("Coluna selecionada:", columnName);
 
-    // Determinar a ordem
+    // Determinar a ordem (ascendente ou descendente)
     if (currentSortColumn === columnIndex) {
-        isAscending = !isAscending;
+        isAscending = !isAscending; // Alterna entre ascendente e descendente
     } else {
         currentSortColumn = columnIndex;
-        isAscending = true;
+        isAscending = true; // Reseta para ascendente
     }
     const order = isAscending ? "asc" : "desc";
 
-    // Construir URL da API
-    const apiUrl = `${self.baseUri()}?page=${self.currentPage()}&pagesize=${self.pagesize()}&order=${columnName}_${order}`;
+    // Construir URL da API com o parâmetro de ordenação
+    const apiUrl = `${vm.baseUri()}?page=${vm.currentPage()}&pagesize=${vm.pagesize()}&order=${columnName}_${order}`;
     console.log("URL da API:", apiUrl);
 
-    // Chamar a API
+    // Fazer chamada à API e atualizar a tabela
     fetch(apiUrl)
         .then(response => {
-            console.log("Resposta da API:", response);
             if (!response.ok) {
                 throw new Error(`Erro na API: ${response.statusText}`);
             }
@@ -220,56 +227,124 @@ function sortTable(columnIndex) {
         .then(data => {
             console.log("Dados recebidos:", data);
             if (data && data.Athletes) {
-                updateTable(data.Athletes);
-            } else {
-                console.warn("Estrutura inesperada dos dados recebidos da API:", data);
+                vm.athletes(data.Athletes); // Atualizar o observable do Knockout.js
             }
+            updateSortIcons(columnIndex); // Atualizar ícones de ordenação
         })
         .catch(error => {
             console.error("Erro ao chamar a API:", error);
         });
-
-    // Atualizar ícones
-    updateSortIcons(columnIndex);
 }
 
-function updateTable(athletes) {
-    const tbody = document.querySelector("table tbody");
+// Função para atualizar os ícones de ordenação
 
-    // Limpar tabela
-    while (tbody.firstChild) {
-        tbody.removeChild(tbody.firstChild);
+
+$(document).ready(function () {
+    const apiUrl = 'http://192.168.160.58/Paris2024/API/Athletes';
+
+    // Função para carregar os atletas
+    function loadAthletes(page = 1, pageSize = 10, order = "Name_asc") {
+        const url = `${apiUrl}?page=${page}&pagesize=${pageSize}&order=${order}`;
+        ajaxHelper(url, 'GET').done(function (data) {
+            $("#athletes-body").empty();
+            data.Records.forEach(athlete => {
+                const id = formatValue(athlete.Id, "[sem informação]");
+                const name = formatValue(athlete.Name, "[sem informação]");
+                const sex = formatValue(athlete.Sex, "[sem informação]");
+                const photo = athlete.Photo ? athlete.Photo : 'Images/PersonNotFound.png';
+
+                $("#athletes-body").append(
+                    `<tr>
+                        <td class="align-middle">${id}</td>
+                        <td class="align-middle">${name}</td>
+                        <td class="align-middle">${sex}</td>
+                        <td class="align-middle"><img style="height: 100px; width: 100px;" src="${photo}"></td>
+                        <td class="text-end align-middle">
+                            <a class="btn btn-default btn-light btn-xs" href="athleteDetails.html?id=${id}">
+                                <i class="fa fa-eye" title="Show details"></i>
+                            </a>
+                            <a class="btn btn-default btn-sm btn-favourite" onclick="addFavAthlete(${id})"><i class="fa fa-heart text-danger" title="Add to favourites"></i></a>
+                        </td>
+                    </tr>`
+                );
+            });
+        });
     }
 
-    // Popular tabela com novos dados
-    athletes.forEach(athlete => {
-        const row = document.createElement("tr");
+    // Função para adicionar um atleta aos favoritos
+    function addFavAthlete(id) {
+        let favAthletes = JSON.parse(localStorage.getItem('favAthletes')) || [];
+        if (!favAthletes.includes(id)) {
+            favAthletes.push(id);
+            localStorage.setItem('favAthletes', JSON.stringify(favAthletes));
+        }
+    }
 
-        row.innerHTML = `
-            <td class="align-middle">${athlete.Id}</td>
-            <td class="align-middle">${athlete.Name}</td>
-            <td class="align-middle">${athlete.FormattedBirthDate || "[No information]"}</td>
-            <td class="align-middle">${athlete.BirthPlace || "[No information]"}</td>
-            <td class="align-middle">${athlete.BirthCountry || "[No information]"}</td>
-            <td class="align-middle">${athlete.Sex || "[No information]"}</td>
-            <td class="text-end">
-                <a class="btn btn-default btn-light btn-xs" href="athleteDetails.html?id=${athlete.Id}">
-                    <i class="fa fa-eye" title="Show details"></i>
-                </a>
-                <button class="btn btn-default btn-outline-danger btn-sm btn-favourite" 
-                        id="favourite_${athlete.Id}"
-                        onclick="toggleFavourite(${athlete.Id})">
-                    <i class="${athlete.isFavourite ? 'fa fa-heart text-danger' : 'fa fa-heart-o'}" title="Add to favourites"></i>
-                </button>
-            </td>
-        `;
-        tbody.appendChild(row);
-    });
-}
-ko.computed(() => {
-    console.log("Página atual:", self.currentPage());
-    console.log("URI base:", self.baseUri());
+    // Carregar os atletas ao carregar a página
+    loadAthletes();
 });
 
+function ajaxHelper(uri, method, data) {
+    return $.ajax({
+        type: method,
+        url: uri,
+        dataType: 'json',
+        contentType: 'application/json',
+        data: data ? JSON.stringify(data) : null,
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error('Error making AJAX request:', textStatus, errorThrown);
+        }
+    });
+}
+document.getElementById('toggleView').addEventListener('click', function() {
+            const table = document.querySelector('table');
+            const cards = document.getElementById('athletesCards');
 
-   
+            if (cards.classList.contains('d-none')) {
+                cards.classList.remove('d-none');
+                table.classList.add('d-none');
+                this.textContent = 'Show Table';
+            } else {
+                cards.classList.add('d-none');
+                table.classList.remove('d-none');
+                this.textContent = 'Show Grid';
+            }
+        });
+
+        // Add dynamic athlete cards (example)
+        const athletes = [
+            { Id: 1, Name: 'Athlete 1', FormattedBirthDate: '1990-01-01', BirthPlace: 'Place 1', BirthCountry: 'Country 1', Sex: 'M' },
+            { Id: 2, Name: 'Athlete 2', FormattedBirthDate: '1992-05-12', BirthPlace: 'Place 2', BirthCountry: 'Country 2', Sex: 'F' },
+            // Add more athletes here...
+        ];
+
+        function renderAthletes() {
+            const cardsContainer = document.getElementById('athletesCards');
+            cardsContainer.innerHTML = ''; // Clear existing cards
+
+            athletes.forEach(athlete => {
+                const card = document.createElement('div');
+                card.classList.add('col');
+
+                card.innerHTML = `
+                    <div class="card">
+                        <img src="images/athlete_placeholder.jpg" class="card-img-top" alt="${athlete.Name}">
+                        <div class="card-body">
+                            <h5 class="card-title">${athlete.Name}</h5>
+                            <p class="card-text">
+                                <strong>Birth Date:</strong> ${athlete.FormattedBirthDate}<br />
+                                <strong>Birth Place:</strong> ${athlete.BirthPlace}<br />
+                                <strong>Country:</strong> ${athlete.BirthCountry}<br />
+                                <strong>Sex:</strong> ${athlete.Sex}
+                            </p>
+                            <a href="athleteDetails.html?id=${athlete.Id}" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                `;
+
+                cardsContainer.appendChild(card);
+            });
+        }
+
+        // Call the function to render the athletes
+        renderAthletes();
