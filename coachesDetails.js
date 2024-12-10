@@ -19,6 +19,7 @@ var vm = function () {
     self.Function = ko.observable('');
     self.Sports = ko.observable([]);
     self.Country = ko.observable('');
+    self.Country_code = ko.observable('');
 
 
     //--- Page Events
@@ -26,21 +27,19 @@ var vm = function () {
         console.log('CALL: getCoaches...');
         var composedUri = self.baseUri() + id;
         ajaxHelper(composedUri, 'GET').done(function (data) {
-            console.log(data);
-            if (!data.Photo ||  data.Photo === null || data.Photo.trim() === '') {
-                self.Photo('Images/PersonNotFound.png'); 
-            } else {
-                self.Photo(data.Photo); 
-            }
+            console.log('Data received from API:', data);
+    
+            // Configuração dos dados
+            self.Photo(data.Photo && data.Photo.trim() ? data.Photo : 'Images/PersonNotFound.png');
             self.Name(formatValue(data.Name));
             self.Sex(formatValue(data.Sex));
             self.BirthDate(formatValue(new Date(data.BirthDate).toLocaleDateString()));
             self.Function(formatValue(data.Function));
-            self.Sports(formatValue(data.Sports));
+            self.Sports(data.Sports); // Lista de esportes
             self.Country(formatValue(data.Country));
+            self.Country_code((data.Country_code));
+            console.log("Country Code:",data.Country_code)
             hideLoading();
-
-            //self.SetFavourites();
         });
     };
 

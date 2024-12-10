@@ -102,7 +102,9 @@
                                 <a data-bind="text: Name, attr: { href: 'sportsDetails.html?id=' + Id }"></a>
                             </li>
                         </ul>
-                        <p class="text-end" data-bind="text: Country"></p>
+                        <p class="text-end">
+                            <a data-bind="attr: { href: 'nocsDetails.html?id=' + Country_code() }, text: Country"></a>
+                        </p>
                     </div>
                 </div>
             </div>
