@@ -20,8 +20,21 @@ var vm = function () {
             console.log('Dados recebidos:', data);
             console.log('URL da API:', composedUri);
             hideLoading();
+    
             // Preenchendo os observáveis com os dados recebidos
-            self.Event(data);
+            const formattedData = data.map(item => {
+                // Atualiza o tipo de participante conforme necessário
+                if (item.ParticipantType === 'Person') {
+                    item.ParticipantTypeFormatted = 'Athlete';
+                } else if (item.ParticipantType === 'Team') {
+                    item.ParticipantTypeFormatted = 'Teams';
+                } else {
+                    item.ParticipantTypeFormatted = formatValue(item.ParticipantType);
+                }
+                return item;
+            });
+    
+            self.Event(formattedData);
         });
     };
 

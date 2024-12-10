@@ -27,7 +27,7 @@ var vm = function () {
         var composedUri = self.baseUri() + id;
         ajaxHelper(composedUri, 'GET').done(function (data) {
             console.log(data);
-            if (!self.Photo(data.Photo) || self.Photo(data.Photo) === null || self.Photo(data.Photo) === '') {
+            if (!data.Photo ||  data.Photo === null || data.Photo.trim() === '') {
                 self.Photo('Images/PersonNotFound.png'); 
             } else {
                 self.Photo(data.Photo); 

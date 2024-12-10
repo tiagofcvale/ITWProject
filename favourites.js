@@ -142,6 +142,8 @@ $(document).ready(function () {
         
                     if (key === "Competitions") {
                         var name= data.Name
+                        console.log("sportId",encodedSportId)
+                        console.log("name",encodedName)
                         // Linha para as competições
                         row = `
                             <tr id="fav-${sanitizeId(sportId)}-${sanitizeId(name)}">

@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>ITW 2024/25 - Paris 2024 Torch Route</title>
+    <title>ITW 2024/25 - Paris 2024 Competition Details</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap">
@@ -114,8 +114,11 @@
                 <ul data-bind="foreach: Athletes" style="line-height: 0.6; font-size: 15px; text-align: center;">
                     <li>
                         <p>
-                            <span data-bind="text: Id"></span> - 
                             <span data-bind="text: Name"></span>
+                            <span>
+                                <a data-bind="attr: { href: 'athleteDetails.html?id=' + Id}">
+                                <i class="fa fa-external-link" aria-hidden="true"></i></a>
+                            </span>
                         </p>
                     </li>
                 </ul>

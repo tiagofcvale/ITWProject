@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>ITW 2024/25 - Paris 2024 Torch Route</title>
+    <title>ITW 2024/25 - Paris 2024 Cycling Tracks Details</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap">
@@ -83,28 +83,29 @@
     <!--Título-->
     <div class="container">
         <div class="border-top pt-4 pb-2 mb-3" style="border: 2px solid">
-            <h2 style="text-align: center;">Cycling Tracks Event Details</h2>
+            <h2 style="text-align: center;">Cycling Track Event Participants</h2>
         </div>
         <div class="row">
-    <!--Informações -->
-            <div class="row mt-1">
-                <div class="col-12">
-                    <ul data-bind="foreach: Event" style="line-height: 1.5; font-size: 15px; text-align: center;">
-                        <strong><span style="text-align: center;" data-bind="text: Name"></span>   ->   <span style="text-align: center;" data-bind="text: Id"></span></strong>
-                        <p>Participant Type: <span style="text-align: center;" data-bind="text: ParticipantType"></span></p>
-                        <p>Participant Code: <span style="text-align: center;" data-bind="text: ParticipantCode"></span></p>
-                        <p>Participant Name: <span style="text-align: center;" data-bind="text: ParticipantName"></span></p>
-                        <p>Country Code: <span style="text-align: center;" data-bind="text: CountryCode"></span></p>
-                        <p>Country Name:<span style="text-align: center;" data-bind="text: CountryName"></span></p>
-                        <hr />
-                    </ul>
-                    
+            <!--Informações -->
+                    <div class="row mt-1">
+                        <div class="col-12">
+                            <ul data-bind="foreach: Event" style="line-height: 1.5; font-size: 15px; text-align: center;">
+                                <p><strong><span style="text-align: center;" data-bind="text: Name"></span>   ->   <span style="text-align: center;" data-bind="text: Id"></span></strong></p>
+                                <p><span style="text-align: center;" data-bind="text: ParticipantType"></span> Name: <span style="text-align: center;" data-bind="text: ParticipantName"></span></p>
+                                <p><span style="text-align: center;" data-bind="text: ParticipantType"></span> Link: <a data-bind="attr: { href: ParticipantTypeFormatted +'Details.html?id=' + ParticipantCode ,text: 'Team'}">
+                                    <i class="fa fa-external-link" aria-hidden="true"></i>
+                                </a></p>
+                                <p>Country Code: <span style="text-align: center;" data-bind="text: CountryCode"></span></p>
+                                <p>Country Name:<span style="text-align: center;" data-bind="text: CountryName"></span></p>
+                                <hr />
+                            </ul>
+                            
+                        </div>
+                    </div>
+            
+            
+            
                 </div>
-            </div>
-    
-    
-    
-        </div>
     </div>
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -123,7 +124,7 @@
     </div>
     <!--Voltar-->
     <div class="fixed-button">
-        <a href="cyclings_tracksDetails.html" class="btn">Back</a>
+        <a href="cyclings_tracks.html" class="btn">Back</a>
     </div>
 
         <nav class="navbar fixed-bottom bg-body-tertiary border-top">
