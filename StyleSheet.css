@@ -1,0 +1,108 @@
+﻿body {
+    padding: 56px 0 56px 0; font-family: 'Open Sans', "sans-serif";
+}
+main { 
+    padding: 5px 0 5px 0;
+
+}
+.bannerTop{
+     height: 480px; margin: auto; background-position: center center; background-repeat: no-repeat; background-size: cover;
+}
+/* button default
+---------------------------- */
+.btn-default {
+    color: #333;
+    background-color: #f8f9fa;
+    border-color: #ccc;
+}
+
+    .btn-default:focus {
+        color: #333;
+        background-color: #e6e6e6;
+        border-color: #8c8c8c;
+    }
+
+    .btn-default:active,
+    .btn-default:hover {
+        color: #333;
+        background-color: #e6e6e6;
+        border-color: #adadad;
+    }
+
+/* button-xs
+---------------------------- */
+.btn-group-xs > .btn, .btn-xs {
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+.ua:hover {
+    color: green; /* Define a cor verde quando o rato passa por cima */
+}
+
+.search-bar-container {
+    position: relative;
+    width: 100%; 
+    margin-top: 17px;
+}
+
+.search-input {
+    width: calc(100% + 20px); 
+    margin-right: -10px; 
+}
+
+.search-results {
+    position: absolute;
+    top: 100%; 
+    left: 0;
+    width: 100%; 
+    z-index: 10; 
+    overflow: hidden;
+    border-end-end-radius:10px ;
+    border-start-end-radius: 10px;
+}
+
+.list-group-item {
+    border: none; 
+    padding: 8px 16px;
+}
+
+.list-group-item a {
+    text-decoration: none;
+    color: inherit; 
+    display: block; 
+    padding: 8px 16px; 
+}
+
+.list-group-item a:hover {
+    background-color: #007bff; 
+    color: white; 
+    border-radius: 10px;
+}
+
+body {
+    overflow-x: hidden; 
+}
+
+/* botão fixo para regressar*/
+.fixed-button {
+    position: fixed;
+    bottom: 75px;  /* Distância do fundo da tela */
+    left: 65px;    /* Distância da lateral esquerda da tela */
+    z-index: 9999; /* Garante que o botão fique acima de outros elementos */
+}
+
+.fixed-button a {
+    padding: 10px 20px;
+    font-size: 16px;
+    text-decoration: none;
+    color: white;
+    background-color: #007bff;
+    border-radius: 5px;
+}
+
+.fixed-button a:hover {
+    background-color: #0056b3;  /* Cor de fundo quando passar o mouse */
+}

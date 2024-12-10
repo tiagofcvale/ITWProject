@@ -1,0 +1,15 @@
+body { font-family: 'Open Sans', sans-serif; font-size:14px; }
+.carousel-item {
+    height: 600px; 
+}
+.carousel-item img{
+    margin-left: -200px;
+}
+.carousel-control-prev,
+.carousel-control-next {
+    top: 30%;
+    transform: translateY(-50%);
+}
+.text-adjust{
+   padding-top: 15px;
+}

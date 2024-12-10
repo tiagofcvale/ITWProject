@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Merchandising Paris 2024</title>
+    <!--- TODO: colocar aqui a fonte Open Sans  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+    />
+    <!--- Links para o Bootstrap e Font Awesome (não mexer) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--- Link para o ficheiro de estilos externo (não mexer) -->
+    <link rel="stylesheet" href="StyleSheet.css" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary border-bottom">
+        <div class="container-lg">
+            <a class="navbar-brand" href="index.html" title="Paris 2024"><img src="images/Paris2024.png" height="25" /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="navbar-btn nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Search</a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item"><a class="navbar-btn nav-link dropdown-item" aria-current="page" href="athletes.html"><i class="fa fa-user text-danger"></i> Athletes</a></li>
+                                <li class="nav-item"><a class="navbar-btn nav-link dropdown-item" aria-current="page" href="coaches.html"><i class="fa fa-user text-primary"></i> Coaches</a></li>
+                                <li class="nav-item"><a class="navbar-btn nav-link dropdown-item" aria-current="page" href="technical_officials.html"><i class="fa fa-user text-success"></i> Technical Officials</a></li>
+                                <li class="nav-item"><a class="navbar-btn nav-link dropdown-item" aria-current="page" href="venues.html"><i class="fa fa-user text-warning"></i> Venues</a></li>
+                                <li class="nav-item"><hr class="dropdown-divider"></li>
+                                <li class="nav-item"><a class="navbar-btn nav-link dropdown-item" href="sports.html"><i class="fa fa-futbol-o text-primary" aria-hidden="true"></i> Sports</a></li>
+                                <li class="nav-item"><a class="navbar-btn nav-link dropdown-item" href="competitions.html"><i class="fa fa-bolt text-danger" aria-hidden="true"></i> Competitions</a></li> 
+                                <li class="nav-item"><a class="navbar-btn nav-link dropdown-item" aria-current="page" href="teams.html"><i class="fa fa-flag text-success"></i> Teams</a></li>
+                            </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="navbar-btn nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Other</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="navbar-btn nav-link dropdown-item" href="torch.html"><i class="fa fa-map-marker text-success"></i> Torch Route</a></li>
+                            <li><a class="navbar-btn nav-link dropdown-item" href="locals.html"><i class="fa fa-map text-success"></i> Locals</a></li>
+                            <li><a class="navbar-btn nav-link dropdown-item" href="statistics.html"><i class="fa fa-bar-chart text-success" aria-hidden="true"></i> Statistics</a></li>  
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="merchandising.html"><i class="fa fa-shopping-cart text-warning"></i> Merchandising</a></li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a id="aboutus" class="navbar-btn nav-link" href="aboutus.html"><i class="fa fa-info-circle"></i> About Us</a>
+                        <li><a class="navbar-btn nav-link dropdown-item" href="help.html">Help</a></li>
+                    </li>
+                    
+                    
+                </ul>
+                <ul class="navbar-nav justify-content-end" id="bd-theme">
+                    <li class="nav-item">
+                        <div id="theme-light" class="nav-link" type="button" data-bs-theme-value="light" aria-pressed="false">
+                            <i class="theme-icon fa fa-sun-o" title="Modo claro"></i>
+                        </div>
+                    </li>
+                    <li class="navbar-text hstack">
+                        <div class="vr"></div>
+                    </li>
+                    <li class="nav-item">
+                        <div id="theme-dark" class="nav-link" type="button" data-bs-theme-value="dark" aria-pressed="false">
+                            <i class="theme-icon fa fa-moon-o" title="Modo escuro"></i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--- TODO: caroussel deve ser colocado aqui -->
+    <div id="carouselExampleIndicators" class="carousel slide">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="d-block w-100" style="background: url('Images/bannermerch1.png') center center; height: 600px; background-size: cover;margin-top: -50px; " alt="First slide"></div>
+            </div>
+            <div class="carousel-item">
+                <div class="d-block w-100" style="background: url('Images/bannermerch2.png') center center; height: 600px; background-size: cover;" alt="Second slide"></div>
+            </div>
+            <div class="carousel-item">
+                <div class="d-block w-100" style="background: url('Images/bannermerch3.png') center center; height: 600px; background-size: cover;" alt="Third slide"></div>
+            </div>
+            <div class="carousel-item">
+                <div class="d-block w-100" style="background: url('Images/bannermerch4.png') center center; height: 600px; background-size: cover;" alt="Third slide"></div>
+            </div>
+        </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    <!--- TODO: colocar as classes bootstrap nos elementos html de acordo com o enunciado -->
+    <div class="container mt-2">
+        <form action="http://192.168.160.36/FormEcho.aspx" method="post">
+            
+            <div class="row mt-3">
+            
+                <div class="col-3 d-flex align-items-center"><i class="fa fa-shopping-cart" aria-hidden="true"></i></div>
+                <div class="col-2 ">
+                    <div class="position-relative">
+                        <label class="position-absolute top-0 start-0 small ms-2" >Different Products</label>
+                        <span class="form-control d-flex justify-content-end align-items-end text-adjust" id="produtos" title="Número de produtos selecionados">0</span>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="position-relative">
+                        <label class="position-absolute top-0 start-0 small ms-2">Total quantity</label>
+                        <span class="form-control d-flex justify-content-end align-items-end text-adjust" id="quantidades" title="Quantidade total de produtos">0</span></div></div>
+                <div class="col-2">
+                    <div class="position-relative">
+                        <label class="position-absolute top-0 start-0 small ms-2">Purchase Value</label>
+                        <span class="form-control d-flex justify-content-end align-items-end text-adjust" id="total" title="Preço total da compra">0.00</span></div></div>
+                <div class="col-3">
+                    <button type="submit" class="btn btn-secondary" onclick="return validar()" title="Enviar pedido"><i class="fa fa-send"></i></button>
+                    <button type="button" class="btn btn-danger" onclick="limpar()" title="Limpar compra"><i class="fa fa-trash-o"></i></button>
+                </div>
+            </div>
+            <hr />
+            <h1 class="container">Paris 2024 Products</h1>
+            <hr/>
+            <div class="row pt-2 ">
+                <div class="col-3 mb-5">
+                    <img class="border w-100" src="images/peluche-vermelho.png" />
+                    <center>
+                    <p>Paris 2024 Olympics<br />Red Teddy</p>
+                    <p><span class="text-muted text-decoration-line-through"style="margin-right: 5px;">32,00 €</span> <span class="text-danger"style="font-size: 150%;">10,99 €</span></p>
+                    <input type="hidden" name="precoproduto1" id="precoproduto1" value="10.99" />
+                    <input type="hidden" name="produto1" id="produto1" value="0" />
+                    <button type="button" class="btn btn-secondary" onclick="comprar(1)"><i class="fa fa-shopping-bag"></i> Purchase</button>
+                    </center>
+                </div>
+                <div class="col-3">
+                    <img class="border w-100" src="images/bone-logo-preto.png" />
+                    <center>
+                    <p>Paris 2024 Olympics<br /> Black Cap With Logo</p>
+                    <p><span class="text-muted text-decoration-line-through"style="margin-right: 5px;">14,00 €</span> <span class="text-danger"style="font-size: 150%;">6,99 €</span></p>
+                    <input type="hidden" name="precoproduto2" id="precoproduto2" value="6.99" />
+                    <input type="hidden" name="produto2" id="produto2" value="0" />
+                    <button type="button" class="btn btn-secondary" onclick="comprar(2)"><i class="fa fa-shopping-bag"></i> Purchase</button>
+                    </center>
+                </div>
+                <div class="col-3">
+                    <center>
+                    <img class="border w-100" src="images/gorro-azul.png" />
+                    <p>Paris 2024 Olympics<br /> Blue Beanie</p>
+                    <p><span class="text-muted text-decoration-line-through"style="margin-right: 5px;">20,00 €</span> <span class="text-danger"style="font-size: 150%;">15,99 €</span></p>
+                    <input type="hidden" name="precoproduto3" id="precoproduto3" value="15.99" />
+                    <input type="hidden" name="produto3" id="produto3" value="0" />
+                    <button type="button" class="btn btn-secondary" onclick="comprar(3)"><i class="fa fa-shopping-bag"></i> Purchase</button>
+                    </center>
+                </div>
+                <div class="col-3">
+                    <center>
+                    <img class="border w-100" src="images/chapeu-rosa.png" />
+                    <p>Paris 2024 Olympics<br /> Pink & White Bucket Hat</p>
+                    <p><span class="text-muted text-decoration-line-through"style="margin-right: 5px;">21,00 €</span> <span class="text-danger"style="font-size: 150%;">9,99 €</span></p>
+                    <input type="hidden" name="precoproduto4" id="precoproduto4" value="9.99" />
+                    <input type="hidden" name="produto4" id="produto4" value="0" />
+                    <button type="button" class="btn btn-secondary" onclick="comprar(4)"><i class="fa fa-shopping-bag"></i> Purchase</button>
+                    </center>
+                </div>
+                <div class="col-3">
+                    <center>
+                    <img class="border w-100" src="images/tshirt-logo-white.jpg" />
+                    <p>Paris 2024 Olympics<br /> White Logo Printed T-Shirt</p>
+                    <p><span class="text-muted text-decoration-line-through"style="margin-right: 5px;">45,00 €</span> <span class="text-danger"style="font-size: 150%;">30,99 €</span></p>
+                    <input type="hidden" name="precoproduto5" id="precoproduto5" value="30.99" />
+                    <input type="hidden" name="produto5" id="produto5" value="0" />
+                    <button type="button" class="btn btn-secondary" onclick="comprar(5)"><i class="fa fa-shopping-bag"></i> Purchase</button>
+                    </center>
+                </div>
+                <div class="col-3">
+                    <center>
+                    <img class="border w-100" src="images/casaco-verde.png" />
+                    <p>Paris 2024 Olympics<br />Green Track Jacket</p>
+                    <p><span class="text-muted text-decoration-line-through"style="margin-right: 5px;">65,00 €</span> <span class="text-danger"style="font-size: 150%;">35,49 €</span></p>
+                    <input type="hidden" name="precoproduto6" id="precoproduto6" value="35.49" />
+                    <input type="hidden" name="produto6" id="produto6" value="0" />
+                    <button type="button" class="btn btn-secondary" onclick="comprar(6)"><i class="fa fa-shopping-bag"></i> Purchase</button>
+                    </center>
+                </div>
+                <div class="col-3 mb-5">
+                    <center>
+                    <img class="border w-100" src="images/sweat.png" />
+                    <p>Paris 2024 Olympics<br /> LA28 Handover Phrygian Mascot Graphic Hoodie</p>
+                    <p><span class="text-muted text-decoration-line-through"style="margin-right: 5px;">90,00 €</span> <span class="text-danger"style="font-size: 150%;">65,45€</span></p>
+                    <input type="hidden" name="precoproduto7" id="precoproduto7" value="65.45" />
+                    <input type="hidden" name="produto7" id="produto7" value="0" />
+                    <button type="button" class="btn btn-secondary" onclick="comprar(7)"><i class="fa fa-shopping-bag"></i> Purchase</button>
+                    </center>
+                </div>
+                <div class="col-3 mb-5">
+                    <center>
+                    <img class="border w-100" src="images/bone-paris2024.png" />
+                    <p>Paris 2024 Olympics<br /> Black Cap</p>
+                    <p><span class="text-muted text-decoration-line-through"style="margin-right: 5px;">25,00 €</span> <span class="text-danger" style="font-size: 150%;">15,99€</span></p>
+                    <input type="hidden" name="precoproduto8" id="precoproduto8" value="15.99" />
+                    <input type="hidden" name="produto8" id="produto8" value="0" />
+                    <button type="button" class="btn btn-secondary" onclick="comprar(8)"><i class="fa fa-shopping-bag"></i> Purchase</button>
+                    </center>
+                </div>
+            </div>
+        </form>
+        <hr />
+    </div>
+    <nav class="navbar fixed-bottom bg-body-tertiary border-top">
+        <div class="container ">
+            <div class="col-4">
+                <div class="navbar-text">&copy;  Introdução as Tecnologias Web - 2024/25</div>
+            </div>
+            <div class="col-4 d-flex justify-content-center">
+                <div class="nav-item text-end"><a href="https://www.ua.pt" class="nav-link ua">Universidade de Aveiro</a></div>
+            </div>
+            <div class="col-4 text-end">
+                <div class="navbar-text">Made with <i class="fa fa-heart text-danger"></i> by Bernardo Coelho e Tiago Vale</a></div>
+            </div>
+        </div>
+    </nav>
+    <!--- Link para o ficheiro script bootstrap (não mexer) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!--- Link para o ficheiro javascript externo (não mexer) -->
+    <script src="merchandising.js"></script>
+    <script src="theme.js"></script>
+</body>
+</html>

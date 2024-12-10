@@ -1,0 +1,67 @@
+.carousel {
+    width: 100%;
+    margin-top: 0px;
+}
+
+.carousel-item {
+    z-index: -100;
+    height: 600px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.carousel-item:nth-child(1) {
+    background-image: url("images/bannermerch4.png")
+}
+
+.carousel-item:nth-child(2) {
+    background-image: url('images/banner1.png');
+}
+
+.carousel-item:nth-child(3) {
+    background-image: url('images/hero-olympics_2024.webp');
+}
+
+.carousel-item:nth-child(4) {
+    background-image: url('images/arte.avif');
+}
+footer {
+	background-color: #2B3035;
+	/* height: 600px; */
+	border-top: 5px solid #0084ff;
+	margin-bottom: 0px;
+
+}
+
+footer a:hover .fa-twitter{
+    color:#00bbff;
+}
+footer a:hover .fa-instagram{
+    color:#e538ceb7;
+}
+footer a:hover .fa-youtube-play{
+    color:#ff0000b7;
+}
+
+footer h2, footer p, footer a, footer span {
+	color: #D1D1D1;
+}
+
+
+
+footer a {
+	text-decoration: none;
+}
+
+/* footer ul {
+	padding: 0;
+} */
+
+footer li {
+	list-style: none;
+}
+
+footer a:hover {
+	color: #FFF;
+}
