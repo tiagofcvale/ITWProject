@@ -73,7 +73,7 @@
     <div class="container">
         <div class="row align-items-center py-2 mb-2">
             <!-- Display Name -->
-            <div class="col-6">
+            <div class="col-3">
                 <h2 data-bind="text: displayName"></h2>
             </div>
             
@@ -104,10 +104,18 @@
                     </div>
                 </div>
             </div>
+            <!-- Sport Filter -->
+            <div class="col-3">
+                <div class="search-bar-container">
+                    <select data-bind="value: selectedSport, options: sports, optionsText: 'Name', optionsValue: 'Id', event: { change: filterBySport }">
+                        <option value="Todos">Todos</option> <!-- Opção para mostrar todos os times -->
+                    </select>          
+                </div>
+            </div>
             <!-- Favoritos Button -->
             <div class="col-3 d-flex justify-content-end">
                 <a href="teamsfav.html" class="btn" style="background: #808487;">
-                    Favoritos <i class="fa fa-heart text-danger"></i>
+                    Favourites <i class="fa fa-heart text-danger"></i>
                 </a>
             </div>
         </div>

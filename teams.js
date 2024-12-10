@@ -13,6 +13,64 @@ var vm = function () {
     self.totalRecords = ko.observable(50);
     self.hasPrevious = ko.observable(false);
     self.hasNext = ko.observable(false);
+    self.selectedSport = ko.observable(''); 
+    self.sports = ko.observableArray([]);
+
+    self.filterBySport = function () {
+        const sport = self.selectedSport();
+        console.log('Esporte selecionado:', sport);  // Adicionado para depuração
+    
+        if (!sport) {
+            // Se nenhum esporte for selecionado, exibe todos os times
+            self.activate(self.currentPage());  // Ativa a paginação corretamente
+        } else {
+            console.log(`Filtrando times por esporte: ${sport}`);
+            
+            // Filtra os times que têm o código do esporte selecionado
+            const filteredTeams = self.teams().filter(team => {
+                console.log('Sport_Codes da equipa:', team.Sport_Codes); // Verifica a estrutura de dados
+                if (Array.isArray(team.Sport_Codes)) {
+                    // Se Sport_Codes for um array, verifica se o código do esporte está presente
+                    return team.Sport_Codes.includes(sport);
+                } else if (typeof team.Sport_Codes === 'string') {
+                    // Se Sport_Codes for uma string, compara diretamente o código
+                    return team.Sport_Codes === sport;
+                }
+                return false; // Se Sport_Codes não for nem string nem array
+            });
+            console.log('Times filtrados:', filteredTeams); // Verifica o resultado do filtro
+            self.teams(filteredTeams);
+            
+            console.log('Times filtrados:', filteredTeams);  // Adicionado para depuração
+    
+            self.teams(filteredTeams);  // Atualiza os times filtrados
+            self.currentPage(1); // Reinicia para a primeira página
+            self.hasNext(false); // Desativa a navegação para a próxima página
+            self.hasPrevious(false); // Desativa a navegação para a página anterior
+            self.totalPages(1); // Apenas uma página de resultados
+            self.totalRecords(filteredTeams.length);  // Atualiza o total de resultados
+        }
+    };
+    
+
+    self.loadSports = function () {
+        const sportsUri = 'http://192.168.160.58/Paris2024/api/Sports';
+        console.log('Loading sports...');
+        ajaxHelper(sportsUri, 'GET').done(function (data) {
+            console.log('Available Sports:', data);
+        
+            // Mapeando os dados corretamente para garantir que cada item tenha Name e Id
+            self.sports(data.map(function(sport) {
+                return { Id: sport.Id, Name: sport.Name };  // Garante que tenha as propriedades corretas
+            }));
+        }).fail(function () {
+            console.error('Failed to load sports');
+        });
+    };
+    
+    
+    
+    self.loadSports()
     self.previousPage = ko.computed(function () {
         return self.currentPage() * 1 - 1;
     }, self);
@@ -87,21 +145,18 @@ var vm = function () {
 
     //--- Page Events
     self.activate = function (id) {
-        console.log('CALL: getTeams...');
+        console.log('Chamando a API para a página:', id);
         var composedUri = self.baseUri() + "?page=" + id + "&pageSize=" + self.pagesize();
         ajaxHelper(composedUri, 'GET').done(function (data) {
-            console.log(data);
-            hideLoading();
-            self.teams(data.Teams);
-            self.currentPage(data.CurrentPage);
-            self.hasNext(data.HasNext);
-            self.hasPrevious(data.HasPrevious);
-            self.pagesize(data.PageSize)
-            self.totalPages(data.TotalPages);
-            self.totalRecords(data.TotalTeams);
-            self.SetFavourites();
+            console.log('Resposta da API de times:', data);
+            if (data && data.Teams && data.Teams.length > 0) {
+                self.teams(data.Teams);
+            } else {
+                console.log('Nenhum time encontrado.');
+            }
         });
     };
+    
 
     //--- Internal functions
     function ajaxHelper(uri, method, data) {
