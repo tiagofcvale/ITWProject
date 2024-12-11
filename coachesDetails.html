@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>ITW 2024/25 - Paris 2024 Coach Details</title>
+    <title>ITW 2024/25 - Paris 2024 Athlete Details</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap">
@@ -70,51 +70,44 @@
             </div>
         </div>
     </nav>
-    <div class="container-xl">
     <div class="border-bottom pt-4 pb-2 mb-3">
         <h2 style="text-align: center;" data-bind="text: Name()">Coach - Details</h2>
     </div>
-    
+    <div class="container-xl">
         <div class="row">
-            <div class="img-square-wrapper col-6 col-md-6 mb-3">
-                <img class="img-thumbnail" data-bind="attr: {alt: Name(), src: Photo()}">
+            <div class="img-square-wrapper col-12 col-md-6 mb-3">
+                <img class="img-thumbnail" style="height: auto; width: 400px;" data-bind="attr: {alt: Name, src: Photo,}" onerror="this.onerror=null;this.src='Images/PersonNotFound.png';">
             </div>
-            <div class="col-6 col-md-6 mb-3" style="max-width: 100%;">
-                <h1 style="text-align: center;"><strong>Informações</strong></h1>
-                <hr />
-                <div class="d-flex justify-content-between">
-                    <!-- Primeira div (esquerda) -->
-                    <div>
-                        <p class="coacheslabel"><strong>Sex</strong></p>
-                        <p class="coacheslabel"><strong>BirthDate</strong></p>
-                        <p class="coacheslabel"><strong>Function</strong></p>
-                        <p class="coacheslabel"><strong>Sports</strong></p>
-                        <p class="coacheslabel"><strong>Country</strong></p>
-                    </div>
+            <div class="col-12 col-md-6 mb-3" style="float: left;" >
+                <h1 ><strong>Informações</strong></h1>
+                <hr style="width: 60%; margin-left: -12%;">
+                <div style="float: left; margin-right: 20px; ">
+                    <p class="coacheslabel"><strong>Sex</strong></p>
+                    <p class="coacheslabel"><strong>BirthDate</strong></p>
+                    <p class="coacheslabel"><strong>Function</strong></p>
+                    <p class="coacheslabel"><strong>Sports</strong></p>
+                    <p class="coacheslabel"><strong>Country</strong></p>
                     
-                    <!-- Segunda div (direita) -->
-                    <div style="float: right;">
-                        <p class="text-end" data-bind="text: Sex"></p>
-                        <p class="text-end" data-bind="text: BirthDate"></p>
-                        <p class="text-end" data-bind="text: Function"></p>
-                        <ul data-bind="foreach: Sports">
-                            <li>
-                                <a data-bind="text: Name, attr: { href: 'sportsDetails.html?id=' + Id }"></a>
-                            </li>
-                        </ul>
-                        <p class="text-end">
-                            <a data-bind="attr: { href: 'nocsDetails.html?id=' + Country_code() }, text: Country"></a>
-                        </p>
-                    </div>
+
+                </div>
+                <div style="float: left; margin-left: 20px;">
+                    <p class="text-end" data-bind="text: Sex"></p>
+                    <p class="text-end" data-bind="text: BirthDate"></p>
+                    <p class="text-end" data-bind="text: Function"></p>
+                    <ul data-bind="foreach: Sports">
+                        <li>
+                            <a data-bind="attr: { href: 'sportsDetails.html?id=' + Id }, text: Name">
+                                <i class="fa fa-external-link" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="text-end" data-bind="text: Country"></p>
+                    
                 </div>
             </div>
 
         </div>
         
-        <!--Voltar-->
-        <div class="fixed-button">
-            <a href="coaches.html" class="btn">Back</a>
-        </div>
 
 
 
