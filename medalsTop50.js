@@ -3,11 +3,11 @@ var vm = function () {
     console.log('ViewModel initiated...');
     //---Variáveis locais
     var self = this;
-    self.baseUri = ko.observable('http://192.168.160.58/Paris2024/API/medals');
-    self.displayName = 'Paris2024 Medals List';
+    self.baseUri = ko.observable('http://192.168.160.58/Paris2024/API/CountryMedals');
+    self.displayName = 'Paris2024 Country Medals List';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
-    self.medals = ko.observableArray([]);
+    self.Countries = ko.observableArray([]);
     self.currentPage = ko.observable(1);
     self.pagesize = ko.observable(20);
     self.totalRecords = ko.observable(50);
@@ -41,42 +41,33 @@ var vm = function () {
             list.push(i + step);
         return list;
     };
-    self.favourites = ko.observableArray([]);
-
-    self.toggleFavourite = function (id, competition) {
-        const existingIndex = self.favourites().findIndex(fav => fav.id === id && fav.competition === competition);
-        
-        console.log("Adicionando aos favoritos por SportId:",id)
-        console.log("Adicionando aos favoritos por Competition:",competition)
-
-        if (existingIndex === -1) {
-            self.favourites.push({ id: id, competition: competition });
-        } else {
-            self.favourites.splice(existingIndex, 1);
+    self.toggleFavourite = function (id) {
+        if (self.favourites.indexOf(id) == -1) {
+            self.favourites.push(id);
         }
-
-        const currentFavourites = self.favourites();
-        localStorage.setItem("fav", JSON.stringify(currentFavourites));
+        else {
+            self.favourites.remove(id);
+        }
+        localStorage.setItem("fav", JSON.stringify(self.favourites()));
     };
-
     self.SetFavourites = function () {
         let storage;
         try {
-            storage = JSON.parse(localStorage.getItem("fav")) || [];
-        } catch (e) {
-            storage = [];
+            storage = JSON.parse(localStorage.getItem("fav"));
         }
-        self.favourites(storage); // Atualiza a observableArray
-    };
-
-    // Inicializa os favoritos
-    self.SetFavourites();
-
+        catch (e) {
+            ;
+        }
+        if (Array.isArray(storage)) {
+            self.favourites(storage);
+        }
+    }
+    self.favourites = ko.observableArray([])
 
         self.searchQuery = ko.observable('');
         self.searchResults = ko.observableArray([]);
 
-        self.searchMedals = function () {
+        self.searchCoaches = function () {
             const query = self.searchQuery().trim();
             if (!query) {
                 self.searchResults([]); 
@@ -84,7 +75,7 @@ var vm = function () {
             }
 
         const searchUri = `${self.baseUri()}/Search?q=${encodeURIComponent(query)}`;
-        console.log(`Searching for medals with query: ${query}`);
+        console.log(`Searching for coaches with query: ${query}`);
         ajaxHelper(searchUri, 'GET').done(function (data) {
             console.log('Search results:', data);
             self.searchResults(data); 
@@ -94,20 +85,19 @@ var vm = function () {
     };
 
     //--- Page Events
-    self.activate = function (id) {
-        console.log('CALL: getMedals...');
-        var composedUri = self.baseUri() + "?page=" + id + "&pageSize=" + self.pagesize();
+    self.activate = function () {
+        console.log('CALL: getCountriesByMedals...');
+        var composedUri = self.baseUri() 
         ajaxHelper(composedUri, 'GET').done(function (data) {
             console.log(data);
-            console.log("Id: ",id)
             hideLoading();
-            self.medals(data.Medals);
+            self.Countries(data);
             self.currentPage(data.CurrentPage);
             self.hasNext(data.HasNext);
             self.hasPrevious(data.HasPrevious);
             self.pagesize(data.PageSize);
             self.totalPages(data.TotalPages);
-            self.totalRecords(data.TotalMedals);
+            self.totalRecords(data.TotalCoaches);
             self.SetFavourites();
         });
     };
@@ -183,7 +173,7 @@ $(document).ajaxComplete(function (event, xhr, options) {
     $("#myModal").modal('hide');
 });
 let currentSortColumn = null;
-    let isAscending = true;
+let isAscending = true;
 
     // Função para ordenar a tabela
     function sortTable(columnIndex) {
@@ -203,6 +193,14 @@ let currentSortColumn = null;
             const cellA = a.cells[columnIndex].textContent.trim();
             const cellB = b.cells[columnIndex].textContent.trim();
 
+             // Verifica se os valores são números
+        const numA = parseFloat(cellA);
+        const numB = parseFloat(cellB);
+
+        if (!isNaN(numA) && !isNaN(numB)) {
+            // Comparação numérica
+            return isAscending ? numA - numB : numB - numA;
+        }
             return isAscending
                 ? cellA.localeCompare(cellB, 'pt', { sensitivity: 'base' }) // Crescente
                 : cellB.localeCompare(cellA, 'pt', { sensitivity: 'base' }); // Decrescente
@@ -216,6 +214,5 @@ let currentSortColumn = null;
         // Adiciona as linhas ordenadas
         rows.forEach(row => table.appendChild(row));
 
-        // Atualiza os ícones
-        updateSortIcons(columnIndex);
+        
     }

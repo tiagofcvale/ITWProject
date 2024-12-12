@@ -19,7 +19,9 @@ var vm = function () {
                 console.log('Dados recebidos:', data);
                 hideLoading();
                 self.Athletes(data); 
+                hideLoading();
             });
+            hideLoading();
     };
 
     function ajaxHelper(uri, method, data) {
@@ -34,6 +36,7 @@ var vm = function () {
                 console.log("AJAX Call[" + uri + "] Fail...");
                 hideLoading();
                 self.error(errorThrown);
+            
             }
         });
     }
@@ -62,3 +65,48 @@ $(document).ready(function () {
 $(document).ajaxComplete(function () {
     $("#myModal").modal('hide');
 });
+
+let currentSortColumn = null;
+let isAscending = true;
+
+    // Função para ordenar a tabela
+    function sortTable(columnIndex) {
+        const table = document.querySelector("table tbody");
+        const rows = Array.from(table.rows);
+
+        // Determina a nova ordem
+        if (currentSortColumn === columnIndex) {
+            isAscending = !isAscending; // Inverte a ordem
+        } else {
+            currentSortColumn = columnIndex;
+            isAscending = true; // Reseta para ordem crescente
+        }
+
+        // Ordena as linhas
+        rows.sort((a, b) => {
+            const cellA = a.cells[columnIndex].textContent.trim();
+            const cellB = b.cells[columnIndex].textContent.trim();
+
+             // Verifica se os valores são números
+        const numA = parseFloat(cellA);
+        const numB = parseFloat(cellB);
+
+        if (!isNaN(numA) && !isNaN(numB)) {
+            // Comparação numérica
+            return isAscending ? numA - numB : numB - numA;
+        }
+            return isAscending
+                ? cellA.localeCompare(cellB, 'pt', { sensitivity: 'base' }) // Crescente
+                : cellB.localeCompare(cellA, 'pt', { sensitivity: 'base' }); // Decrescente
+        });
+
+        // Remove as linhas antigas
+        while (table.firstChild) {
+            table.removeChild(table.firstChild);
+        }
+
+        // Adiciona as linhas ordenadas
+        rows.forEach(row => table.appendChild(row));
+
+        
+    }
