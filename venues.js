@@ -52,8 +52,8 @@ var vm = function () {
     };
     function formatDate(dateString) {
         const date = new Date(dateString);
-        if (isNaN(date)) return ""; // Caso a data seja inválida
-        return date.toLocaleDateString("pt-BR"); // Formato dd/mm/yyyy
+        if (isNaN(date)) return ""; 
+        return date.toLocaleDateString("pt-PT"); 
     }
 
     self.activate = function (id) {
@@ -152,10 +152,10 @@ let currentSortColumn = null;
 
         // Determina a nova ordem
         if (currentSortColumn === columnIndex) {
-            isAscending = !isAscending; // Inverte a ordem
+            isAscending = !isAscending;
         } else {
             currentSortColumn = columnIndex;
-            isAscending = true; // Reseta para ordem crescente
+            isAscending = true; 
         }
 
         // Ordena as linhas
@@ -164,8 +164,8 @@ let currentSortColumn = null;
             const cellB = b.cells[columnIndex].textContent.trim();
 
             return isAscending
-                ? cellA.localeCompare(cellB, 'pt', { sensitivity: 'base' }) // Crescente
-                : cellB.localeCompare(cellA, 'pt', { sensitivity: 'base' }); // Decrescente
+                ? cellA.localeCompare(cellB, 'pt', { sensitivity: 'base' }) 
+                : cellB.localeCompare(cellA, 'pt', { sensitivity: 'base' }); 
         });
 
         // Remove as linhas antigas

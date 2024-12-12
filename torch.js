@@ -45,8 +45,8 @@ var vm = function () {
         var redIcon = L.icon({
             iconUrl: 'images/markertorch.png', 
             iconSize: [25, 45],
-            iconAnchor: [12, 41], // Ponto do ícone que será ancorado ao mapa
-            popupAnchor: [5, 5] // Ponto onde o popup será ancorado em relação ao ícone
+            iconAnchor: [12, 41], 
+            popupAnchor: [5, 5]
         });
 
         self.records().forEach(function (location) {

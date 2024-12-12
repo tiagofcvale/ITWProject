@@ -94,7 +94,6 @@
                     <!-- Search Results -->
                     <div class="search-results" data-bind="if: searchResults().length > 0">
                         <ul class="list-group">
-                            <!-- Loop through the top 10 search results -->
                             <li class="list-group-item" data-bind="foreach: searchResults().slice(0, 10)">
                                 <div>
                                     <a data-bind="attr: { href: 'technical_officialsDetails.html?id=' + Id }, text: Name"></a>

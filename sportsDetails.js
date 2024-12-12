@@ -1,14 +1,13 @@
 // FormatValue
 function formatValue(value) {
     if (Array.isArray(value)) {
-        return value.length > 0 ? value : []; // Retorne um array vazio em vez de string
+        return value.length > 0 ? value : []; 
     }
     return value ? value : "[sem informação]";
 }
 // ViewModel KnockOut
 var vm = function () {
     console.log('ViewModel initiated...');
-    //---VariÃ¡veis locais
     var self = this;
     self.baseUri = ko.observable('http://192.168.160.58/Paris2024/api/Sports/');
     self.displayName = 'Sport Details';

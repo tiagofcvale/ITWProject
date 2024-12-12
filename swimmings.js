@@ -9,7 +9,7 @@ var vm = function () {
     self.Events = ko.observableArray([]);
 
     self.activate = function (id) {
-        console.log('CALL: getEvents...');
+        console.log('CALL: getSwimmingsEventsList...');
         var composedUri = self.baseUri();
         ajaxHelper(composedUri, 'GET').done(function (data) {
             showLoading();

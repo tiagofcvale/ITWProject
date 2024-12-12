@@ -73,7 +73,7 @@
     <div class="container">
         <div class="row align-items-center py-2 mb-2">
             <!-- Display Name -->
-            <div class="col-3">
+            <div class="col-6">
                 <h2 data-bind="text: displayName"></h2>
             </div>
             
@@ -94,7 +94,6 @@
                     <!-- Search Results -->
                     <div class="search-results" data-bind="if: searchResults().length > 0">
                         <ul class="list-group">
-                            <!-- Loop through the top 10 search results -->
                             <li class="list-group-item" data-bind="foreach: searchResults().slice(0, 10)">
                                 <div>
                                     <a data-bind="attr: { href: 'teamsDetails.html?id=' + Id }, text: Name"></a>
@@ -104,18 +103,10 @@
                     </div>
                 </div>
             </div>
-            <!-- Sport Filter -->
-            <div class="col-3">
-                <div class="search-bar-container">
-                    <select data-bind="value: selectedSport, options: sports, optionsText: 'Name', optionsValue: 'Id', event: { change: filterBySport }">
-                        <option value="Todos">Todos</option> <!-- Opção para mostrar todos os times -->
-                    </select>          
-                </div>
-            </div>
             <!-- Favoritos Button -->
             <div class="col-3 d-flex justify-content-end">
                 <a href="teamsfav.html" class="btn" style="background: #808487;">
-                    Favourites <i class="fa fa-heart text-danger"></i>
+                    Favoritos <i class="fa fa-heart text-danger"></i>
                 </a>
             </div>
         </div>
@@ -153,18 +144,10 @@
             <thead class="table-secondary">
                 <tr>
                     <th scope="col">Id</th>
-                    <th scope="col" class="sortable" onclick="sortTable(1)">
-                        Name <i class="fa fa-sort"></i>
-                    </th>
-                    <th scope="col" class="sortable" onclick="sortTable(2)">
-                        Sex <i class="fa fa-sort"></i>
-                    </th>
-                    <th scope="col" class="sortable" onclick="sortTable(3)">
-                        Country <i class="fa fa-sort"></i>
-                    </th>
-                    <th scope="col" class="sortable" onclick="sortTable(4)">
-                        Sport Code <i class="fa fa-sort"></i>
-                    </th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Sex</th>
+                    <th scope="col">Country</th>
+                    <th scope="col">Sport Code</th>
                     <th scope="col" class="text-right"></th>
                 </tr>
             </thead>

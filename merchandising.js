@@ -1,6 +1,5 @@
 //--- TODO
 function limpar() {
-    //--- TODO: escrever o código em falta aqui...
     document.getElementById("produtos").innerText = "0"
     document.getElementById("total").innerText = "0.00"
     document.getElementById("quantidades").innerText = "0"
@@ -19,19 +18,12 @@ function validar() {
     
     var produtos_diferentes = parseFloat(document.getElementById("produtos").innerHTML);
 
-
-
-    
-    //--- TODO: escrever o código em falta aqui...
-    //--- Se a função retornar true o formulário será enviado; 
-    //--- Se a função retornar false, o formulário não será enviaddo.
     console.log("CALL: validar()");
     return retVal;
 
 }
 
 function comprar(number) {
-    //--- TODO: escrever o código em falta aqui...
     var produto= document.getElementById("produto" + number);
     var x = parseFloat(produto.value) + 1;
     produto.value = x.toString();
@@ -42,7 +34,6 @@ function comprar(number) {
 }
 
 function calcular() {
-    //--- TODO: escrever o código em falta aqui...
         var produto1 = parseInt(document.getElementById('produto1').value);
         var produto2 = parseInt(document.getElementById('produto2').value);
         var produto3 = parseInt(document.getElementById('produto3').value);

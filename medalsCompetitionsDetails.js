@@ -4,7 +4,6 @@ function formatValue(value) {
 // ViewModel KnockOut
 var vm = function () {
     console.log('ViewModel initiated...');
-    //---VariÃ¡veis locais
     var self = this;
     self.baseUri = ko.observable('http://192.168.160.58/Paris2024/api/Medals/Competition');
     self.displayName = 'Competition Details';
@@ -21,7 +20,6 @@ var vm = function () {
             console.log('URL da API:', composedUri);
             hideLoading();
             console.log("Data:", data)
-            // Preenchendo os observáveis com os dados recebidos
             self.Competitions(data);
         });
     };
@@ -30,7 +28,7 @@ var vm = function () {
 
     //--- Internal functions
     function ajaxHelper(uri, method, data) {
-        self.error(''); // Clear error message
+        self.error(''); 
         return $.ajax({
             type: method,
             url: uri,
@@ -59,7 +57,7 @@ var vm = function () {
 
     function getUrlParameter(param) {
         const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(param); // Retorna o valor do parâmetro ou null se não encontrado
+        return urlParams.get(param);
     }
 
     //--- start ....

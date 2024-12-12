@@ -66,10 +66,9 @@ var vm = function () {
         } catch (e) {
             storage = [];
         }
-        self.favourites(storage); // Atualiza a observableArray
+        self.favourites(storage); 
     };
 
-    // Inicializa os favoritos
     self.SetFavourites();
 
 
@@ -114,7 +113,7 @@ var vm = function () {
 
     //--- Internal functions
     function ajaxHelper(uri, method, data) {
-        self.error(''); // Clear error message
+        self.error('');
         return $.ajax({
             type: method,
             url: uri,
@@ -185,17 +184,16 @@ $(document).ajaxComplete(function (event, xhr, options) {
 let currentSortColumn = null;
     let isAscending = true;
 
-    // Função para ordenar a tabela
     function sortTable(columnIndex) {
         const table = document.querySelector("table tbody");
         const rows = Array.from(table.rows);
 
         // Determina a nova ordem
         if (currentSortColumn === columnIndex) {
-            isAscending = !isAscending; // Inverte a ordem
+            isAscending = !isAscending; 
         } else {
             currentSortColumn = columnIndex;
-            isAscending = true; // Reseta para ordem crescente
+            isAscending = true; 
         }
 
         // Ordena as linhas
@@ -204,18 +202,15 @@ let currentSortColumn = null;
             const cellB = b.cells[columnIndex].textContent.trim();
 
             return isAscending
-                ? cellA.localeCompare(cellB, 'pt', { sensitivity: 'base' }) // Crescente
-                : cellB.localeCompare(cellA, 'pt', { sensitivity: 'base' }); // Decrescente
+                ? cellA.localeCompare(cellB, 'pt', { sensitivity: 'base' })
+                : cellB.localeCompare(cellA, 'pt', { sensitivity: 'base' });
         });
 
-        // Remove as linhas antigas
         while (table.firstChild) {
             table.removeChild(table.firstChild);
         }
 
-        // Adiciona as linhas ordenadas
         rows.forEach(row => table.appendChild(row));
 
-        // Atualiza os ícones
         updateSortIcons(columnIndex);
     }

@@ -71,7 +71,6 @@ self.activate = function (id) {
     });
 };
 
-// Remove favourite function
 function removeFav(Id) {
     console.log("remove fav");
     $("#fav-" + Id).remove();
@@ -90,11 +89,21 @@ $(document).ready(function () {
     let fav = JSON.parse(localStorage.fav || '[]');
     console.log(fav);
 
+    function getArrayCount(array) {
+        return Array.isArray(array) ? array.length : 0;
+    }
+
     for (const Id of fav) {
         console.log(Id);
         ajaxHelper('http://192.168.160.58/Paris2024/api/NOCs/' + Id, 'GET').done(function (data) {
             console.log(data);
-            // Verificar se a foto está disponível
+
+            //Get Counts
+            const athletesCount = getArrayCount(data.Athletes);
+            const coachesCount = getArrayCount(data.Coaches);
+            const medalsCount = getArrayCount(data.Medals);
+            const teamsCount = getArrayCount(data.Teams);
+
             var photo = data.Photo && data.Photo !== '' ? data.Photo : 'Images/PersonNotFound.png';
 
             if (fav.length !== 0) {
@@ -104,11 +113,11 @@ $(document).ready(function () {
                 $("#table-favourites").append(
                     `<tr id="fav-${Id}">
                         <td class="align-middle">${Id}</td>
-                        <td class="align-middle">${data.Country}</td>
-                        <td class="align-middle">${data.Athletes}</td>
-                        <td class="align-middle">${data.Coaches}</td>
-                        <td class="align-middle">${data.Medals}</td>
-                        <td class="align-middle">${data.Teams}</td>
+                        <td class="align-middle">${data.Name}</td>
+                        <td class="align-middle">${athletesCount}</td>
+                        <td class="align-middle">${coachesCount}</td>
+                        <td class="align-middle">${medalsCount}</td>
+                        <td class="align-middle">${teamsCount}</td>
                         <td class="align-middle"><img style="height: 100px; width: 100px;" src="${photo}"></td>
                         <td class="text-end align-middle">
                             <a class="btn btn-default btn-light btn-xs" href="nocsDetails.html?id=${Id}">

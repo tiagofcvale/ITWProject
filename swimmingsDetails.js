@@ -4,7 +4,6 @@ function formatValue(value) {
 // ViewModel KnockOut
 var vm = function () {
     console.log('ViewModel initiated...');
-    //---VariÃ¡veis locais
     var self = this;
     self.baseUri = ko.observable('http://192.168.160.58/Paris2024/api/Swimmings');
     self.displayName = 'Swimming Event Details';
@@ -21,9 +20,7 @@ var vm = function () {
             console.log('URL da API:', composedUri);
             hideLoading();
     
-            // Preenchendo os observáveis com os dados recebidos
             const formattedData = data.map(item => {
-                // Atualiza o tipo de participante conforme necessário
                 if (item.ParticipantType === 'Person') {
                     item.ParticipantTypeFormatted = 'Athlete';
                 } else if (item.ParticipantType === 'Team') {
@@ -71,7 +68,7 @@ var vm = function () {
 
     function getUrlParameter(param) {
         const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(param); // Retorna o valor do parâmetro ou null se não encontrado
+        return urlParams.get(param); 
     }
 
     //--- start ....

@@ -105,7 +105,7 @@ var vm = function () {
 
     //--- Internal functions
     function ajaxHelper(uri, method, data) {
-        self.error(''); // Clear error message
+        self.error(''); 
         return $.ajax({
             type: method,
             url: uri,
@@ -181,30 +181,26 @@ let isAscending = true;
         const table = document.querySelector("table tbody");
         const rows = Array.from(table.rows);
 
-        // Determina a nova ordem
         if (currentSortColumn === columnIndex) {
-            isAscending = !isAscending; // Inverte a ordem
+            isAscending = !isAscending; 
         } else {
             currentSortColumn = columnIndex;
-            isAscending = true; // Reseta para ordem crescente
+            isAscending = true; 
         }
 
-        // Ordena as linhas
         rows.sort((a, b) => {
             const cellA = a.cells[columnIndex].textContent.trim();
             const cellB = b.cells[columnIndex].textContent.trim();
 
-             // Verifica se os valores são números
         const numA = parseFloat(cellA);
         const numB = parseFloat(cellB);
 
         if (!isNaN(numA) && !isNaN(numB)) {
-            // Comparação numérica
             return isAscending ? numA - numB : numB - numA;
         }
             return isAscending
-                ? cellA.localeCompare(cellB, 'pt', { sensitivity: 'base' }) // Crescente
-                : cellB.localeCompare(cellA, 'pt', { sensitivity: 'base' }); // Decrescente
+                ? cellA.localeCompare(cellB, 'pt', { sensitivity: 'base' }) 
+                : cellB.localeCompare(cellA, 'pt', { sensitivity: 'base' });
         });
 
         // Remove as linhas antigas
@@ -212,8 +208,5 @@ let isAscending = true;
             table.removeChild(table.firstChild);
         }
 
-        // Adiciona as linhas ordenadas
         rows.forEach(row => table.appendChild(row));
-
-        
     }

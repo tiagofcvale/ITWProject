@@ -25,7 +25,7 @@ var vm = function () {
 
     //--- Internal functions
     function ajaxHelper(uri, method, data) {
-        self.error(''); // Clear error message
+        self.error('');
         return $.ajax({
             type: method,
             url: uri,
@@ -40,7 +40,6 @@ var vm = function () {
         });
     };
 
-    // Função para remover o favorito
     self.removeFav = function (sportId, competition) {
         console.log("removeFav function called with SportId:", sportId, "and Name:", competition);
     
@@ -75,7 +74,7 @@ var vm = function () {
         
         if (index !== -1) {
             fav.splice(index, 1); 
-            localStorage.setItem("fav", JSON.stringify(fav)); // Atualizar o localStorage
+            localStorage.setItem("fav", JSON.stringify(fav));
             console.log("Updated favourites after removal:", fav);
         } else {
             console.error("SportId and Name not found in favourites:", sportId, competition);
@@ -90,7 +89,7 @@ var vm = function () {
 
     
     function sanitizeId(id) {
-        return id.toString().replace(/[^a-zA-Z0-9]/g, "");  // Remove caracteres não alfanuméricos
+        return id.toString().replace(/[^a-zA-Z0-9]/g, "");
     }
 
     
@@ -133,8 +132,6 @@ var vm = function () {
     }
     console.log("VM initialized!");
 
-    //--- Carregar favoritos ao iniciar
-//--- Carregar favoritos ao iniciar
 $(document).ready(function () {
     var fav = JSON.parse(localStorage.fav || '[]');
     console.log(fav);
@@ -144,36 +141,31 @@ $(document).ready(function () {
         $('#noadd').hide();
         $('#nofav').hide();
 
-        // URI para a API de medalhas
         var composedUri = `http://192.168.160.58/Paris2024/api/medals`;
 
-        // Chamada à API
         ajaxHelper(composedUri, 'GET').done(function (response) {
             console.log(response);
 
-            // Iterar sobre o campo `Medals` do resultado
             response.Medals.forEach(function (data) {
-                // Verificar se o SportId e Competition estão nos favoritos
                 const isFavourite = fav.some(favItem => favItem.id === data.SportId && favItem.competition === data.Competition);
 
                 if (isFavourite) {
-                    const photo = "Images/MedalPlaceholder.png"; // Substitua por um campo real caso haja fotos na API.
+                    const photo = "Images/MedalPlaceholder.png";
 
                     console.log("SportId =", data.SportId);
                     console.log("Sport =", data.Sport);
                     const sportId = data.SportId;
                     const competition = data.Competition;
 
-                    // Adiciona o favorito na tabela
                     const row = `<tr id="fav-${sanitizeId(sportId)}-${sanitizeName(competition)}">
                         <td class="align-middle">${data.SportId}</td>
                         <td class="align-middle">${data.Sport}</td>
                         <td class="align-middle">${data.Competition}</td>
                         <td class="align-middle">${data.MedalName}</td>
                         <td class="text-end align-middle">
-                            <a class="btn btn-default btn-light btn-xs" href="competitionsDetails.html?sportId=${encodeURIComponent(data.SportId)}&competition=${encodeURIComponent(data.Competition)}">
+                            <!--<a class="btn btn-default btn-light btn-xs" href="competitionsDetails.html?sportId=${encodeURIComponent(data.SportId)}&competition=${encodeURIComponent(data.Competition)}">
                                 <i class="fa fa-eye" title="Show details"></i>
-                            </a>
+                            </a>-->
                             <a class="btn btn-default btn-sm btn-favourite" href="#" id="remove-fav-${sanitizeId(sportId)}-${sanitizeName(competition)}">
                                 <i class="fa fa-heart text-danger" title="Remove Favourite"></i>
                             </a>
@@ -182,14 +174,12 @@ $(document).ready(function () {
 
                     $("#table-favourites").append(row);
 
-                    // Adicionar evento de remoção ao botão
                     $(`#remove-fav-${sanitizeId(sportId)}-${sanitizeName(competition)}`).on('click', function () {
                         removeFav(sportId, competition);
                     });
                 }
             });
 
-            // Atualizar exibição da tabela se necessário
             if (fav.length === 0) {
                 $('#nofav').show();
                 $('#noadd').hide();
@@ -205,23 +195,17 @@ $(document).ready(function () {
     hideLoading();
 });
 
-// Função para remover favorito
 function removeFav(id, competition) {
     console.log('Removing favourite:', { id, competition });
 
-    // Recuperar favoritos do localStorage
     var fav = JSON.parse(localStorage.fav || '[]');
 
-    // Remover o favorito correspondente
     fav = fav.filter(favItem => favItem.id !== id || favItem.competition !== competition);
 
-    // Atualizar localStorage
     localStorage.fav = JSON.stringify(fav);
 
-    // Remover a linha correspondente da tabela
     $(`#fav-${sanitizeId(id)}-${sanitizeName(competition)}`).remove();
 
-    // Atualizar exibição da tabela
     if (fav.length === 0) {
         $('#nofav').show();
         $('#noadd').hide();
@@ -230,7 +214,6 @@ function removeFav(id, competition) {
 }}
 
 
-//--- Aplicar Knockout Bindings
 $(document).ready(function () {
     var viewModel = new vm();
     ko.applyBindings(viewModel);

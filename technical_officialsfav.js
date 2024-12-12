@@ -17,17 +17,6 @@ function sleep(milliseconds) {
     while (Date.now() - start < milliseconds);
 }
 
-function showLoading() {
-    $("#myModal").modal('show', {
-        backdrop: 'static',
-        keyboard: false
-    });
-}
-function hideLoading() {
-    $('#myModal').on('shown.bs.modal', function (e) {
-        $("#myModal").modal('hide');
-    })
-}
 
 function getUrlParameter(sParam) {
     var sPageURL = window.location.search.substring(1),
@@ -43,17 +32,6 @@ function getUrlParameter(sParam) {
         }
     }
 };
-
-    //--- start ....
-    showLoading();
-    var pg = getUrlParameter('page');
-    console.log(pg);
-    if (pg == undefined)
-        self.activate(1);
-    else {
-        self.activate(pg);
-    }
-    console.log("VM initialized!")
 };
 
 //--- Page Events
@@ -71,7 +49,6 @@ self.activate = function (id) {
         self.totalPages(data.TotalPages);
         self.totalRecords(data.TotalRecords);
         self.SetFavourites();
-        //self.SetFavourites();
     });
 };
 function showLoading() {
@@ -120,7 +97,7 @@ $(document).ready(function () {
 
 
     for (const Id of fav) {
-        console.log(Id);
+        console.log("ID: ", Id);
 
         ajaxHelper('http://192.168.160.58/Paris2024/API/Technical_officials/' + Id, 'GET').done(function (data) {
             console.log(data)

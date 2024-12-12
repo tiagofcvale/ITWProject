@@ -1,14 +1,13 @@
 // FormatValue
 function formatValue(value) {
     if (Array.isArray(value)) {
-        return value.length > 0 ? value : []; // Retorne um array vazio em vez de string
+        return value.length > 0 ? value : []; 
     }
     return value ? value : "[sem informação]";
 }
 // ViewModel KnockOut
 var vm = function () {
     console.log('ViewModel initiated...');
-    //---VariÃ¡veis locais
     var self = this;
     self.baseUri = ko.observable('http://192.168.160.58/Paris2024/api/Venues/');
     self.displayName = 'Sport Details';
@@ -32,8 +31,8 @@ var vm = function () {
             self.Id(formatValue(data.Id));
             self.Name(formatValue(data.Name));
             self.Url(formatValue(data.Url));
-            self.DateStart(data.DateStart ? new Date(data.DateStart).toLocaleDateString() : "[sem informação]"); // Formatar data)
-            self.DateEnd(data.DateEnd ? new Date(data.DateEnd).toLocaleDateString() : "[sem informação]"); // Formatar data)
+            self.DateStart(data.DateStart ? new Date(data.DateStart).toLocaleDateString() : "[sem informação]");
+            self.DateEnd(data.DateEnd ? new Date(data.DateEnd).toLocaleDateString() : "[sem informação]");
             self.Tag(formatValue(data.Tag));
             self.Sports(data.Sports);
         });
@@ -41,7 +40,7 @@ var vm = function () {
 
     //--- Internal functions
     function ajaxHelper(uri, method, data) {
-        self.error(''); // Clear error message
+        self.error(''); 
         return $.ajax({
             type: method,
             url: uri,

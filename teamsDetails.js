@@ -29,12 +29,11 @@ var vm = function () {
     self.Sport = ko.observable({});
     self.Medals = ko.observableArray([]);
 
-    //--- Função para formatar os dados
     self.formatValue = function(value) {
         if (Array.isArray(value)) {
             return value.length ? value.join(', ') : "[Unknown]";
         } else if (typeof value === 'object' && value !== null) {
-            return JSON.stringify(value); // Opcional, para exibir objetos como string
+            return JSON.stringify(value);
         }
         return value ? value : "[Unknown]";
     };
@@ -52,7 +51,7 @@ var vm = function () {
                 return;
             }
 
-            // Atualiza os dados com verificações de segurança
+           
             self.Id(formatValue(data.Id));
             self.Name(formatValue(data.Name));
             self.Sex(formatValue(data.Sex));
@@ -71,9 +70,9 @@ var vm = function () {
         });
     };
 
-    //--- Internal functions
+    
     function ajaxHelper(uri, method, data) {
-        self.error(''); // Limpar mensagem de erro
+        self.error('');
         return $.ajax({
             type: method,
             url: uri,

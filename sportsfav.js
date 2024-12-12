@@ -112,11 +112,11 @@ function removeFav(Id) {
     let fav = JSON.parse(localStorage.getItem("fav") || "[]");
     console.log("Current favourites before removal:", fav);
 
-    const index = fav.findIndex(favItem => favItem === sanitizedId);  // Altere para comparar apenas o ID
+    const index = fav.findIndex(favItem => favItem === sanitizedId); 
 
     if (index !== -1) {
         fav.splice(index, 1); 
-        localStorage.setItem("fav", JSON.stringify(fav));  // Atualiza o localStorage
+        localStorage.setItem("fav", JSON.stringify(fav));  
         console.log("Updated favourites:", fav);
     } else {
         console.error("ID not found in favourites:", sanitizedId);

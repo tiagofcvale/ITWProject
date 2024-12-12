@@ -42,7 +42,7 @@ var vm = function () {
             self.Id(formatValue(data.Id));
             self.Category(formatValue(data.Category));
             self.Sex(formatValue(data.Sex));
-            self.BirthDate(data.BirthDate ? new Date(data.BirthDate).toLocaleDateString() : "[sem informação]"); // Formatar data
+            self.BirthDate(data.BirthDate ? new Date(data.BirthDate).toLocaleDateString() : "[sem informação]"); 
             self.Organisation(formatValue(data.Organisation));
             self.OrganisationCode(formatValue(data.BirthCountry));
             if (!data.Photo || data.Photo === null || data.Photo.trim() === '') {
@@ -61,7 +61,7 @@ var vm = function () {
 
     //--- Internal functions
     function ajaxHelper(uri, method, data) {
-        self.error(''); // Clear error message
+        self.error(''); 
         return $.ajax({
             type: method,
             url: uri,

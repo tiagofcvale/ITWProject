@@ -84,11 +84,10 @@ var vm = function () {
         });
     };
 
-    // Formatar datas de nascimento no array Technical_officials
     function formatDate(dateString) {
         const date = new Date(dateString);
-        if (isNaN(date)) return ""; // Caso a data seja inválida
-        return date.toLocaleDateString("pt-BR"); // Formato dd/mm/yyyy
+        if (isNaN(date)) return ""; 
+        return date.toLocaleDateString("pt-PT"); 
     }
 
     //--- Page Events
@@ -98,9 +97,8 @@ var vm = function () {
         ajaxHelper(composedUri, 'GET').done(function (data) {
             console.log(data);
             hideLoading();
-            // Formatar as datas de nascimento dos atletas
             const formattedTechnical_officials = data.Technical_officials.map(technical_official => {
-                technical_official.FormattedBirthDate = formatDate(technical_official.BirthDate); // Adiciona o campo formatado
+                technical_official.FormattedBirthDate = formatDate(technical_official.BirthDate);
                 return technical_official;
             });
             self.technical_officials(formattedTechnical_officials);
