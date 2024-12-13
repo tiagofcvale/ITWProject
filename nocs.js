@@ -4,7 +4,7 @@ var vm = function () {
     //---Variáveis locais
     var self = this;
     self.baseUri = ko.observable('http://192.168.160.58/Paris2024/api/NOCs');
-    self.displayName = 'Paris2024 Countries List';
+    self.displayName = 'Paris2024 NOCs List';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
     self.nocs = ko.observableArray([]);

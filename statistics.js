@@ -62,27 +62,7 @@ var vm = function () {
             self.favourites(storage);
         }
     }
-    self.favourites = ko.observableArray([])
-
-        self.searchQuery = ko.observable('');
-        self.searchResults = ko.observableArray([]);
-
-        self.searchCoaches = function () {
-            const query = self.searchQuery().trim();
-            if (!query) {
-                self.searchResults([]); 
-                return;
-            }
-
-        const searchUri = `${self.baseUri()}/Search?q=${encodeURIComponent(query)}`;
-        console.log(`Searching for coaches with query: ${query}`);
-        ajaxHelper(searchUri, 'GET').done(function (data) {
-            console.log('Search results:', data);
-            self.searchResults(data); 
-        }).fail(function () {
-            self.searchResults([]); 
-        });
-    };
+    
 
     //--- Page Events
     self.activate = function () {
@@ -172,43 +152,84 @@ $(document).ready(function () {
 $(document).ajaxComplete(function (event, xhr, options) {
     $("#myModal").modal('hide');
 });
-let currentSortColumn = null;
-let isAscending = true;
 
-    function sortTable(columnIndex) {
-        const table = document.querySelector("table tbody");
-        const rows = Array.from(table.rows);
 
-        if (currentSortColumn === columnIndex) {
-            isAscending = !isAscending;
-        } else {
-            currentSortColumn = columnIndex;
-            isAscending = true;
+
+google.charts.load('current', { packages: ['bar'] });
+
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+    $.ajax({
+        url: 'http://192.168.160.58/Paris2024/API/CountryMedals', 
+        method: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            var chartData = [['Country', '🥇 Gold', '🥈 Silver', '🥉 Bronze']];
+            data.forEach(function (item) {
+                chartData.push([item.CountryName, item.GoldMedal, item.SilverMedal, item.BronzeMedal]);
+            });
+
+            var dataTable = google.visualization.arrayToDataTable(chartData);
+
+            var options = {
+                chart: {
+                    title: 'Top 50 Medal Winners',
+                    subtitle: 'Gold, Silver, and Bronze medals',
+                },
+                bars: 'horizontal', 
+                axes: {
+                    x: {
+                        0: { side: 'top', label: 'Medals' } 
+                    }
+                },
+                bar: { groupWidth: "90%" },
+                colors: ['#FFD700', '#C0C0C0', '#CD7F32'], 
+                legend: { position: 'top', textStyle: { color: 'red', fontSize: 15 } } 
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('charttop50'));
+            chart.draw(dataTable, google.charts.Bar.convertOptions(options));
+        },
+        error: function (error) {
+            console.error('Erro ao buscar dados da API:', error);
         }
+    });
+    $.ajax({
+        url: 'http://192.168.160.58/Paris2024/api/Medals/Top25', 
+        method: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            var chartData = [['Athelete', '🥇 Gold', '🥈 Silver', '🥉 Bronze']];
+            data.forEach(function (item) {
+                chartData.push([item.Name, item.Gold, item.Silver, item.Bronze]);
+            });
 
-        rows.sort((a, b) => {
-            const cellA = a.cells[columnIndex].textContent.trim();
-            const cellB = b.cells[columnIndex].textContent.trim();
+            var dataTable = google.visualization.arrayToDataTable(chartData);
 
-        const numA = parseFloat(cellA);
-        const numB = parseFloat(cellB);
+            var options = {
+                chart: {
+                    title: 'Top 50 Medal Winners',
+                    subtitle: 'Gold, Silver, and Bronze medals',
+                },
+                bars: 'horizontal', 
+                axes: {
+                    x: {
+                        0: { side: 'top', label: 'Medals' } 
+                    }
+                },
+                bar: { groupWidth: "90%" },
+                colors: ['#FFD700', '#C0C0C0', '#CD7F32'], 
+                legend: { position: 'top', textStyle: { color: 'red', fontSize: 15 } } 
+            };
 
-        if (!isNaN(numA) && !isNaN(numB)) {
-
-            return isAscending ? numA - numB : numB - numA;
+            var chart = new google.charts.Bar(document.getElementById('charttop25'));
+            chart.draw(dataTable, google.charts.Bar.convertOptions(options));
+        },
+        error: function (error) {
+            console.error('Erro ao buscar dados da API:', error);
         }
-            return isAscending
-                ? cellA.localeCompare(cellB, 'pt', { sensitivity: 'base' }) 
-                : cellB.localeCompare(cellA, 'pt', { sensitivity: 'base' }); 
-        });
-
-        while (table.firstChild) {
-            table.removeChild(table.firstChild);
-        }
-
-        rows.forEach(row => table.appendChild(row));
-
-        
-    }
+    });
+}
 
 
