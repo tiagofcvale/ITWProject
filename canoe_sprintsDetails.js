@@ -1,18 +1,14 @@
 function formatValue(value) {
     return value ? value : "[sem informação]";
 }
-// ViewModel KnockOut
 var vm = function () {
     console.log('ViewModel initiated...');
-    //---VariÃ¡veis locais
     var self = this;
     self.baseUri = ko.observable('http://192.168.160.58/Paris2024/api/Canoe_Sprints');
     self.displayName = 'Canoe Sprints Event Details';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
-    //--- Data Record
     self.Event = ko.observableArray([]);
-    //--- Page Events
     self.activate = function (EventId, StageId) {
         console.log('CALL: getSports...');
         var composedUri = self.baseUri() + '?EventId=' + encodeURIComponent(EventId) + "&StageId=" + encodeURIComponent(StageId);
@@ -21,9 +17,7 @@ var vm = function () {
             console.log('URL da API:', composedUri);
             hideLoading();
     
-            // Preenchendo os observáveis com os dados recebidos
             const formattedData = data.map(item => {
-                // Atualiza o tipo de participante conforme necessário
                 if (item.ParticipantType === 'Person') {
                     item.ParticipantTypeFormatted = 'Athlete';
                 } else if (item.ParticipantType === 'Team') {
@@ -40,9 +34,8 @@ var vm = function () {
 
        
 
-    //--- Internal functions
     function ajaxHelper(uri, method, data) {
-        self.error(''); // Clear error message
+        self.error(''); 
         return $.ajax({
             type: method,
             url: uri,
@@ -71,10 +64,9 @@ var vm = function () {
 
     function getUrlParameter(param) {
         const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(param); // Retorna o valor do parâmetro ou null se não encontrado
+        return urlParams.get(param); 
     }
 
-    //--- start ....
     showLoading();
     var EventId = getUrlParameter('EventId');
     var StageId = getUrlParameter('StageId');

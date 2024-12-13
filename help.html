@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="help.css" />
 </head>
 <body>
+    <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary border-bottom">
         <div class="container-lg">
             <a class="navbar-brand" href="index.html" title="Paris 2024"><img src="images/Paris2024.png" height="25" /></a>
@@ -24,7 +25,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item dropdown">
-                        <a class="navbar-btn nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Search</a>
+                        <a class="navbar-btn nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-search text-info"></i> Search</a>
                             <ul class="dropdown-menu">
                                 <li class="nav-item"><a class="navbar-btn nav-link dropdown-item" aria-current="page" href="athletes.html"><i class="fa fa-user text-danger"></i> Athletes</a></li>
                                 <li class="nav-item"><a class="navbar-btn nav-link dropdown-item" aria-current="page" href="coaches.html"><i class="fa fa-user text-primary"></i> Coaches</a></li>
@@ -33,11 +34,26 @@
                                 <li class="nav-item"><hr class="dropdown-divider"></li>
                                 <li class="nav-item"><a class="navbar-btn nav-link dropdown-item" href="sports.html"><i class="fa fa-futbol-o text-primary" aria-hidden="true"></i> Sports</a></li>
                                 <li class="nav-item"><a class="navbar-btn nav-link dropdown-item" href="competitions.html"><i class="fa fa-bolt text-danger" aria-hidden="true"></i> Competitions</a></li> 
-                                <li class="nav-item"><a class="navbar-btn nav-link dropdown-item" aria-current="page" href="teams.html"><i class="fa fa-flag text-success"></i> Teams</a></li>
+                                <li class="nav-item"><a class="navbar-btn nav-link dropdown-item" aria-current="page" href="teams.html"><i class="fa fa-flag text-info"></i> Teams</a></li>
+                                <li class="nav-item"><a class="navbar-btn nav-link dropdown-item" aria-current="page" href="nocs.html"><i class="fa fa-globe text-success" aria-hidden="true"></i> NOCs</a></li>
+                                <li class="nav-item"><hr class="dropdown-divider"></li>
+                                <li class="nav-item"><a class="navbar-btn nav-link dropdown-item" aria-current="page" href="medals.html"><i class="fa fa-trophy text-warning" aria-hidden="true"></i> Medals</a></li>
+                                <li class="nav-item"><a class="navbar-btn nav-link dropdown-item" aria-current="page" href="countryMedals.html"><i class="fa fa-trophy text-success" aria-hidden="true"></i> Country Medals</a></li>
                             </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="navbar-btn nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Other</a>
+                        <a class="navbar-btn nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-calendar-o text-danger" aria-hidden="true"></i> Events</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="navbar-btn nav-link dropdown-item" href="athletics.html"><i class="fa fa-child text-warning" aria-hidden="true"></i> Athletics</a></li>
+                            <li><a class="navbar-btn nav-link dropdown-item" href="basketballs.html"><i class="fa fa-dribbble text-danger" aria-hidden="true"></i> Basketballs</a></li>
+                            <li><a class="navbar-btn nav-link dropdown-item" href="canoe_sprints.html"><i class="fa fa-anchor text-info" aria-hidden="true"></i> Canoe Sprints</a></li> 
+                            <li><a class="navbar-btn nav-link dropdown-item" href="cyclings_tracks.html"><i class="fa fa-bicycle" aria-hidden="true"></i> Cycling Tracks</a></li> 
+                            <li><a class="navbar-btn nav-link dropdown-item" href="footballs.html"><i class="fa fa-futbol-o text-secondary" aria-hidden="true"></i> Footballs</a></li> 
+                            <li><a class="navbar-btn nav-link dropdown-item" href="swimmings.html"><i class="fa fa-tint text-primary" aria-hidden="true"></i> Swimmings</a></li> 
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="navbar-btn nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fas fa-list-alt text-success"></i> Others</a>
                         <ul class="dropdown-menu">
                             <li><a class="navbar-btn nav-link dropdown-item" href="torch.html"><i class="fa fa-map-marker text-success"></i> Torch Route</a></li>
                             <li><a class="navbar-btn nav-link dropdown-item" href="locals.html"><i class="fa fa-map text-success"></i> Locals</a></li>
@@ -45,11 +61,13 @@
                         </ul>
                     </li>
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="merchandising.html"><i class="fa fa-shopping-cart text-warning"></i> Merchandising</a></li>
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="favourites.html"><i class="fa far fa-heart text-danger"></i> Favourites</a></li>
+
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a id="aboutus" class="navbar-btn nav-link" href="aboutus.html"><i class="fa fa-info-circle"></i> About Us</a>
-                        <li><a class="navbar-btn nav-link dropdown-item" href="help.html">Help</a></li>
+                        <li><a class="navbar-btn nav-link dropdown-item" href="help.html"><i class="fa far fa-question-circle text-end"></i> Help</a></li>
                     </li>
                     
                     
@@ -124,7 +142,7 @@
                                 <div style="font-size: 70%;" class="d-none text-danger col-form-label" id="EmailError"><i class="fa fa-exclamation-triangle"></i> Invalid Email Adress!</div>
                             </div>
                             <div id="Bugs" class="mb-3 d-none">
-                                <label for="exampleFormControlTextarea1">Date: (When did it occur?)</label>
+                                <label for="exampleFormControlTextarea1">Date</label>
                                 <input class="form-control" type="date" id="Datepicker" name="Datepicker" />
                                 <div style="font-size: 70%;" class="d-none text-danger col-form-label" id="DateError"><i class="fa fa-exclamation-triangle"></i> Invalid Date!</div>
                             </div>
@@ -171,11 +189,9 @@
             </div>
         </div>
     </div>
-    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="row" style="height: 380px;">
-                <!-- Coluna para o "Classify our site" -->
                 <div class="mt-3 col-12 col-md-4">
                     <h2 style="margin-bottom: 5vh; color: grey;" class="text-center">Classify our site</h2>
                     <fieldset style="text-align: center; margin-left: -150px;">
@@ -191,16 +207,13 @@
                         <label for="um">1</label><br />
                     </fieldset>
     
-                    <!-- Botão para mostrar a mensagem de agradecimento -->
                     <div class="text-center mt-3">
                         <button onclick="showThankYouMessage()" class="btn btn-primary" id="submit-btn" disabled>Submit</button>
                     </div>
     
-                    <!-- Mensagem de agradecimento -->
                     <p id="thank-you-message" style="display:none; text-align:center; color:green; margin-top:10px;">"Thank you for your feedback! Your rating will help us make improvements and enhance your experience!"</p>
                 </div>
     
-                <!-- Coluna para os logos -->
                 <div class="col-12 col-md-8 d-flex justify-content-center align-items-center mt-3">
                     <div class="mx-3">
                         <img style="height: 5vw;" src="./Images/UA-logo.png" class="d-block">

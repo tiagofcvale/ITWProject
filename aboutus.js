@@ -1,9 +1,3 @@
-/*!
-         * Color mode toggler for Bootstrap's docs (https://getbootstrap.com/)
-         * Copyright 2011-2023 The Bootstrap Authors
-         * Licensed under the Creative Commons Attribution 3.0 Unported License.
-         */
-
 (() => {
     'use strict'
 
@@ -76,7 +70,6 @@
     function setInitialBackground() {
         const container = document.querySelector('.theme-container');
         
-        // Verifica se o tema 'dark-mode' está ativo no body
         if (document.body.classList.contains('dark-mode')) {
             container.classList.add('bg-dark');
             container.classList.remove('bg-light');
@@ -86,9 +79,7 @@
         }
     }
     
-    // Configura tema inicial com base na preferência do usuário no localStorage
     document.addEventListener('DOMContentLoaded', function() {
-        // Verifica se a preferência de tema já está salva
         if (localStorage.getItem('theme') === 'dark') {
             document.body.classList.add('dark-mode');
             document.querySelector('.theme-container').classList.add('bg-dark');
@@ -102,25 +93,49 @@
         setInitialBackground();
     });
     
-    // Evento para mudar para tema claro
     document.getElementById('theme-light').addEventListener('click', function() {
         const container = document.querySelector('.theme-container');
         container.classList.add('bg-light');
         container.classList.remove('bg-dark');
         document.body.classList.remove('dark-mode');
     
-        // Salva a preferência do usuário
         localStorage.setItem('theme', 'light');
     });
     
-    // Evento para mudar para tema escuro
     document.getElementById('theme-dark').addEventListener('click', function() {
         const container = document.querySelector('.theme-container');
         container.classList.add('bg-dark');
         container.classList.remove('bg-light');
         document.body.classList.add('dark-mode');
     
-        // Salva a preferência do usuário
         localStorage.setItem('theme', 'dark');
     });
 })()
+
+function setInitialBackground() {
+    const container = document.querySelector('.theme-container');
+    if (document.body.classList.contains('dark-mode')) {
+        container.classList.add('bg-dark');
+        container.classList.remove('bg-light');
+    } else {
+        container.classList.add('bg-light');
+        container.classList.remove('bg-dark');
+    }
+}
+
+document.getElementById('theme-light').addEventListener('click', function() {
+    const container = document.querySelector('.theme-container');
+    container.classList.add('bg-light');
+    container.classList.remove('bg-dark');
+    document.body.classList.remove('dark-mode');
+});
+
+document.getElementById('theme-dark').addEventListener('click', function() {
+    const container = document.querySelector('.theme-container');
+    container.classList.add('bg-dark');
+    container.classList.remove('bg-light');
+    document.body.classList.add('dark-mode');
+});
+
+
+document.addEventListener('DOMContentLoaded', setInitialBackground);

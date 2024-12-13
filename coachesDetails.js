@@ -1,17 +1,14 @@
-// FormatValue
+
 function formatValue(value) {
     return value ? value : "[sem informação]";
 }
-// ViewModel KnockOut
 var vm = function () {
     console.log('ViewModel initiated...');
-    //---Variáveis locais
     var self = this;
     self.baseUri = ko.observable('http://192.168.160.58/Paris2024/api/Coaches/');
     self.displayName = 'Coaches Details';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
-    //
     self.Name = ko.observable('');
     self.Sex = ko.observable('');
     self.BirthDate = ko.observable('');
@@ -22,20 +19,18 @@ var vm = function () {
     self.Country_code = ko.observable('');
 
 
-    //--- Page Events
     self.activate = function (id) {
         console.log('CALL: getCoaches...');
         var composedUri = self.baseUri() + id;
         ajaxHelper(composedUri, 'GET').done(function (data) {
             console.log('Data received from API:', data);
     
-            // Configuração dos dados
             self.Photo(data.Photo && data.Photo.trim() ? data.Photo : 'Images/PersonNotFound.png');
             self.Name(formatValue(data.Name));
             self.Sex(formatValue(data.Sex));
             self.BirthDate(formatValue(new Date(data.BirthDate).toLocaleDateString()));
             self.Function(formatValue(data.Function));
-            self.Sports(data.Sports); // Lista de esportes
+            self.Sports(data.Sports); 
             self.Country(formatValue(data.Country));
             self.Country_code((data.Country_code));
             console.log("Country Code:",data.Country_code)
@@ -43,9 +38,8 @@ var vm = function () {
         });
     };
 
-    //--- Internal functions
     function ajaxHelper(uri, method, data) {
-        self.error(''); // Clear error message
+        self.error(''); 
         return $.ajax({
             type: method,
             url: uri,
@@ -92,7 +86,6 @@ var vm = function () {
         }
     };
 
-    //--- start ....
     showLoading();
     var pg = getUrlParameter('id');
     console.log(pg);

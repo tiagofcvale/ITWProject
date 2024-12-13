@@ -71,7 +71,7 @@ self.activate = function (id) {
         self.totalPages(data.TotalPages);
         self.totalRecords(data.TotalRecords);
         self.SetFavourites();
-        //self.SetFavourites();
+        
     });
 };
 function showLoading() {
@@ -117,13 +117,23 @@ $(document).ready(function () {
     let fav = JSON.parse(localStorage.fav || '[]');
 
     console.log(fav);
-
+    function formattedDate(dateString) {
+        if (!dateString) return "Unknown";
+        const date = new Date(dateString);
+        return date.toLocaleDateString('pt-PT', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    }
+    function formattedAthletes(athlete) {
+        athlete.FormattedBirthDate = formattedDate(athlete.BirthDate);
+        return athlete.FormattedBirthDate;
+    }
+   
 
     for (const Id of fav) {
         console.log(Id);
 
         ajaxHelper('http://192.168.160.58/Paris2024/API/Athletes/' + Id, 'GET').done(function (data) {
             console.log(data)
+            const BirthDate = formattedAthletes(data);
             if (!data.Photo || data.Photo==null || data.Photo == '') {
                 var photo = 'Images/PersonNotFound.png'
             } else {
@@ -135,8 +145,10 @@ $(document).ready(function () {
                 $('#nofav').hide();
                 $("#table-favourites").append(
                     `<tr id="fav-${Id}">
-                        <td class="align-middle">${Id}</td>
                         <td class="align-middle">${data.Name}</td>
+                        <td class="align-middle">${BirthDate}</td>
+                        <td class="align-middle">${data.BirthPlace}</td>
+                        <td class="align-middle">${data.BirthCountry}</td>
                         <td class="align-middle">${data.Sex}</td>
                         <td class="align-middle"><img style="height: 100px; width: 100px;" src="${photo}"></td>
                         <td class="text-end align-middle">

@@ -1,29 +1,23 @@
 function formatValue(value) {
     return value ? value : "[sem informação]";
 }
-// ViewModel KnockOut
 var vm = function () {
     console.log('ViewModel initiated...');
-    //---VariÃ¡veis locais
     var self = this;
     self.baseUri = ko.observable('http://192.168.160.58/Paris2024/api/Competitions');
     self.displayName = 'Competition Details';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
-    //--- Data Record
     self.SportId = ko.observable('');
     self.Name = ko.observable('');
     self.Tag = ko.observable('');
     self.Photo = ko.observable('');
     self.SportInfo = ko.observableArray([]);
     self.Athletes = ko.observableArray([]);
-    //--- Contagens
     self.AthletesCount = ko.observable(0);
-    //--- Formatação da contagem
     self.formattedAthletesCount = ko.computed(function () {
         return `[${self.AthletesCount()}] Athlete(s)`;
     });
-    //--- Page Events
     self.activate = function (sportId, name) {
         console.log('CALL: getSports...');
         var composedUri = self.baseUri() + '?sportId=' + encodeURIComponent(sportId) + "&name=" + encodeURIComponent(name);
@@ -31,11 +25,10 @@ var vm = function () {
             console.log('Dados recebidos:', data);
             console.log('URL da API:', composedUri);
             hideLoading();
-            // Preenchendo os observáveis com os dados recebidos
             self.SportId(formatValue(data.SportId));
             self.Name(formatValue(data.Name));
             self.Tag(formatValue(data.Tag));
-            if (!self.Photo(data.Photo) || self.Photo(data.Photo) === null || self.Photo(data.Photo) === '') {
+            if (!data.Photo || data.Photo === null || data.Photo.trim() === '') {
                 self.Photo('Images/PersonNotFound.png'); 
             } else {
                 self.Photo(data.Photo); 
@@ -48,9 +41,8 @@ var vm = function () {
 
        
 
-    //--- Internal functions
     function ajaxHelper(uri, method, data) {
-        self.error(''); // Clear error message
+        self.error(''); 
         return $.ajax({
             type: method,
             url: uri,
@@ -79,10 +71,9 @@ var vm = function () {
 
     function getUrlParameter(param) {
         const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(param); // Retorna o valor do parâmetro ou null se não encontrado
+        return urlParams.get(param); 
     }
 
-    //--- start ....
     showLoading();
     var sportId = getUrlParameter('sportId');
     var name = getUrlParameter('name');

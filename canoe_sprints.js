@@ -1,4 +1,4 @@
-// ViewModel KnockOut
+
 var vm = function () {
     console.log('ViewModel initiated...');
     var self = this;
@@ -61,7 +61,6 @@ var vm = function () {
         }
     };
 
-    // Inicia a página
     showLoading();
     var pg = getUrlParameter('id');
     if (pg == undefined)

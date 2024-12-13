@@ -61,7 +61,6 @@ var vm = function () {
         }
     };
 
-    // Inicia a página
     showLoading();
     var pg = getUrlParameter('id');
     if (pg == undefined)

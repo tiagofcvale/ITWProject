@@ -228,7 +228,6 @@
 
 footer {
 	background-color: #f2f8fa;
-	/* height: 600px; */
 	border-top: 5px solid #2d98fd;
 	margin-bottom: 0px;
 
@@ -254,9 +253,7 @@ footer a {
 	text-decoration: none;
 }
 
-/* footer ul {
-	padding: 0;
-} */
+
 
 footer li {
 	list-style: none;

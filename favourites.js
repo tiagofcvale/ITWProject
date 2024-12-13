@@ -1,4 +1,3 @@
-// Helper AJAX function
 function ajaxHelper(uri, method, data) {
     return $.ajax({
         type: method,
@@ -13,7 +12,6 @@ function ajaxHelper(uri, method, data) {
     });
 }
 
-// Loading modal control
 function showLoading() {
     $("#myModal").modal('show', { backdrop: 'static', keyboard: false });
 }
@@ -22,7 +20,6 @@ function hideLoading() {
     $("#myModal").modal('hide');
 }
 
-// Get URL Parameter
 function getUrlParameter(sParam) {
     const params = new URLSearchParams(window.location.search);
     return params.get(sParam);
@@ -33,55 +30,44 @@ function encodeForUrl(value) {
 }
 
 
-// Remove favorite item
 function removeFav(Id, Name = '') {
     console.log("Removing favorite:", Id, Name);
 
-    // Construir seletor para remoção visual
     let selector;
 
     if (Name) {
-        // Se Name for fornecido, remover baseado em ambos
         const sanitizedId = sanitizeId(Id);
-        const sanitizedName = sanitizeId(Name); // Sanitiza o nome para uso seguro
+        const sanitizedName = sanitizeId(Name); 
         selector = `#fav-${sanitizedId}-${sanitizedName}`;
     } else {
-        // Apenas pelo ID para endpoints genéricos
         const sanitizedId = sanitizeId(Id);
         selector = `#fav-${sanitizedId}`;
     }
 
-    // Remover o elemento visual
     $(selector).remove();
 
-    // Atualizar localStorage
     let fav = JSON.parse(localStorage.getItem("fav") || "[]");
 
     const updatedFav = fav.filter(item => {
         if (Name) {
-            // Para competitions, remover se ambos coincidem
             return !(item.SportId === Id && item.Name === Name);
         }
-        // Para outros endpoints, remover apenas pelo Id
         return item.Id !== Id;
     });
 
-    localStorage.setItem("fav", JSON.stringify(updatedFav)); // Salvar favoritos atualizados
+    localStorage.setItem("fav", JSON.stringify(updatedFav)); 
 }
 
 
-// Sanitize ID to ensure safe use in HTML
 function sanitizeId(id) {
     return id.toString().replace(/[^a-zA-Z0-9_-]/g, '');
 }
 
-// Function to append items dynamically to tables
 function appendToTable(tableId, rowContent) {
     $(`#${tableId}`).show().append(rowContent);
-    $('#noadd, #nofav').hide(); // Oculta mensagens de placeholder
+    $('#noadd, #nofav').hide(); 
 }
 
-// Main initialization
 $(document).ready(function () {
     showLoading();
 
@@ -98,7 +84,6 @@ $(document).ready(function () {
         competitions: "http://192.168.160.58/Paris2024/api/Competitions"
     };
 
-    // Primeiro, carregue todas as competições
     ajaxHelper(endpoints.competitions, 'GET').done(response => {
         const competitions = response.Competitions;
         console.log("Loaded competitions:", competitions);
@@ -110,27 +95,21 @@ $(document).ready(function () {
                 let url;
         
                 if (key === "competitions") {
-                    // Desestruturar ID e Nome do item
                     const { id: sportId, name } = item;
         
-                    // Evitar erros de dados incorretos
                     if (!sportId || !name) {
                         console.error(`Invalid competition data:`, item);
                         return;
                     }
         
-                    // Codificar os parâmetros corretamente
                     const encodedSportId = encodeForUrl(sportId);
                     const encodedName = encodeForUrl(name);
         
-                    // Montar a URL correta para a competição
                     url = `${endpoints[key]}?sportId=${encodedSportId}&name=${encodedName}`;
                 } else {
-                    // Outros endpoints
                     url = `${endpoints[key]}${item}`;
                 }
         
-                // Fazer a requisição AJAX para obter os detalhes do item
                 ajaxHelper(url, 'GET').done(data => {
                     if (!data) {
                         console.error(`No data returned for ${key} with ID:`, item);
@@ -144,7 +123,6 @@ $(document).ready(function () {
                         var name= data.Name
                         console.log("sportId",encodedSportId)
                         console.log("name",encodedName)
-                        // Linha para as competições
                         row = `
                             <tr id="fav-${sanitizeId(sportId)}-${sanitizeId(name)}">
                                 <td class="align-middle">${sportId}</td>
@@ -166,7 +144,6 @@ $(document).ready(function () {
                             </tr>`;
                             appendToTable("table-favourites-competitions", row);
                     } else if (key === "Venues"){
-                        // Linhas para outros endpoints
                         row = `
                             <tr id="fav-${sanitizeId(item)}">
                                 <td class="align-middle">${data.Id || item}</td>

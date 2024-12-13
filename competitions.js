@@ -1,7 +1,5 @@
-// ViewModel KnockOut
 var vm = function () {
     console.log('ViewModel initiated...');
-    //---Variáveis locais
     var self = this;
     self.baseUri = ko.observable('http://192.168.160.58/Paris2024/API/competitions');
     self.displayName = 'Paris2024 Competitions List';
@@ -42,18 +40,14 @@ var vm = function () {
         return list;
     };
     self.toggleFavourite = function (id, name) {
-        // Verifica se o objeto {id, name} já está na lista
         const existingIndex = self.favourites().findIndex(fav => fav.id === id && fav.name === name);
     
         if (existingIndex === -1) {
-            // Adiciona o objeto com id e name aos favoritos
             self.favourites.push({ id: id, name: name });
         } else {
-            // Remove o objeto específico dos favoritos
             self.favourites.splice(existingIndex, 1);
         }
     
-        // Atualiza o localStorage com os favoritos atualizados
         localStorage.setItem("fav", JSON.stringify(self.favourites()));
     };
     
@@ -65,7 +59,6 @@ var vm = function () {
             storage = [];
         }
     
-        // Verifica se os itens armazenados são objetos válidos com id e name
         if (Array.isArray(storage)) {
             self.favourites(storage.filter(item => item.id && item.name));  // Filtros para garantir que sejam objetos válidos
         }
@@ -94,7 +87,6 @@ var vm = function () {
         });
     };
 
-    //--- Page Events
     self.activate = function (id) {
         console.log('CALL: getCompetitions...');
         var composedUri = self.baseUri() + "?page=" + id + "&pageSize=" + self.pagesize();
@@ -112,9 +104,8 @@ var vm = function () {
         });
     };
 
-    //--- Internal functions
     function ajaxHelper(uri, method, data) {
-        self.error(''); // Clear error message
+        self.error(''); 
         return $.ajax({
             type: method,
             url: uri,
@@ -161,7 +152,6 @@ var vm = function () {
         }
     };
 
-    //--- start ....
     showLoading();
     var pg = getUrlParameter('page');
     console.log(pg);
@@ -184,35 +174,30 @@ $(document).ajaxComplete(function (event, xhr, options) {
 let currentSortColumn = null;
     let isAscending = true;
 
-    // Função para ordenar a tabela
     function sortTable(columnIndex) {
         const table = document.querySelector("table tbody");
         const rows = Array.from(table.rows);
 
-        // Determina a nova ordem
         if (currentSortColumn === columnIndex) {
-            isAscending = !isAscending; // Inverte a ordem
+            isAscending = !isAscending; 
         } else {
             currentSortColumn = columnIndex;
-            isAscending = true; // Reseta para ordem crescente
+            isAscending = true; 
         }
 
-        // Ordena as linhas
         rows.sort((a, b) => {
             const cellA = a.cells[columnIndex].textContent.trim();
             const cellB = b.cells[columnIndex].textContent.trim();
 
             return isAscending
-                ? cellA.localeCompare(cellB, 'pt', { sensitivity: 'base' }) // Crescente
-                : cellB.localeCompare(cellA, 'pt', { sensitivity: 'base' }); // Decrescente
+                ? cellA.localeCompare(cellB, 'pt', { sensitivity: 'base' }) 
+                : cellB.localeCompare(cellA, 'pt', { sensitivity: 'base' });
         });
 
-        // Remove as linhas antigas
         while (table.firstChild) {
             table.removeChild(table.firstChild);
         }
 
-        // Adiciona as linhas ordenadas
         rows.forEach(row => table.appendChild(row));
 
         

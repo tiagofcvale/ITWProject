@@ -31,7 +31,6 @@ function validate() {
     }
 
     if ($('#Terms:checked').length == 0) {
-        //console.log($("input[checkbox]:checked").val())
         $("#TermsError").removeClass("d-none");
         retVal = false;
         
@@ -109,18 +108,15 @@ $(document).ready(function(){
     });
 });
 
-// Footer
-// Função para exibir a mensagem de agradecimento
 function showThankYouMessage() {
     document.getElementById("thank-you-message").style.display = "block";
 }
 
-// Função para ativar/desativar o botão de envio com base na seleção
 const radios = document.querySelectorAll('input[name="avaliacao"]');
 const submitBtn = document.getElementById('submit-btn');
 
 radios.forEach(radio => {
     radio.addEventListener('change', () => {
-        submitBtn.disabled = false; // Habilita o botão quando uma opção for selecionada
+        submitBtn.disabled = false; 
     });
 });

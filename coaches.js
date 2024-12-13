@@ -1,7 +1,5 @@
-// ViewModel KnockOut
 var vm = function () {
     console.log('ViewModel initiated...');
-    //---Variáveis locais
     var self = this;
     self.baseUri = ko.observable('http://192.168.160.58/Paris2024/API/coaches');
     self.displayName = 'Paris2024 Coaches List';
@@ -84,7 +82,6 @@ var vm = function () {
         });
     };
 
-    //--- Page Events
     self.activate = function (id) {
         console.log('CALL: getCoaches...');
         var composedUri = self.baseUri() + "?page=" + id + "&pageSize=" + self.pagesize();
@@ -102,9 +99,8 @@ var vm = function () {
         });
     };
 
-    //--- Internal functions
     function ajaxHelper(uri, method, data) {
-        self.error(''); // Clear error message
+        self.error(''); 
         return $.ajax({
             type: method,
             url: uri,
@@ -152,7 +148,6 @@ var vm = function () {
         }
     }
 
-    //--- start ....
     showLoading();
     var pg = getUrlParameter('page');
     console.log(pg);
@@ -175,20 +170,17 @@ $(document).ajaxComplete(function (event, xhr, options) {
 let currentSortColumn = null;
     let isAscending = true;
 
-    // Função para ordenar a tabela
     function sortTable(columnIndex) {
         const table = document.querySelector("table tbody");
         const rows = Array.from(table.rows);
 
-        // Determina a nova ordem
         if (currentSortColumn === columnIndex) {
-            isAscending = !isAscending; // Inverte a ordem
+            isAscending = !isAscending; 
         } else {
             currentSortColumn = columnIndex;
-            isAscending = true; // Reseta para ordem crescente
+            isAscending = true; 
         }
 
-        // Ordena as linhas
         rows.sort((a, b) => {
             const cellA = a.cells[columnIndex].textContent.trim();
             const cellB = b.cells[columnIndex].textContent.trim();
@@ -198,14 +190,11 @@ let currentSortColumn = null;
                 : cellB.localeCompare(cellA, 'pt', { sensitivity: 'base' }); // Decrescente
         });
 
-        // Remove as linhas antigas
         while (table.firstChild) {
             table.removeChild(table.firstChild);
         }
 
-        // Adiciona as linhas ordenadas
         rows.forEach(row => table.appendChild(row));
 
-        // Atualiza os ícones
-        updateSortIcons(columnIndex);
+        
     }

@@ -1,17 +1,14 @@
-// FormatValue
 function formatValue(value) {
     return value ? value : "[sem informação]";
 }
-// ViewModel KnockOut
+
 var vm = function () {
     console.log('ViewModel initiated...');
-    //---VariÃ¡veis locais
     var self = this;
     self.baseUri = ko.observable('http://192.168.160.58/Paris2024/api/Athletes/');
     self.displayName = 'Athletes Details';
     self.error = ko.observable('');
     self.passingMessage = ko.observable('');
-    //--- Data Record
     self.Name = ko.observable('');
     self.NameShort = ko.observable('');
     self.NameTV = ko.observable('');
@@ -31,7 +28,7 @@ var vm = function () {
     self.Philosophy = ko.observable('');
     self.Nationality_code = ko.observable('');
     self.Country = ko.observable('');
-    //--- Page Events
+
     self.activate = function (id) {
         console.log('CALL: getAthletes...');
         var composedUri = self.baseUri() + id;
@@ -64,9 +61,9 @@ var vm = function () {
         });
     };
 
-    //--- Internal functions
+    
     function ajaxHelper(uri, method, data) {
-        self.error(''); // Clear error message
+        self.error(''); 
         return $.ajax({
             type: method,
             url: uri,
@@ -108,7 +105,6 @@ var vm = function () {
         }
     };
 
-    //--- start ....
     showLoading();
     var pg = getUrlParameter('id');
     console.log(pg);

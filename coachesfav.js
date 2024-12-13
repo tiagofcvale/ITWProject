@@ -71,7 +71,6 @@ self.activate = function (id) {
         self.totalPages(data.TotalPages);
         self.totalRecords(data.TotalRecords);
         self.SetFavourites();
-        //self.SetFavourites();
     });
 };
 function showLoading() {
