@@ -18,6 +18,18 @@ var vm = function () {
         });
     };
 
+    self.formatDate = function (dateString) {
+        if (!dateString) return "N/A";
+        let date = new Date(dateString);
+        let formattedDate = date.toLocaleDateString('pt-PT'); 
+        let formattedTime = date.toLocaleTimeString('pt-PT', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        }); // Formato HH:MM:SS
+        return `${formattedDate}, ${formattedTime}`;
+    };
+
     self.loadData = function () {
         $.ajax({
             type: 'GET',
