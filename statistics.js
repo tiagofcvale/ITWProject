@@ -155,13 +155,23 @@ $(document).ajaxComplete(function (event, xhr, options) {
 
 
 
-google.charts.load('current', { packages: ['bar'] });
+$(document).ready(function() {
+    google.charts.load('current', { packages: ['bar'] });
+    google.charts.setOnLoadCallback(drawChart);
+    google.charts.setOnLoadCallback(drawChart2);
 
-google.charts.setOnLoadCallback(drawChart);
+    $('#nav-top25-tab').on('shown.bs.tab', function () {
+        drawChart2();  
+    });
+
+    $('#nav-top50-tab').on('shown.bs.tab', function () {
+        drawChart();  
+    });
+});
 
 function drawChart() {
     $.ajax({
-        url: 'http://192.168.160.58/Paris2024/API/CountryMedals', 
+        url: 'http://192.168.160.58/Paris2024/API/CountryMedals',
         method: 'GET',
         dataType: 'json',
         success: function (data) {
@@ -177,26 +187,29 @@ function drawChart() {
                     title: 'Top 50 Medal Winners',
                     subtitle: 'Gold, Silver, and Bronze medals',
                 },
-                bars: 'horizontal', 
+                bars: 'horizontal',
                 axes: {
                     x: {
-                        0: { side: 'top', label: 'Medals' } 
+                        0: { side: 'top', label: 'Medals',minValue: 0, maxValue: 50  }
                     }
                 },
                 bar: { groupWidth: "90%" },
-                colors: ['#FFD700', '#C0C0C0', '#CD7F32'], 
-                legend: { position: 'top', textStyle: { color: 'red', fontSize: 15 } } 
+                colors: ['#FFD700', '#C0C0C0', '#CD7F32'],
+                legend: { position: 'top', textStyle: { color: 'black', fontSize: 15 } }
             };
 
-            var chart = new google.charts.Bar(document.getElementById('charttop50'));
-            chart.draw(dataTable, google.charts.Bar.convertOptions(options));
+            var chartTop50 = new google.charts.Bar(document.getElementById('charttop50'));
+            chartTop50.draw(dataTable, google.charts.Bar.convertOptions(options));
         },
         error: function (error) {
             console.error('Erro ao buscar dados da API:', error);
         }
     });
+}
+
+function drawChart2() {
     $.ajax({
-        url: 'http://192.168.160.58/Paris2024/api/Medals/Top25', 
+        url: 'http://192.168.160.58/Paris2024/api/Medals/Top25',
         method: 'GET',
         dataType: 'json',
         success: function (data) {
@@ -209,27 +222,26 @@ function drawChart() {
 
             var options = {
                 chart: {
-                    title: 'Top 50 Medal Winners',
+                    title: 'Top 25 Medal Winners',
                     subtitle: 'Gold, Silver, and Bronze medals',
                 },
-                bars: 'horizontal', 
+                bars: 'horizontal',
                 axes: {
                     x: {
-                        0: { side: 'top', label: 'Medals' } 
+                        0: { side: 'top', label: 'Medals', minValue: 0, maxValue: 50  }
                     }
                 },
                 bar: { groupWidth: "90%" },
-                colors: ['#FFD700', '#C0C0C0', '#CD7F32'], 
-                legend: { position: 'top', textStyle: { color: 'red', fontSize: 15 } } 
+                colors: ['#FFD700', '#C0C0C0', '#CD7F32'],
+                legend: { position: 'top', textStyle: { color: 'black', fontSize: 15 } }
+                
             };
 
-            var chart = new google.charts.Bar(document.getElementById('charttop25'));
-            chart.draw(dataTable, google.charts.Bar.convertOptions(options));
+            var chartTop25 = new google.charts.Bar(document.getElementById('charttop25'));
+            chartTop25.draw(dataTable, google.charts.Bar.convertOptions(options));
         },
         error: function (error) {
             console.error('Erro ao buscar dados da API:', error);
         }
     });
 }
-
-

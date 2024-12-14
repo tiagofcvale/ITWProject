@@ -1,6 +1,5 @@
 var vm = function () {
     console.log('ViewModel initiated...');
-    //---Variáveis locais
     var self = this;
     self.medalsApiBase = "http://192.168.160.58/Paris2024/api/medals";
     self.competitionApiBase = "http://192.168.160.58/Paris2024/api/Medals/Competition";
@@ -85,7 +84,7 @@ var vm = function () {
             return;
         }
 
-        const searchUri = `${self.medalsApiBase}/Search?q=${encodeURIComponent(query)}`; // Alterado para usar self.medalsApiBase
+        const searchUri = `${self.medalsApiBase}/Search?q=${encodeURIComponent(query)}`; 
         console.log(`Searching for medals with query: ${query}`);
         ajaxHelper(searchUri, 'GET').done(function (data) {
             console.log('Search results:', data);
@@ -100,20 +99,17 @@ var vm = function () {
         const selectedCompetition = document.getElementById("competitionFilter").value;
         
         if (!selectedCompetition) {
-            self.filteredMedals([]); // Limpa a tabela se nenhuma competição for selecionada
+            self.filteredMedals([]); 
             return;
         }
     
-        // Parse a competição selecionada para obter o id e o nome
-        const selected = JSON.parse(selectedCompetition); // parse o objeto selecionado
+        const selected = JSON.parse(selectedCompetition); 
         
         const { id, name } = selected;
         
-        // Corrija o parâmetro para 'competition' ao invés de 'competiton'
-        const competitionName = encodeURIComponent(name);  // Codifica o nome da competição
-        const sportId = encodeURIComponent(id);  // Codifica o SportId
+        const competitionName = encodeURIComponent(name);  
+        const sportId = encodeURIComponent(id);  
     
-        // Chama a API com os parâmetros corretos
         fetch(`${self.competitionApiBase}?sportId=${sportId}&competition=${competitionName}`)
             .then(response => response.json())
             .then(data => {
@@ -124,20 +120,20 @@ var vm = function () {
     
 
     self.loadCompetitions = function() {
-        fetch(self.medalsApiBase) // Usa a API principal de medals
+        fetch(self.medalsApiBase) 
             .then(response => response.json())
             .then(data => {
                 const competitions = data.Medals.map(item => ({
-                    id: item.SportId,        // ID do esporte (SportId)
-                    name: item.Competition   // Nome da competição
+                    id: item.SportId,        
+                    name: item.Competition   
                 }));
     
-                // Remover duplicados da lista de competições
                 const uniqueCompetitions = Array.from(
                     new Map(competitions.map(item => [item.id + item.name, item])).values()
                 );
+                uniqueCompetitions.unshift({ id: '', name: 'All' });
     
-                self.competitions(uniqueCompetitions); // Atualiza a barra de busca
+                self.competitions(uniqueCompetitions); 
                 console.log("Loaded competitions:", uniqueCompetitions);
             })
             .catch(error => console.error("Error fetching competitions:", error));
@@ -147,16 +143,15 @@ var vm = function () {
 
     self.loadMedals = function () {
         const selectedCompetition = self.selectedCompetition();
-        
-        // Verificação da seleção válida da competição
-        if (!selectedCompetition || !selectedCompetition.id || !selectedCompetition.name) {
+    
+        if (!selectedCompetition) {
             console.error("Seleção inválida de competição:", selectedCompetition);
-            self.medals([]); // Limpa as medalhas em caso de erro
+            self.medals([]); 
             return;
         }
-        
+    
         console.log("Carregando medalhas para a competição:", selectedCompetition);
-        
+    
         fetch(self.medalsApiBase)
             .then(response => {
                 if (!response.ok) {
@@ -167,41 +162,30 @@ var vm = function () {
             .then(data => {
                 if (!data.Medals || !Array.isArray(data.Medals)) {
                     console.error("Estrutura inesperada de resposta da API:", data);
-                    self.medals([]); // Limpa a lista em caso de erro
+                    self.medals([]);
                     return;
                 }
-        
+    
                 console.log("Medalhas recebidas:", data.Medals);
-        
-                // Filtragem baseada tanto no SportId quanto na Competition
-                // Filtragem das medalhas
-                const filteredMedals = data.Medals.filter(medal => {
-                    // Normaliza os SportIds para evitar problemas com maiúsculas/minúsculas ou espaços extras
-                    const sportIdMatch = medal.SportId.trim().toUpperCase() === selectedCompetition.id.trim().toUpperCase();
-                    console.log("SportId na Medalha:", medal.SportId); // Log para verificar o SportId na medalha
-                    console.log("SportId Selecionado:", selectedCompetition.id); // Log para verificar o SportId selecionado
-                    console.log("SportId Comparado:", sportIdMatch); // Verifique o resultado da comparação
-
-                    // Normaliza as strings de Competition e selecionando
-                    const normalizedCompetition = medal.Competition.trim().toLowerCase();
-                    const normalizedSelectedCompetition = selectedCompetition.name.trim().toLowerCase();
-                    console.log("Competition na Medalha:", medal.Competition); // Log para verificar a competição na medalha
-                    console.log("Competition Selecionada:", selectedCompetition.name); // Log para verificar a competição selecionada
-                    const competitionMatch = normalizedCompetition.includes(normalizedSelectedCompetition);
-                    console.log("Competition Comparado:", competitionMatch); // Verifique o resultado da comparação
-
-                    // Retorna a medalha se ambas as condições forem verdadeiras
-                    return sportIdMatch && competitionMatch;
-                });
-
-                console.log("Medalhas filtradas:", filteredMedals); // Exibe as medalhas filtradas após as comparações
-                
-                // Atualizando a lista observável
+    
+                let filteredMedals = data.Medals;
+                if (selectedCompetition.name !== 'All') {
+                    filteredMedals = data.Medals.filter(medal => {
+                        const sportIdMatch = medal.SportId.trim().toUpperCase() === selectedCompetition.id.trim().toUpperCase();
+    
+                        const normalizedCompetition = medal.Competition.trim().toLowerCase();
+                        const normalizedSelectedCompetition = selectedCompetition.name.trim().toLowerCase();
+                        const competitionMatch = normalizedCompetition.includes(normalizedSelectedCompetition);
+    
+                        return sportIdMatch && competitionMatch;
+                    });
+                }
+    
                 self.medals(filteredMedals); 
             })
             .catch(error => {
                 console.error("Erro ao carregar medalhas:", error);
-                self.medals([]); // Limpa a lista em caso de erro
+                self.medals([]); 
             });
     };
     
