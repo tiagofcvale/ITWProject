@@ -61,6 +61,7 @@
                         <a class="navbar-btn nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fas fa-list-alt text-success"></i> Others</a>
                         <ul class="dropdown-menu">
                             <li><a class="navbar-btn nav-link dropdown-item" href="torch.html"><i class="fa fa-map-marker text-success"></i> Torch Route</a></li>
+                            <li><a class="navbar-btn nav-link dropdown-item" href="locals.html"><i class="fa fa-map text-success"></i> Locals</a></li>
                             <li><a class="navbar-btn nav-link dropdown-item" href="statistics.html"><i class="fa fa-bar-chart text-success" aria-hidden="true"></i> Statistics</a></li>  
                         </ul>
                     </li>
@@ -108,11 +109,15 @@
                     <ul data-bind="foreach: Event" style="line-height: 1.5; font-size: 15px; text-align: center;">
                         <p><strong><span style="text-align: center;" data-bind="text: Name"></span>   ->   <span style="text-align: center;" data-bind="text: Id"></span></strong></p>
                         <p><span style="text-align: center;" data-bind="text: ParticipantType"></span> Name: <span style="text-align: center;" data-bind="text: ParticipantName"></span></p>
-                        <p><span style="text-align: center;" data-bind="text: ParticipantType"></span> Link: <a data-bind="attr: { href: ParticipantTypeFormatted +'Details.html?id=' + ParticipantCode ,text: 'Team'}">
-                            <i class="fa fa-external-link" aria-hidden="true"></i>
-                        </a></p>
-                        <p><span style="text-align: center;" data-bind="text: CountryName"></span> Link: <a data-bind="attr: { href: 'nocsDetails.html?id=' + CountryCode ,text: 'Team'}">
-                            <i class="fa fa-external-link" aria-hidden="true"></i>
+
+                        <p style="text-align: center;">
+                            <a data-bind="attr: { href: ParticipantTypeFormatted +'Details.html?id=' + ParticipantCode ,text: 'Team'}">
+                            <span data-bind="text: ParticipantType"></span>
+                            </a>
+                        </p>
+                        <p style="text-align: center;">
+                            <a data-bind="attr: { href: 'nocsDetails.html?id=' + CountryCode ,text: 'Team'}">
+                            <span style="text-align: center;" data-bind="text: CountryName"></span>
                         </a></p>
                         <hr />
                     </ul>

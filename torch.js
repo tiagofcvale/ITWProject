@@ -8,6 +8,10 @@ var vm = function () {
     self.records = ko.observableArray([]);
     self.route = [];
     self.bounds = [];
+    self.formatValue = function (value, defaultMessage = "[No information]") {
+        return value || defaultMessage;
+    };
+    
     //--- Page Events
     self.activate = function (id) {
         console.log('CALL: getRoutes...');
@@ -15,19 +19,21 @@ var vm = function () {
         ajaxHelper(composedUri, 'GET').done(function (data) {
             console.log(data);
             self.records(data);
+            
+            
+            
         });
     };
-
-    self.formatDate = function (dateString) {
-        if (!dateString) return "N/A";
-        let date = new Date(dateString);
-        let formattedDate = date.toLocaleDateString('pt-PT'); 
-        let formattedTime = date.toLocaleTimeString('pt-PT', {
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit'
-        }); // Formato HH:MM:SS
-        return `${formattedDate}, ${formattedTime}`;
+    ko.bindingHandlers.formatDate = {
+        update: function (element, valueAccessor) {
+            const value = ko.unwrap(valueAccessor());
+            const date = new Date(value);
+            if (isNaN(date)) {
+                element.textContent = "[No information]";
+            } else {
+                element.textContent = date.toLocaleDateString("pt-PT"); // Formato português
+            }
+        }
     };
 
     self.loadData = function () {
@@ -116,3 +122,43 @@ $(document).ready(function () {
     console.log("ready!");
     ko.applyBindings(new vm());
 });
+let currentSortColumn = null;
+let isAscending = true;
+
+function sortTable(columnIndex) {
+    const table = document.querySelector("table tbody");
+    const rows = Array.from(table.rows);
+
+    if (currentSortColumn === columnIndex) {
+        isAscending = !isAscending; // Inverte a ordem se for a mesma coluna
+    } else {
+        currentSortColumn = columnIndex;
+        isAscending = true; // Reseta para ascendente para nova coluna
+    }
+
+    rows.sort((a, b) => {
+        const cellA = a.cells[columnIndex].textContent.trim();
+        const cellB = b.cells[columnIndex].textContent.trim();
+
+        // Tenta converter para número ou data antes de comparar
+        const valueA = isNaN(cellA) ? new Date(cellA).getTime() || cellA : parseFloat(cellA);
+        const valueB = isNaN(cellB) ? new Date(cellB).getTime() || cellB : parseFloat(cellB);
+
+        if (typeof valueA === "number" && typeof valueB === "number") {
+            return isAscending ? valueA - valueB : valueB - valueA; // Comparação numérica
+        } else if (!isNaN(new Date(cellA).getTime()) && !isNaN(new Date(cellB).getTime())) {
+            return isAscending ? valueA - valueB : valueB - valueA; // Comparação de datas
+        } else {
+            return isAscending
+                ? valueA.localeCompare(valueB, 'pt', { sensitivity: 'base' })
+                : valueB.localeCompare(valueA, 'pt', { sensitivity: 'base' }); // Comparação de texto
+        }
+    });
+
+    // Atualiza o DOM da tabela
+    while (table.firstChild) {
+        table.removeChild(table.firstChild);
+    }
+
+    rows.forEach(row => table.appendChild(row));
+}

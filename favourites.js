@@ -81,8 +81,7 @@ $(document).ready(function () {
         venues: "http://192.168.160.58/Paris2024/api/Venues/",
         sports: "http://192.168.160.58/Paris2024/api/Sports/",
         teams: "http://192.168.160.58/Paris2024/API/Teams/",
-        competitions: "http://192.168.160.58/Paris2024/api/Competitions",
-        nocs: "http://192.168.160.58/Paris2024/api/NOCs"
+        competitions: "http://192.168.160.58/Paris2024/api/Competitions"
     };
 
     ajaxHelper(endpoints.competitions, 'GET').done(response => {
@@ -187,36 +186,6 @@ $(document).ready(function () {
                                 </td>
                             </tr>`;
                             appendToTable(`table-favourites-technical_officials`, row);
-                    } else if (key === "nocs") {
-
-                        function getArrayCount(array) {
-                            return Array.isArray(array) ? array.length : 0;
-                        }
-
-                        const athletesCount = getArrayCount(data.Athletes);
-                        const coachesCount = getArrayCount(data.Coaches);
-                        const medalsCount = getArrayCount(data.Medals);
-                        const teamsCount = getArrayCount(data.Teams);
-
-
-                        row = `<tr id="fav-${data.Id}">
-                            <td class="align-middle">${data.Id}</td>
-                            <td class="align-middle">${data.Name}</td>
-                            <td class="align-middle">${athletesCount}</td>
-                            <td class="align-middle">${coachesCount}</td>
-                            <td class="align-middle">${medalsCount}</td>
-                            <td class="align-middle">${teamsCount}</td>
-                            <td class="align-middle"><img style="height: 100px; width: 100px;" src="${photo}"></td>
-                            <td class="text-end align-middle">
-                                <a class="btn btn-default btn-light btn-xs" href="nocsDetails.html?id=${data.Id}">
-                                    <i class="fa fa-eye" title="Show details"></i>
-                                </a>
-                                <a class="btn btn-default btn-sm btn-favourite" onclick="removeFav('${data.Id}')">
-                                    <i class="fa fa-heart text-danger" title="Selecione para remover dos favoritos"></i>
-                                </a>
-                            </td>
-                        </tr>`
-                        appendToTable(`table-favourites-nocs`, row);
                     } else {
                         row = `
                             <tr id="fav-${sanitizeId(item)}">
@@ -244,7 +213,11 @@ $(document).ready(function () {
                 });
             });
         });
+        
+        
+        
     });
 
     hideLoading();
 });
+

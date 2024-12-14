@@ -1,3 +1,4 @@
+// ViewModel KnockOut
 var vm = function () {
     console.log('ViewModel initiated...');
     //---Variáveis locais
@@ -8,10 +9,38 @@ var vm = function () {
     self.passingMessage = ko.observable('');
     self.Countries = ko.observableArray([]);
     self.currentPage = ko.observable(1);
-    self.pagesize = ko.observable(200);
-    
-    self.Order = ko.observable(1);
-    
+    self.pagesize = ko.observable(20);
+    self.totalRecords = ko.observable(50);
+    self.hasPrevious = ko.observable(false);
+    self.hasNext = ko.observable(false);
+    self.previousPage = ko.computed(function () {
+        return self.currentPage() * 1 - 1;
+    }, self);
+    self.nextPage = ko.computed(function () {
+        return self.currentPage() * 1 + 1;
+    }, self);
+    self.fromRecord = ko.computed(function () {
+        return self.previousPage() * self.pagesize() + 1;
+    }, self);
+    self.toRecord = ko.computed(function () {
+        return Math.min(self.currentPage() * self.pagesize(), self.totalRecords());
+    }, self);
+    self.totalPages = ko.observable(0);
+    self.pageArray = function () {
+        var list = [];
+        var size = Math.min(self.totalPages(), 9);
+        var step;
+        if (size < 9 || self.currentPage() === 1)
+            step = 0;
+        else if (self.currentPage() >= self.totalPages() - 4)
+            step = self.totalPages() - 9;
+        else
+            step = Math.max(self.currentPage() - 5, 0);
+
+        for (var i = 1; i <= size; i++)
+            list.push(i + step);
+        return list;
+    };
     self.toggleFavourite = function (id) {
         if (self.favourites.indexOf(id) == -1) {
             self.favourites.push(id);
@@ -33,33 +62,49 @@ var vm = function () {
             self.favourites(storage);
         }
     }
-    self.favourites = ko.observableArray([]);
+    self.favourites = ko.observableArray([])
 
-    self.searchQuery = ko.observable('');
-    self.searchResults = ko.observableArray([]);
+        self.searchQuery = ko.observable('');
+        self.searchResults = ko.observableArray([]);
 
-    self.activate = function (page = 1) {
+        self.searchCoaches = function () {
+            const query = self.searchQuery().trim();
+            if (!query) {
+                self.searchResults([]); 
+                return;
+            }
+
+        const searchUri = `${self.baseUri()}/Search?q=${encodeURIComponent(query)}`;
+        console.log(`Searching for coaches with query: ${query}`);
+        ajaxHelper(searchUri, 'GET').done(function (data) {
+            console.log('Search results:', data);
+            self.searchResults(data); 
+        }).fail(function () {
+            self.searchResults([]); 
+        });
+    };
+
+    //--- Page Events
+    self.activate = function () {
         console.log('CALL: getCountriesByMedals...');
-        
-        var composedUri = self.baseUri() + "?page=" + page + "&pageSize=" + self.pagesize() + "&Order=" + self.Order();
-        
+        var composedUri = self.baseUri() 
         ajaxHelper(composedUri, 'GET').done(function (data) {
             console.log(data);
             hideLoading();
             self.Countries(data);
             self.currentPage(data.CurrentPage);
+            self.hasNext(data.HasNext);
+            self.hasPrevious(data.HasPrevious);
+            self.pagesize(data.PageSize);
+            self.totalPages(data.TotalPages);
+            self.totalRecords(data.TotalCoaches);
             self.SetFavourites();
         });
     };
 
-   
-    self.changeOrder = function(order) {
-        self.Order(order); 
-        self.activate(self.currentPage()); 
-    };
-
+    //--- Internal functions
     function ajaxHelper(uri, method, data) {
-        self.error(''); 
+        self.error(''); // Clear error message
         return $.ajax({
             type: method,
             url: uri,
@@ -107,9 +152,10 @@ var vm = function () {
         }
     }
 
-    //--- start .....
+    //--- start ....
     showLoading();
     var pg = getUrlParameter('page');
+    console.log(pg);
     if (pg == undefined)
         self.activate(1);
     else {
@@ -126,3 +172,40 @@ $(document).ready(function () {
 $(document).ajaxComplete(function (event, xhr, options) {
     $("#myModal").modal('hide');
 });
+let currentSortColumn = null;
+    let isAscending = true;
+
+    // Função para ordenar a tabela
+    function sortTable(columnIndex) {
+        const table = document.querySelector("table tbody");
+        const rows = Array.from(table.rows);
+
+        // Determina a nova ordem
+        if (currentSortColumn === columnIndex) {
+            isAscending = !isAscending; // Inverte a ordem
+        } else {
+            currentSortColumn = columnIndex;
+            isAscending = true; // Reseta para ordem crescente
+        }
+
+        // Ordena as linhas
+        rows.sort((a, b) => {
+            const cellA = a.cells[columnIndex].textContent.trim();
+            const cellB = b.cells[columnIndex].textContent.trim();
+
+            return isAscending
+                ? cellA.localeCompare(cellB, 'pt', { sensitivity: 'base' }) // Crescente
+                : cellB.localeCompare(cellA, 'pt', { sensitivity: 'base' }); // Decrescente
+        });
+
+        // Remove as linhas antigas
+        while (table.firstChild) {
+            table.removeChild(table.firstChild);
+        }
+
+        // Adiciona as linhas ordenadas
+        rows.forEach(row => table.appendChild(row));
+
+        // Atualiza os ícones
+        updateSortIcons(columnIndex);
+    }

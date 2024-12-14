@@ -173,3 +173,35 @@ $(document).ready(function () {
 $(document).ajaxComplete(function (event, xhr, options) {
     $("#myModal").modal('hide');
 })
+let currentSortColumn = null;
+    let isAscending = true;
+
+    function sortTable(columnIndex) {
+        const table = document.querySelector("table tbody");
+        const rows = Array.from(table.rows);
+
+        if (currentSortColumn === columnIndex) {
+            isAscending = !isAscending; 
+        } else {
+            currentSortColumn = columnIndex;
+            isAscending = true;
+        }
+
+    
+        rows.sort((a, b) => {
+            const cellA = a.cells[columnIndex].textContent.trim();
+            const cellB = b.cells[columnIndex].textContent.trim();
+
+            return isAscending
+                ? cellA.localeCompare(cellB, 'pt', { sensitivity: 'base' })
+                : cellB.localeCompare(cellA, 'pt', { sensitivity: 'base' });
+        });
+
+        while (table.firstChild) {
+            table.removeChild(table.firstChild);
+        }
+
+        rows.forEach(row => table.appendChild(row));
+
+        
+    }
