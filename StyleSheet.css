@@ -161,3 +161,20 @@ a {
 .athlete-item {
     margin-bottom: 15px; 
 }
+/* Estilo geral do item ativo (para links simples e dropdown) */
+.nav-link.active {
+    background-color: #d3d3d3; /* Fundo cinzento */
+    color: black;  /* Cor do texto (opcional) */
+    border-radius: 5px; /* (Opcional) Cantos arredondados */
+}
+
+/* Estilo para os itens dentro do dropdown */
+.dropdown-item.active {
+    background-color: #d3d3d3; /* Fundo cinzento para itens do dropdown */
+    color: black;  /* Cor do texto (opcional) */
+}
+
+/* Para o container, quando o link é ativo, não é necessário repetir o estilo */
+.navbar-item-container .nav-link.active {
+    color: black; /* Mudando a cor do texto (opcional) */
+}
