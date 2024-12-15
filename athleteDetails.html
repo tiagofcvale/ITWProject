@@ -54,7 +54,6 @@
                         <a class="navbar-btn nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fas fa-list-alt text-success"></i> Others</a>
                         <ul class="dropdown-menu">
                             <li><a class="navbar-btn nav-link dropdown-item" href="torch.html"><i class="fa fa-map-marker text-success"></i> Torch Route</a></li>
-                            <li><a class="navbar-btn nav-link dropdown-item" href="locals.html"><i class="fa fa-map text-success"></i> Locals</a></li>
                             <li><a class="navbar-btn nav-link dropdown-item" href="statistics.html"><i class="fa fa-bar-chart text-success" aria-hidden="true"></i> Statistics</a></li>  
                         </ul>
                     </li>
@@ -106,11 +105,9 @@
                     <p class="athleteLabel">Sex</p>
                     <p class="athleteLabel">BirthDate</p>
                     <p class="athleteLabel">Function</p>
+                    <p class="athleteLabel">Country</p>
                     <p class="athleteLabel">Sports</p>
                     <p class="athleteLabel">Competitions</p>
-                    <p class="athleteLabel">Country</p>
-
-
                 </div>
                 <div style="float: right;">
                     <p class="text-end" data-bind="text: NameTV"></p>
@@ -118,6 +115,7 @@
                     <p class="text-end" data-bind="text: Sex"></p>
                     <p class="text-end" data-bind="text: BirthDate"></p>
                     <p class="text-end" data-bind="text: Function"></p>
+                    <p class="text-end" data-bind="text: Country"></p>
                     <ul class="text-end" data-bind="foreach: Sports">
                         <li>
                             <a data-bind="text: Name, attr: { href:'sportsDetails.html?id=' + Id }"></a>
@@ -130,14 +128,13 @@
                         </li>
                     </ul>
                     <p></p>
-                    <p class="text-end" data-bind="text: Country"></p>
                 </div>
             </div>
 
         </div>
         <!--Go back-->
         <div class="fixed-button">
-            <a href="athletes.html" class="btn">Back</a>
+            <a href="athletes.html" class="btn">Back to athletes</a>
         </div>
         <!-- End of Working Area -->
         <nav class="navbar fixed-bottom bg-body-tertiary border-top">

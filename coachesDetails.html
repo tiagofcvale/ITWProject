@@ -54,7 +54,6 @@
                         <a class="navbar-btn nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fas fa-list-alt text-success"></i> Others</a>
                         <ul class="dropdown-menu">
                             <li><a class="navbar-btn nav-link dropdown-item" href="torch.html"><i class="fa fa-map-marker text-success"></i> Torch Route</a></li>
-                            <li><a class="navbar-btn nav-link dropdown-item" href="locals.html"><i class="fa fa-map text-success"></i> Locals</a></li>
                             <li><a class="navbar-btn nav-link dropdown-item" href="statistics.html"><i class="fa fa-bar-chart text-success" aria-hidden="true"></i> Statistics</a></li>  
                         </ul>
                     </li>
@@ -89,43 +88,52 @@
         </div>
     </nav>
     <!-- Working Area -->
+    <div class="container-xl">
     <div class="border-bottom pt-4 pb-2 mb-3">
         <h2 style="text-align: center;" data-bind="text: Name()">Coach - Details</h2>
     </div>
-    <div class="container-xl">
-        <div class="row">
-            <div class="img-square-wrapper col-12 col-md-6 mb-3">
-                <img class="img-thumbnail" style="height: auto; width: 400px;" data-bind="attr: {alt: Name, src: Photo,}" onerror="this.onerror=null;this.src='Images/PersonNotFound.png';">
-            </div>
-            <div class="col-12 col-md-6 mb-3" style="float: left;" >
-                <h1 ><strong>Informations</strong></h1>
-                <hr style="width: 60%; margin-left: -12%;">
-                <div style="float: left; margin-right: 20px; ">
-                    <p class="coacheslabel"><strong>Sex</strong></p>
-                    <p class="coacheslabel"><strong>BirthDate</strong></p>
-                    <p class="coacheslabel"><strong>Function</strong></p>
-                    <p class="coacheslabel"><strong>Sports</strong></p>
-                    <p class="coacheslabel"><strong>Country</strong></p>
-                    
-
+    <div class="row">
+        <div class="img-square-wrapper col-12 col-md-6 mb-3">
+            <center>
+                <img class="img-thumbnail" data-bind="attr: {alt: Name, src: Photo}" id="image1">
+            </center>
+        </div>
+        <div class="col-12 col-md-6 mb-3" style="max-width: 100%;">
+            <h1 style="text-align: center;"><strong>Informations</strong></h1>
+            <hr/>
+        
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+                <div style="width: 48%;">
+                    <p class="coacheslabel">Sex</p>
+                    <p class="coacheslabel">BirthDate</p>
+                    <p class="coacheslabel">Function</p>
+                    <p class="coacheslabel">Country</p>
                 </div>
-                <div style="float: left; margin-left: 20px;">
+        
+                <div style="width: 48%;"> 
                     <p class="text-end" data-bind="text: Sex"></p>
                     <p class="text-end" data-bind="text: BirthDate"></p>
                     <p class="text-end" data-bind="text: Function"></p>
-                    <ul data-bind="foreach: Sports">
-                        <li>
-                            <a data-bind="attr: { href: 'sportsDetails.html?id=' + Id }, text: Name">
-                                <i class="fa fa-external-link" aria-hidden="true"></i>
-                            </a>
-                        </li>
-                    </ul>
                     <p class="text-end" data-bind="text: Country"></p>
-                    
                 </div>
             </div>
-
+            <div style="float: left;">
+                <p class="coacheslabel">Sports</p>
+            </div>
+            <div style="float: right;">
+                <ul data-bind="foreach: Sports">
+                    <li>
+                        <a data-bind="attr: { href: 'sportsDetails.html?id=' + Id }, text: Name">
+                            <i class="fa fa-external-link" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
+    </div>
+    <div class="fixed-button">
+        <a href="coaches.html" class="btn">Back to Coaches</a>
+    </div>
         <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
