@@ -132,7 +132,7 @@ $(document).ready(function () {
                         <td class="align-middle">${Id}</td>
                         <td class="align-middle">${data.Name}</td>
                         <td class="align-middle">${data.Sex}</td>
-                        <td class="align-middle"><img style="height: 100px; width: 100px;" src="${data.Photo}"></td>
+                        <td class="align-middle"><img style="height: 100px; width: 100px;" class="card-img-top" src="${data.Photo}" id="image1" onerror="this.onerror=null; this.src='Images/PersonNotFound.png';">
                         <td class="text-end align-middle">
                             <a class="btn btn-default btn-light btn-xs" href="coachesDetails.html?id=${Id}">
                                 <i class="fa fa-eye" title="Show details"></i>

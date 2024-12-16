@@ -69,8 +69,7 @@ function appendToTable(tableId, rowContent) {
 }
 
 $(document).ready(function () {
-    showLoading();
-
+    showLoading()
     let fav = JSON.parse(localStorage.getItem("fav") || "[]");
     console.log("Favorites:", fav);
 
@@ -83,7 +82,7 @@ $(document).ready(function () {
         teams: "http://192.168.160.58/Paris2024/API/Teams/",
         competitions: "http://192.168.160.58/Paris2024/api/Competitions"
     };
-
+    hideLoading()
     ajaxHelper(endpoints.competitions, 'GET').done(response => {
         const competitions = response.Competitions;
         console.log("Loaded competitions:", competitions);
@@ -119,7 +118,9 @@ $(document).ready(function () {
                     const photo = data.Photo || data.Pictogram || 'Images/PersonNotFound.png';
                     let row;
         
-                    if (key === "Competitions") {
+                    if (key === "competitions") {
+                        const encodedSportId = encodeURIComponent(data.SportId);
+                        const encodedName = encodeURIComponent(data.Name);
                         var name= data.Name
                         console.log("sportId",encodedSportId)
                         console.log("name",encodedName)
@@ -193,7 +194,7 @@ $(document).ready(function () {
                                 <td class="align-middle">${data.Name || "N/A"}</td>
                                 <td class="align-middle">${data.Sex || "N/A"}</td>
                                 <td class="align-middle">
-                                    <img style="height: 100px; width: 100px;" src="${photo}" alt="Photo">
+                                    <img style="height: 100px; width: 100px;" class="card-img-top" src="${data.Photo}" id="image1" onerror="this.onerror=null; this.src='Images/PersonNotFound.png';">
                                 </td>
                                 <td class="text-end align-middle">
                                     <a class="btn btn-default btn-light btn-xs" 
