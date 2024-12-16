@@ -25,7 +25,7 @@
                     <li class="nav-item dropdown">
                         <a class="navbar-btn nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-search text-info"></i> Search</a>
                             <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="navbar-btn nav-link dropdown-item" aria-current="page" href="athletes.html"><i class="fa fa-user text-danger"></i> Athletes</a></li>
+                                <li class="nav-item"><a class="navbar-btn nav-link dropdown-item active" aria-current="page" href="athletes.html"><i class="fa fa-user text-danger"></i> Athletes</a></li>
                                 <li class="nav-item"><a class="navbar-btn nav-link dropdown-item" aria-current="page" href="coaches.html"><i class="fa fa-user text-primary"></i> Coaches</a></li>
                                 <li class="nav-item"><a class="navbar-btn nav-link dropdown-item" aria-current="page" href="technical_officials.html"><i class="fa fa-user text-success"></i> Technical Officials</a></li>
                                 <li class="nav-item"><a class="navbar-btn nav-link dropdown-item" aria-current="page" href="venues.html"><i class="fa fa-user text-warning"></i> Venues</a></li>
@@ -94,7 +94,7 @@
     </div>
         <div class="row">
             <div class="img-square-wrapper col-12 col-md-6 mb-3">
-                <center><img class="img-thumbnail" style="align-items: center; width: 65%;" data-bind="attr: {alt: Name(), src: Photo()}"></center>
+                <center><img class="img-thumbnail" style="align-items: center; width: 65%;" data-bind="attr: {alt: name, src: Photo}" id="image1" onerror="this.onerror=null; this.src='Images/PersonNotFound.png';"></center>
             </div>
             <div class="col-12 col-md-6 mb-3" style="max-width: 100%;">
                 <h1 style="text-align: center;"><strong>Informations</strong></h1>

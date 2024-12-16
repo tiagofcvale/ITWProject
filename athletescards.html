@@ -36,7 +36,7 @@
                     <li class="nav-item dropdown">
                         <a class="navbar-btn nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-search text-info"></i> Search</a>
                             <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="navbar-btn nav-link dropdown-item" aria-current="page" href="athletes.html"><i class="fa fa-user text-danger"></i> Athletes</a></li>
+                                <li class="nav-item"><a class="navbar-btn nav-link dropdown-item active" aria-current="page" href="athletes.html"><i class="fa fa-user text-danger"></i> Athletes</a></li>
                                 <li class="nav-item"><a class="navbar-btn nav-link dropdown-item" aria-current="page" href="coaches.html"><i class="fa fa-user text-primary"></i> Coaches</a></li>
                                 <li class="nav-item"><a class="navbar-btn nav-link dropdown-item" aria-current="page" href="technical_officials.html"><i class="fa fa-user text-success"></i> Technical Officials</a></li>
                                 <li class="nav-item"><a class="navbar-btn nav-link dropdown-item" aria-current="page" href="venues.html"><i class="fa fa-user text-warning"></i> Venues</a></li>
@@ -177,7 +177,7 @@
         <div class="container mt-4">
             <div class="card-container" data-bind="foreach: athletes">
                 <div class="card">
-                    <img class="card-img-top" data-bind="attr: { src: Photo, alt: Name }" alt="Athlete Photo">
+                    <img class="card-img-top" data-bind="attr: {alt: name, src: Photo}" id="image1" onerror="this.onerror=null; this.src='Images/PersonNotFound.png';">
                     <div class="card-body">
                         <h5 class="card-title" style="text-align: center;"  data-bind="text: Name"></h5>
                         <p class="card-text">
@@ -187,12 +187,12 @@
                             <strong>Birth Country:</strong> <span data-bind="text: BirthCountry"></span><br>
                             <strong>Sex:</strong> <span data-bind="text: Sex"></span>
                         </p>
-                        <a style="float:right;" class="btn btn-primary btn-light btn-xs" data-bind="attr: { href:'athleteDetails.html?id=' + Id }">
-                            <i class="fa fa-eye" title="Show details"></i>
-                        </a>
                         <button style="float:right;" class="btn btn-outline-danger btn-sm btn-favourite" data-bind="click: () => $parent.toggleFavourite(Id), attr : { 'id': 'favourite_' + Id }">
                             <i data-bind="attr: {'class': $parent.favourites().includes(Id)? 'fa fa-heart text-danger' : 'fa fa-heart-o'}" class="fa fa-heart-o" title="Add to favourites"></i>
                         </button>
+                        <a style="float:right;" class="btn btn-primary btn-light btn-xs" data-bind="attr: { href:'athleteDetails.html?id=' + Id }">
+                            <i class="fa fa-eye" title="Show details"></i>
+                        </a>
                     </div>
                 </div>
             </div>

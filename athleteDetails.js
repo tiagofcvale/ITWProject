@@ -121,6 +121,8 @@ $(document).ready(function () {
     ko.applyBindings(new vm());
 });
 
-$(document).ajaxComplete(function (event, xhr, options) {
-    $("#myModal").modal('hide');
-})
+$(document).ready(function() {
+    $('#image1').on('error', function() {
+      $(this).attr('src', 'Images/PersonNotFound.png');
+    });
+  });
