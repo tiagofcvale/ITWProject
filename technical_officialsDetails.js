@@ -1,9 +1,9 @@
 // FormatValue
 function formatValue(value) {
     if (Array.isArray(value)) {
-        return value.length ? value.join(', ') : "[sem informação]";
+        return value.length ? value.join(', ') : "[Unknown]";
     }
-    return value ? value : "[sem informação]";
+    return value ? value : "[Unknown]";
 }
 function formatPhoto(value) {
     return value ? value : "Images/PersonNotFound.png";
@@ -42,7 +42,7 @@ var vm = function () {
             self.Id(formatValue(data.Id));
             self.Category(formatValue(data.Category));
             self.Sex(formatValue(data.Sex));
-            self.BirthDate(data.BirthDate ? new Date(data.BirthDate).toLocaleDateString() : "[sem informação]"); 
+            self.BirthDate(data.BirthDate ? new Date(data.BirthDate).toLocaleDateString() : "[Unknown]"); 
             self.Organisation(formatValue(data.Organisation));
             self.OrganisationCode(formatValue(data.BirthCountry));
             if (!data.Photo || data.Photo === null || data.Photo.trim() === '') {

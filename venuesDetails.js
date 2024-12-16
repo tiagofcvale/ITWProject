@@ -3,7 +3,7 @@ function formatValue(value) {
     if (Array.isArray(value)) {
         return value.length > 0 ? value : []; 
     }
-    return value ? value : "[sem informação]";
+    return value ? value : "[Unknown]";
 }
 // ViewModel KnockOut
 var vm = function () {

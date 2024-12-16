@@ -122,11 +122,12 @@
                     <p class="teamLabel">Athletes</p>
                 </div>
                 <div style="float: right;">
-                    <ul class="text-end" data-bind="foreach: Athletes">
+                    <ul class="text-end" >
                         <li>
                             <p>
-                                <a data-bind="attr: { href: 'athleteDetails.html?id=' + Id }, text: Name"></a>
-                                <i class="fa fa-external-link" aria-hidden="true"></i>
+                                <a data-bind="attr: { href: 'athleteDetails.html?id=' + Id }, text: Name">
+                                    <span data-bind="foreach: Athletes"></span>
+                                </a>
                             </p>
                         </li>
                     </ul>

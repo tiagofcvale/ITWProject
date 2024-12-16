@@ -107,7 +107,7 @@
             </div>
     <!--Informações Principais-->
             <div class="col-6">
-                <h2 style="text-align: center;">Informações</h2>
+                <h2 style="text-align: center;">Informations</h2>
                 <hr/>
                 <div style="float: left">
                     <p class="athleteLabel">Código</p>
@@ -127,10 +127,9 @@
                     <h2 style="text-align: center;" data-bind="text: formattedAthletesCount"></h2>
                     <hr />
                     <ul data-bind="foreach: Athletes" style="line-height: 1; font-size: 15px;">
-                        <li class="athlete-item">
-                            <span data-bind="text: Name"></span>
+                        <li style='text-align: center';  class="athlete-item">
                             <a data-bind="attr: { href: 'athleteDetails.html?id=' + Id }">
-                                <i class="fa fa-external-link"></i>
+                                <span data-bind="text: Name"></span>
                             </a>
                         </li>
                     </ul>
@@ -139,50 +138,46 @@
                     <h2 style="text-align: center;" data-bind="text: formattedCoachesCount"></h2>
                     <hr />
                     <ul data-bind="foreach: Coaches" style="line-height: 1; font-size: 15px;">
-                        <li class="athlete-item">
-                            <span data-bind="text: Name"></span>
+                        <li style='text-align: center;' class="athlete-item">
                             <a data-bind="attr: { href: 'coachesDetails.html?id=' + Id }">
-                                <i class="fa fa-external-link"></i>
+                            <span data-bind="text: Name"></span>
                             </a>
                         </li>
                     </ul>
                     <h2 style="text-align: center;" data-bind="text: formattedCompetitionsCount"></h2>
                     <hr />
                     <ul data-bind="foreach: Competitions" style="line-height: 1; font-size: 15px;">
-                        <li class="athlete-item">
-                            <span data-bind="text: Name"></span>
+                        <li style='text-align: center;'class="athlete-item">
                             <a data-bind="attr: { href: 'competitionsDetails.html?sportId=' + SportId +'&name=' + Name}">
-                                <i class="fa fa-external-link"></i>
+                            <span data-bind="text: Name"></span>
                             </a>
                         </li>
                     </ul>
                     <h2 style="text-align: center;" data-bind="text: formattedTeamsCount"></h2>
                     <hr />
                     <ul data-bind="foreach: Teams" style="line-height: 1; font-size: 15px;">
-                        <li class="athlete-item">
-                            <span data-bind="text: Name"></span>
+                        <li style='text-align: center;'class="athlete-item">
                             <a data-bind="attr: { href: 'teamsDetails.html?id=' + Id }">
-                                <i class="fa fa-external-link"></i>
+                            <span data-bind="text: Name"></span>
+                                
                             </a>
                         </li>
                     </ul>
                     <h2 style="text-align: center;" data-bind="text: formattedTechnicalOfficialsCount"></h2>
                     <hr />
                     <ul data-bind="foreach: Technical_officials" style="line-height: 1; font-size: 15px;">
-                        <li class="athlete-item">
-                            <span data-bind="text: Name"></span>
+                        <li style='text-align: center;'class="athlete-item">
                             <a data-bind="attr: { href: 'technical_officialsDetails.html?id=' + Id }">
-                                <i class="fa fa-external-link"></i>
+                                <span data-bind="text: Name"></span>
                             </a>
                         </li>
                     </ul>
                     <h2 style="text-align: center;" data-bind="text: formattedVenuesCount"></h2>
                     <hr />
                     <ul data-bind="foreach: Venues" style="line-height: 1; font-size: 15px;">
-                        <li class="athlete-item">
-                            <span data-bind="text: Name"></span>
+                        <li style='text-align: center;'class="athlete-item">
                             <a data-bind="attr: { href: 'venuesDetails.html?id=' + Id }">
-                                <i class="fa fa-external-link"></i>
+                            <span data-bind="text: Name"></span>
                             </a>
                         </li>
                     </ul>
