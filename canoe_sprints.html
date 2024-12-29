@@ -17,6 +17,16 @@
             padding: 0; 
             margin: 0; 
         }
+        #image1 {
+            max-width: 100%;   
+            max-height: 150px; 
+            object-fit: contain; 
+        }
+        #image2 {
+            max-width: 100%;   
+            max-height: 100px; 
+            object-fit: contain; 
+        }
     </style>
 </head>
 <body>
@@ -49,7 +59,7 @@
                     <li class="nav-item dropdown">
                         <a class="navbar-btn nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-calendar-o text-danger" aria-hidden="true"></i> Events</a>
                         <ul class="dropdown-menu">
-                            <li><a class="navbar-btn nav-link dropdown-item" href="athletics.html"><i class="fa fa-child text-warning" aria-hidden="true"></i> Athletics</a></li>
+                            <li><a class="navbar-btn nav-link dropdown-item " href="athletics.html"><i class="fa fa-child text-warning" aria-hidden="true"></i> Athletics</a></li>
                             <li><a class="navbar-btn nav-link dropdown-item" href="basketballs.html"><i class="fa fa-dribbble text-danger" aria-hidden="true"></i> Basketballs</a></li>
                             <li><a class="navbar-btn nav-link dropdown-item active" href="canoe_sprints.html"><i class="fa fa-anchor text-info" aria-hidden="true"></i> Canoe Sprints</a></li> 
                             <li><a class="navbar-btn nav-link dropdown-item" href="cyclings_tracks.html"><i class="fa fa-bicycle" aria-hidden="true"></i> Cycling Tracks</a></li> 
@@ -95,51 +105,74 @@
         </div>
     </nav>
     <!-- Working Area -->
+    
     <div class="container">
         <div class="border-top pt-4 pb-2 mb-3" style="border: 2px solid">
-            <h2 style="text-align: center;"><i class="fa fa-anchor text-info" aria-hidden="true"></i> Canoe Sprints Events</h2>
+            <h2 style="text-align: center;">
+                <i class="fa fa-child text-warning" aria-hidden="true"></i> Canoe Sprints Events
+            </h2>
         </div>
+    
+        <!-- Seletor de Evento e Estágio -->
         <div class="row">
-            <div class="row mt-1">
-                <div class="col-6">
-                    <h4 style="text-align: center;"><strng>Events</strng></h4>
-                </div>
-                <div class="col-6">
-                    <h4 style="text-align: center;"><strng>Stages</strng></h4>
-                </div>
-                <hr />
+            <div class="col-6">
+                <h4 style="text-align: center;">Select Event</h4>
+                <select data-bind="options: Events, optionsText: 'EventName', optionsValue: 'EventId', value: selectedEventId, event: { change: onEventChange }" class="form-control">
+                    <option value="">Select Event</option>
+                </select>
+            </div>
+            <div class="col-6">
+                <h4 style="text-align: center;">Select Stage</h4>
+                <select data-bind="options: selectedEventStages, optionsText: 'StageName', optionsValue: 'StageId', value: selectedStageId, event: { change: onStageChange }, enable: selectedEventId" class="form-control">
+                    <option value="">Select Stage</option>
+                </select>
+            </div>
+        </div>
+    
+        <div class="row" data-bind="visible: selectedStageId() && ParticipantDetails().length > 0" style="padding-top: 20px;" >
+            <div class="pt-4 pb-2" >
+                <h2 style="text-align: center;">Participants</h2>
+            </div>
+            <hr />
+            <div class="row">
                 <div class="col-12">
-                    <ul data-bind="foreach: Events" style="line-height: 1.5; font-size: 15px;">
-                        <li class="row">
-                            <div class="col-6">
-                                <p style="text-align: center;">
-                                    <strong>
-                                        <span style="text-align: center;" data-bind="text: EventName"></span>
-                                    </strong>
-                                </p>
+                    <ul data-bind="foreach: ParticipantDetails" style="line-height: 1.5; font-size: 15px; text-align: center;">
+                        <li>
+                            <strong data-bind="text: Name"></strong> (ID: <span data-bind="text: Id"></span>)
+                            <br />
+                            <span data-bind="text: ParticipantType"></span> : <span data-bind="text: ParticipantName"></span>
+                            <br />
+                            <a data-bind="attr: { href: ParticipantType === 'Person' ? 'athleteDetails.html?id=' + ParticipantCode : 'teamsDetails.html?id=' + ParticipantCode }">
+                                Participant Details
+                            </a>
+                            <br />
+                            Venue: <span data-bind="text: Venue"></span>
+                            <br />
+                            <span data-bind="text: CountryName"></span> <a data-bind="attr: { href: 'nocsDetails.html?id=' + CountryCode }">NOC Details</a>
+                            <br />
+                            <div style="display: inline-block;">
+                                <img class="card-img-top" data-bind="attr: {alt: CountryName, src: CountryFlag}" id="image1" onerror="this.onerror=null; this.src='Images/PersonNotFound.png';">
                             </div>
-                            <div class="col-6">
-                                <ul data-bind="foreach: Stages" style="padding-left: 0;">
-                                    <li>
-                                        <p style="text-align: center;">
-                                            <span>
-                                                <a  data-bind="attr: { href: 'canoe_sprintsDetails.html?EventId=' + $parent.EventId + '&StageId=' + StageId }">
-                                                    <span data-bind="text: StageName"></span>
-                                                </a>
-                                            </span>
-                                        </p>
-                                    </li>
-                                </ul>
+                            <div style="display: inline-block; margin-left: 10px;">
+                                <img class="card-img-top" data-bind="attr: {alt: CountryName, src: NOCFlag}" id="image2" onerror="this.onerror=null; this.src='Images/PersonNotFound.png';">
                             </div>
-                            <div class="col-12">
-                                <hr />
-                            </div>
+                            <br />
+                            Rank: <span data-bind="text: Rank"></span>
+                            <br />
+                            <span data-bind="text: ResultType"></span> : <span data-bind="text: Result"></span>
                         </li>
+                        <hr />
                     </ul>
+                    
                 </div>
             </div>
         </div>
     </div>
+    
+
+    
+        
+    
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
