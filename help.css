@@ -78,7 +78,6 @@
 }
 .testimonial .description:before,
 .testimonial .description:after{
-    font-family: "Font Awesome 5 Free"; font-weight: 900;
     font-size: 17px;
     color: #e1c37d;
     position: relative;
@@ -116,7 +115,6 @@
 .owl-prev:before,
 .owl-next:before{
     content: "\f177";
-    font-family: "fontawesome";
     font-size: 45px;
     font-weight: 900;
     color: #ddd;
@@ -218,7 +216,6 @@
     }
 }
 .deneb_cta .cta_wrapper .button_box .deneb_btn {
-    background: #fff;
     color: #011a3e;
 }
 .deneb_cta .cta_wrapper .button_box .deneb_btn:hover,
@@ -227,7 +224,6 @@
 }
 
 footer {
-	background-color: #f2f8fa;
 	border-top: 5px solid #2d98fd;
 	margin-bottom: 0px;
 
