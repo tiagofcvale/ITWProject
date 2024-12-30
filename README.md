@@ -7,3 +7,5 @@ Alteração do modo de representação dos participantes na modalidade de:
 -Cycling_Tracks;
 -Footballs;
 -Swimmings.
+
+Formatação das tabelas e cards no Stylesheet.css
