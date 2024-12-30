@@ -1,5 +1,9 @@
 body {
-    padding: 56px 0 56px 0; font-family: 'Open Sans', "sans-serif"; margin-bottom: 50px;
+  font-family: 'Open Sans', sans-serif;
+  padding: 56px 0px 56px 0px;
+}
+li {
+  font-size: 18px
 }
 main { 
     padding: 5px 0 5px 0;
