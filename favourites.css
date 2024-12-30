@@ -1,3 +1,8 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    padding: 56px 0px 56px 0px;
+}
+
 .table {
     border-collapse: collapse;
     width: 100%;
@@ -158,6 +163,9 @@ main {
     }
 }
 
+li {
+    font-size: 18px
+}
 
 
 .bannerTop {

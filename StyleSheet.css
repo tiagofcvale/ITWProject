@@ -113,7 +113,8 @@ th .fa {
 }
 
 body {
-    padding: 56px 0 56px 0;
+    overflow-x: hidden;
+    padding: 30px 0 90px 0;
 }
 
 main {
@@ -243,9 +244,6 @@ main {
     border-radius: 10px;
 }
 
-body {
-    overflow-x: hidden;
-}
 
 .fixed-button {
     position: fixed;
