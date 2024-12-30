@@ -1,1 +1,54 @@
-﻿
+﻿body {
+    font-family: 'Open Sans', sans-serif;
+    padding: 56px 0px 100px 0px;
+}
+
+.bannerTop {
+    height: 50px;
+    background: linear-gradient(90deg, #005bbb, #ee334e);
+    margin-bottom: 20px;
+}
+
+
+.table {
+    margin-bottom: 20px;
+}
+
+.table th {
+    text-align: center;
+    background: #005bbb;
+}
+
+.table td {
+    text-align: center;
+}
+
+input[type="checkbox"], input[type="radio"] {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.table-sm th, .table-sm td {
+    padding: 0.5rem;
+}
+
+.btn-submit {
+    background: #ee334e;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-submit:disabled {
+    cursor: not-allowed;
+}
+
+hr {
+    border: 1px solid;
+    margin: 20px 0;
+}
+
+span {
+    font-weight: bold;
+}

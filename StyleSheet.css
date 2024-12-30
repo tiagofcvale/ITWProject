@@ -51,9 +51,10 @@
 
 
 .table tbody td {
-    padding: 10px 15px;
+    padding: 12px 15px;
     text-align: left;
-    vertical-align: middle;
+    cursor: pointer;
+    position: relative;
 }
 
 .table tbody tr td .btn {
@@ -294,9 +295,7 @@ a {
     color: black;
 }
 
-.container {
-    margin-top: 20px;
-}
+
 
 .card-container {
     display: flex;
