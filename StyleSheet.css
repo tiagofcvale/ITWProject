@@ -162,10 +162,6 @@ main {
     body {
         font-size: 18px;
     }
-
-    .container {
-        max-width: 80%;
-    }
 }
 
 .bannerTop {
