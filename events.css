@@ -1,0 +1,171 @@
+body {
+    padding: 30px 0 56px 0;
+}
+
+main {
+    padding: 5px 0 5px 0;
+}
+
+.carousel-caption .display-1 {
+    font-size: 3rem;
+}
+
+.carousel-caption p {
+    font-size: 1.25rem;
+}
+
+@media (max-width: 576px) {
+    .carousel-caption {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .carousel-caption .display-1 {
+        font-size: 2rem;
+    }
+
+    .carousel-caption p {
+        font-size: 1rem;
+    }
+
+    .navbar {
+        font-size: 0.8rem;
+    }
+}
+
+
+.bannerTop {
+    height: 480px;
+    margin: auto;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.btn-default {
+    color: #333;
+    background-color: #f8f9fa;
+    border-color: #ccc;
+}
+
+.btn-default:focus {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #8c8c8c;
+}
+
+.btn-default:active,
+.btn-default:hover {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+
+.btn-group-xs > .btn,
+.btn-xs {
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+.ua:hover {
+    color: green;
+}
+
+.search-bar-container {
+    position: relative;
+    width: 100%;
+    margin-top: 17px;
+}
+
+.search-input {
+    width: calc(100% + 20px);
+    margin-right: -10px;
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    overflow: hidden;
+    border-end-end-radius: 10px;
+    border-start-end-radius: 10px;
+}
+
+.list-group-item {
+    border: none;
+    padding: 8px 16px;
+}
+
+.list-group-item a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    padding: 8px 16px;
+}
+
+.list-group-item a:hover {
+    background-color: #007bff;
+    color: white;
+    border-radius: 10px;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.fixed-button {
+    position: fixed;
+    bottom: 75px;
+    left: 65px;
+    z-index: 9999;
+}
+
+.fixed-button a {
+    padding: 10px 20px;
+    font-size: 16px;
+    text-decoration: none;
+    color: white;
+    background-color: #007bff;
+    border-radius: 5px;
+}
+
+.fixed-button a:hover {
+    background-color: #0056b3;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.athlete-item {
+    margin-bottom: 15px;
+}
+
+.nav-link.active {
+    background-color: #d3d3d3;
+    color: black;
+    border-radius: 5px;
+}
+
+.dropdown-item.active {
+    background-color: #d3d3d3;
+    color: black;
+}
+
+.navbar-item-container .nav-link.active {
+    color: black;
+}
+
+.container {
+    margin-top: 20px;
+}

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-    <link href="StyleSheet.css" rel="stylesheet" />
+    <link href="events.css" rel="stylesheet" />
     <style>
         ul {
             list-style: none;
@@ -129,7 +129,7 @@
             </div>
         </div>
     
-        <!-- Detalhes dos Participantes (Visível somente quando um estágio é selecionado) -->
+
         <div class="row" data-bind="visible: selectedStageId() && ParticipantDetails().length > 0" style="padding-top: 20px;" >
             <div class="pt-4 pb-2" >
                 <h2 style="text-align: center;">Participants</h2>
@@ -137,26 +137,26 @@
             <hr />
             <div class="row">
                 <div class="col-12">
-                    <!-- Usando Knockout.js para iterar sobre os participantes -->
+
                     <ul data-bind="foreach: ParticipantDetails" style="line-height: 1.5; font-size: 15px; text-align: center;">
                         <li>
-                            <!-- Nome do participante -->
+
                             <strong data-bind="text: Name"></strong> (ID: <span data-bind="text: Id"></span>)
                             <br />
-                            <!-- Tipo de participante e nome -->
+
                             <span data-bind="text: ParticipantType"></span> : <span data-bind="text: ParticipantName"></span>
                             <br />
-                            <!-- Link para os detalhes do participante -->
+
                             <a data-bind="attr: { href: ParticipantType === 'Person' ? 'athleteDetails.html?id=' + ParticipantCode : 'teamsDetails.html?id=' + ParticipantCode }">
                                 Participant Details
                             </a>
                             <br />
                             Venue: <span data-bind="text: Venue"></span>
                             <br />
-                            <!-- País e código do país -->
+
                             <span data-bind="text: CountryName"></span> <a data-bind="attr: { href: 'nocsDetails.html?id=' + CountryCode }">NOC Details</a>
                             <br />
-                            <!-- Imagens lado a lado -->
+
                             <div style="display: inline-block;">
                                 <img class="card-img-top" data-bind="attr: {alt: CountryName, src: CountryFlag}" id="image1" onerror="this.onerror=null; this.src='Images/PersonNotFound.png';">
                             </div>
