@@ -9,3 +9,5 @@ Alteração do modo de representação dos participantes na modalidade de:
 -Swimmings.
 
 Formatação das tabelas e cards no Stylesheet.css
+
+Adicionado apostas e um quiz(o quiz está na página de apostas)

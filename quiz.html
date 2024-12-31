@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olympic Quiz</title>
+    <link rel="stylesheet" href="quiz.css">
+</head>
+
+<body>
+    <div id="quiz-container">
+        <header>
+            <h1 id="intro-text">Test Your Knowledge about Sports!</h1>
+        </header>
+
+        <main>
+            <section id="quiz-intro">
+                <button id="start-button">Start Quiz</button>
+                <button id="home-button" onclick="window.location.href='totobola.html'">Back to Home</button>
+            </section>
+
+            <section id="quiz" style="display: none;">
+                <div id="question-progress">
+                    <p id="questions-answered">Question 1 of 15</p>
+                </div>
+                <h2 id="question-text"></h2>
+                <div class="image-container">
+                    <img id="question-image" src="" alt="Question Image">
+                </div>
+                <ul id="options"></ul>
+                <div id="feedback"></div>
+                <button id="next-button" style="display: none;">Next Question</button>
+            </section>
+            <section id="result" style="display: none;">
+                <h2>End of Quiz!</h2>
+                <p id="score">You answered 0 out of 0 questions correctly.</p>
+                <button onclick="restartQuiz()">Restart Quiz</button>
+                <button onclick="window.location.href='totobola.html'">Back to Home</button>
+            </section>
+                
+        </main>
+    </div>
+
+    <script src="quiz.js"></script>
+</body>
+
+</html>

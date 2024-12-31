@@ -1,59 +1,46 @@
-var Status1 = document.getElementById('Status1');
-var StatusX = document.getElementById('StatusX');
-var Status2 = document.getElementById('Status2');
-var botao = document.getElementById('botao');
+document.addEventListener('DOMContentLoaded', function () {
+    var Status1 = document.getElementById('Status1');
+    var StatusX = document.getElementById('StatusX');
+    var Status2 = document.getElementById('Status2');
+    var botao = document.getElementById('botao');
 
-function boxClicked() {
-    var apostasValidas = 0;
-    var multiplas = 1;
-    var selected1 = 0;
-    var selectedX = 0;
-    var selected2 = 0;
-
+    // Add event listeners to all checkboxes
     for (var i = 1; i <= 13; i++) {
-        var x = document.getElementById('Jogo' + i + '_1').checked;
-        var y = document.getElementById('Jogo' + i + '_x').checked;
-        var z = document.getElementById('Jogo' + i + '_2').checked;
-
-        if (x || y || z) apostasValidas += 1;
-        if (x) selected1 += 1;
-        if (y) selectedX += 1;
-        if (z) selected2 += 1;
-
-        var apostaNaLinha = 1;
-        if ((x && y) || (x && z) || (y && z)) apostaNaLinha = 2;
-        if (x && y && z) apostaNaLinha = 3;
-
-        multiplas *= apostaNaLinha;
+        document.getElementById('Jogo' + i + '_1').addEventListener('click', boxClicked);
+        document.getElementById('Jogo' + i + '_x').addEventListener('click', boxClicked);
+        document.getElementById('Jogo' + i + '_2').addEventListener('click', boxClicked);
     }
 
-    setStatus(selected1, selectedX, selected2, apostasValidas, multiplas);
-}
+    function boxClicked() {
+        var apostasValidas = 0;
+        var selected1 = 0;
+        var selectedX = 0;
+        var selected2 = 0;
 
-function setStatus(selected1, selectedX, selected2, apostasValidas, multiplas) {
-    Status1.innerText = selected1;
-    StatusX.innerText = selectedX;
-    Status2.innerText = selected2;
+        // Loop to check the options of each game
+        for (var i = 1; i <= 13; i++) {
+            var x = document.getElementById('Jogo' + i + '_1').checked;
+            var y = document.getElementById('Jogo' + i + '_x').checked;
+            var z = document.getElementById('Jogo' + i + '_2').checked;
 
-    if (apostasValidas === 13 && multiplas >= 1 && multiplas <= 384) {
-        if (multiplas === 1) {
-            disableAllMultipleBoxes();
-        } else {
-            var x = document.getElementById('multiplas' + multiplas);
-            if (x) x.checked = true; // Verifica se o elemento existe
+            // If any of the checkboxes are checked, it's a valid bet
+            if (x || y || z) apostasValidas += 1;
+            if (x) selected1 += 1;
+            if (y) selectedX += 1;
+            if (z) selected2 += 1;
         }
-        botao.disabled = false;
-    } else {
-        disableAllMultipleBoxes();
-        botao.disabled = true;
+
+        // Call the function to update the status based on the selections
+        setStatus(selected1, selectedX, selected2, apostasValidas);
     }
-}
 
-function disableAllMultipleBoxes() {
-    var arr = document.getElementsByName('multiplas'); // Obtém todos os botões de rádio pelo nome
-    for (var i = 0; i < arr.length; i++) {
-        arr[i].checked = false;
+    function setStatus(selected1, selectedX, selected2, apostasValidas) {
+        // Update the number of selections of each type
+        Status1.innerText = selected1;
+        StatusX.innerText = selectedX;
+        Status2.innerText = selected2;
+
+        // The button remains always enabled, no condition to disable it
+        botao.disabled = true; // Ensure button stays enabled
     }
-}
-
-
+});

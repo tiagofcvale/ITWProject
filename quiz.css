@@ -1,0 +1,214 @@
+/* Reset de margens e padding para garantir uma formatação consistente */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Estilos principais para o corpo */
+body {
+    background: linear-gradient(to right, #0055a5, #d50032); /* Azul e Vermelho */
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Contêiner do quiz com fundo semitransparente e animação */
+#quiz-container {
+    width: 90%;
+    max-width: 700px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    padding: 30px;
+    text-align: center;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Animação de fade-in */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estilo para o título principal */
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Estilo dos botões principais */
+button {
+    background: linear-gradient(135deg, #0055a5, #d50032); /* Azul e Vermelho */
+    color: #fff;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: background 0.3s, transform 0.2s;
+    margin-top: 15px;
+}
+
+/* Efeito de hover nos botões */
+button:hover {
+    background: linear-gradient(135deg, #d50032, #0055a5); /* Troca as cores ao passar o mouse */
+    transform: scale(1.05);
+}
+
+/* Estilo do título da pergunta */
+#quiz h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #f0f0f0;
+}
+
+/* Estilo da imagem da pergunta */
+#question-image {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+
+}
+/* Estilo para o contador de perguntas */
+#question-progress {
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    color: #f0f0f0;
+    font-weight: bold;
+}
+
+
+/* Estilo para as opções de resposta */
+/* Estilo para as opções de resposta */
+ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Define duas colunas */
+    gap: 10px; /* Espaçamento entre as opções */
+    list-style: none;
+    padding: 0;
+}
+
+/* Estilo dos itens de lista para layout 2x2 */
+li {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background 0.3s, transform 0.2s;
+}
+
+/* Efeito de hover nas opções */
+li:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.02);
+}
+
+/* Estilos para respostas corretas e incorretas */
+li.correct {
+    background: #28a745;
+    color: #fff;
+}
+
+li.incorrect {
+    background: #dc3545;
+    color: #fff;
+}
+
+
+/* Feedback após a seleção de uma opção */
+#feedback {
+    margin-top: 20px;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+/* Estilo para o feedback textual */
+#feedback p {
+    color: #00f2fe;
+}
+
+/* Estilo do botão de próxima pergunta */
+/* Centralizando o botão Next Question */
+#next-button {
+    margin-top: 20px;
+    background: linear-gradient(135deg, #0055a5, #d50032); /* Azul e Vermelho */
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 1rem;
+    color: #fff;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background 0.3s, transform 0.2s;
+    display: block; /* Torna o botão um bloco para ele ocupar toda a largura disponível */
+    margin-left: auto;
+    margin-right: auto; /* Isso irá centralizar o botão */
+}
+
+/* Efeito de hover no botão de próxima pergunta */
+#next-button:hover {
+    background: linear-gradient(135deg, #d50032, #0055a5); /* Troca as cores ao passar o mouse */
+    transform: scale(1.05);
+}
+
+
+/* Estilo da seção de resultado */
+#result {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #fff;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Estilo da pontuação do quiz */
+#score {
+    margin-top: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* Estilo da imagem no quiz */
+.image-container img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilo do botão de voltar para a página inicial */
+#home-button {
+    background-color: #ff6347; /* Cor de destaque (tomate) */
+    color: white;
+    border: none;
+    font-size: 0.9em;
+}
+
+/* Efeito de hover no botão de voltar */
+#home-button:hover {
+    background-color: #ff4500; /* Cor mais escura ao passar o mouse */
+}
