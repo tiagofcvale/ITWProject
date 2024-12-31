@@ -16,7 +16,7 @@ body {
     height: 100vh;
     flex-direction: column;
     text-align: center;
-    padding: 20px;
+    padding: 170px 20px 300px 20px;
 }
 
 /* Contêiner do quiz com fundo semitransparente e animação */
