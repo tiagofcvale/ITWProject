@@ -26,6 +26,9 @@ main {
     perspective: 1000px;
     margin-bottom: 3rem;
   }
+  .ua:hover {
+    color: green;
+}
 .card-flip::before {
     content: "";
     position: absolute;
