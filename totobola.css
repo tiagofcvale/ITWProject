@@ -1,7 +1,6 @@
 ﻿body {
     font-family: 'Open Sans', sans-serif;
-    background-color: #f3f6fa;
-    color: #333;
+    padding: 56px 0px 100px 0px;
 }
 
 .bannerTop {
@@ -10,12 +9,6 @@
     margin-bottom: 20px;
 }
 
-.container {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
 
 .table {
     margin-bottom: 20px;
@@ -24,7 +17,6 @@
 .table th {
     text-align: center;
     background: #005bbb;
-    color: white;
 }
 
 .table td {
@@ -42,7 +34,6 @@ input[type="checkbox"], input[type="radio"] {
 
 .btn-submit {
     background: #ee334e;
-    color: white;
     border: none;
     padding: 10px 20px;
     border-radius: 4px;
@@ -50,33 +41,14 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .btn-submit:disabled {
-    background: #ccc;
     cursor: not-allowed;
 }
 
 hr {
-    border: 1px solid #eee;
+    border: 1px solid;
     margin: 20px 0;
 }
 
 span {
     font-weight: bold;
-}
-.quiz-button {
-    position: fixed;
-    top: 58px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #005bbb;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 30px;
-    font-size: 16px;
-    cursor: pointer;
-    z-index: 10; /* Garantir que o botão esteja sobre outros elementos */
-}
-
-.quiz-button:hover {
-    background-color: #003d7a;
 }
