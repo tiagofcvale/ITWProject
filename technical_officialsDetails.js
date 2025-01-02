@@ -44,7 +44,7 @@ var vm = function () {
             self.Sex(formatValue(data.Sex));
             self.BirthDate(data.BirthDate ? new Date(data.BirthDate).toLocaleDateString() : "[Unknown]"); 
             self.Organisation(formatValue(data.Organisation));
-            self.OrganisationCode(formatValue(data.BirthCountry));
+            self.OrganisationCode(formatValue(data.OrganisationCode));
             if (!data.Photo || data.Photo === null || data.Photo.trim() === '') {
                 self.Photo('Images/PersonNotFound.png'); 
             } else {
@@ -54,7 +54,7 @@ var vm = function () {
             console.log("OrganisationLong:",data.OrganisationLong)
             self.Url(formatValue(data.Url));
             console.log("Url:",data.Url)
-            self.Sports((data.Sports || []));
+            self.Sports((data.Sports));
             console.log("Sports:",data.Sports)
         });
     };

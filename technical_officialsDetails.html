@@ -108,9 +108,8 @@
                     <p class="technical_officialLabel">BirthDate</p>
                     <p class="technical_officialLabel">Category</p>
                     <p class="technical_officialLabel">Function</p>
-                    <p class="technical_officialLabel">OrganisationCode</p>
+                    <p class="technical_officialLabel">NOC</p>
                     <p class="technical_officialLabel">Organisation</p>
-                    <p class="technical_officialLabel">OrganisationLong</p>
                     <p class="technical_officialLabel">Url</p>
                     <p class="technical_officialLabel">Sports</p>
 
@@ -122,15 +121,14 @@
                     <p class="text-end" data-bind="text: BirthDate"></p>
                     <p class="text-end" data-bind="text: Category"></p>
                     <p class="text-end" data-bind="text: Function"></p>
-                    <p class="text-end" data-bind="text: OrganisationCode"></p>
-                    <p class="text-end" data-bind="text: Organisation"></p>
+                    <p class="text-end"><a data-bind="text: Organisation, attr: { href: 'nocsDetails.html?id=' + OrganisationCode()  }"></a></p>
                     <p class="text-end" data-bind="text: OrganisationLong"></p>
                     <p class="text-end" data-bind="text: Url"></p>
-                    <ul data-bind="foreach: Sports">
+                    <ul data-bind="foreach: Sports" class="text-end">
                         <a data-bind="text: Name, attr: { href: 'sportsDetails.html?id=' + Id }"></a>
                     </ul>
                     <!-- /ko -->
-                    <p data-bind="if: Sports().length === 0">[Unknown]</p>
+                    
 
 
                 </div>

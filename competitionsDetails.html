@@ -112,12 +112,16 @@
                 <h1 style="text-align: center ;"><strong>Informations</strong></h1>
                 <hr />
                 <div style="float: left">
-                    <p class="athleteLabel">Código</p>
-                    <p class="athleteLabel">Nome</p>
+                    <p class="athleteLabel">Sport</p>
+                    <p class="athleteLabel">Name</p>
                     <p class="athleteLabel">Tag</p>
                 </div>
                 <div style="float: right;">
-                    <p class="text-end" data-bind="text: SportId"></p>
+                    <div data-bind="foreach: SportInfo">
+                        <p class="text-end">
+                          <a data-bind="text: Name, attr: { href: 'sportsDetails.html?id=' + Id }"></a>
+                        </p>
+                    </div>
                     <p class="text-end" data-bind="text: Name"></p>
                     <p class="text-end" data-bind="text: Tag"></p>
                 </div>
