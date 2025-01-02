@@ -56,18 +56,69 @@ function processFavorites(fav, endpoints) {
             let url;
 
             if (key === "competitions") {
-                const { id: sportId, name } = item;
-
+                const { id: sportId, name } = item; // Garantir que você tem a ID do esporte (sportId) e o nome da competição
+                
                 if (!sportId || !name) {
                     console.error(`Invalid competition data:`, item);
                     return;
                 }
-
+            
                 const encodedSportId = encodeForUrl(sportId);
                 const encodedName = encodeForUrl(name);
-
+            
+                // URL corrigida para usar sportId e name da competição
                 url = `${endpoints[key]}?sportId=${encodedSportId}&name=${encodedName}`;
-            } else {
+            
+                // Requisição AJAX para buscar as competições
+                ajaxHelper(url, 'GET')
+                    .done(data => {
+                        if (!data) {
+                            console.error(`No data returned for ${key} with sportId: ${sportId} and name: ${name}`);
+                            return;
+                        }
+            
+                        // Acessando os dados da competição
+                        const competitionData = data; // Aqui data é o objeto retornado pela API
+                        const photo = competitionData.Photo || 'Images/PersonNotFound.png'; // Usando uma foto padrão
+                        const sportInfo = competitionData.SportInfo ? competitionData.SportInfo.Name : 'Sport Info Not Available'; // Nome do esporte
+                        const description = competitionData.Tag || 'No description available'; // Descrição (ou Tag)
+            
+                        // Lista de atletas, caso haja
+                        const athletes = competitionData.Athletes && competitionData.Athletes.length > 0
+                            ? competitionData.Athletes.map(athlete => athlete.Name).join(", ")
+                            : 'No athletes available';
+            
+                        // Construindo a linha para adicionar à tabela
+                        const row = `
+                            <tr id="fav-${sanitizeId(sportId)}-${encodeURIComponent(name)}">
+                                <td class="align-middle">${competitionData.SportId || sportId}</td>
+                                <td class="align-middle">${competitionData.Tag || name}</td>
+                                <td class="align-middle">${competitionData.Name || name}</td>
+                                <td class="align-middle">
+                                    <img style="height: 100px; width: 100px;" src="${photo}" alt="Competition Photo">
+                                </td>
+                                <td class="text-end align-middle">
+                                    <a class="btn btn-default btn-light btn-xs" 
+                                       href="competitionsDetails.html?sportId=${sportId}&name=${encodedName}">
+                                       <i class="fa fa-eye" title="Show details"></i>
+                                    </a>
+                                    <a class="btn btn-default btn-sm btn-favourite" 
+                                       onclick="removeFav('${sportId}', '${encodedName}')">
+                                       <i class="fa fa-heart text-danger" title="Remove from favorites"></i>
+                                    </a>
+                                </td>
+                            </tr>`;
+            
+                        // Adicionando a linha à tabela correspondente
+                        appendToTable(`table-favourites-${key}`, row);
+                    })
+                    .fail((jqXHR, textStatus, errorThrown) => {
+                        console.error(`Failed to fetch data for competition with sportId ${sportId} and name ${name}: ${textStatus}`, errorThrown);
+                    });
+            }
+            
+            
+             else {
                 url = `${endpoints[key]}${item}`;
             }
 
@@ -174,6 +225,7 @@ function processFavorites(fav, endpoints) {
         });
     });
 }
+
 
 $(document).ready(function () {
     showLoading();
