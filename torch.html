@@ -151,11 +151,28 @@
         <div id="progress-container" style="width: 100%; background-color: #e0e0e0; height: 10px; margin-top: 10px;">
             <div id="progress-bar" style="width: 0%; height: 100%; background-color: #4caf50;"></div>
         </div>
-        <div>
-            <input type="file" id="iconUploader" />
-            <button id="startAnimation" class="animated-button" style=" justify-content: center; align-items: center; display: flex; margin-left: 500px;">Start Animation</button>
-
+        <div class="text-center mt-3">
+            <!-- Botão de Upload de Imagem -->
+            <div class="mb-3">
+                <label for="iconUploader" class="form-label text-muted d-block" style="font-size: 1.2rem;">
+                    <i class="fa fa-image" style="font-size: 3rem; color: #007bff;"></i>
+                    <br>
+                    <span style="font-weight: bold; color: #007bff;">Pick a picture to animate</span>
+                </label>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <input type="file" id="iconUploader" class="form-control form-control-lg" style="max-width: 100%;" accept="image/*" />
+                </div>
+                <!-- Botão Start Animation -->
+                <div class="col-6">
+                    <button id="startAnimation" class="btn btn-success" style="display: block; margin: 3px auto; width: 100%;">
+                        Start Animation
+                    </button>
+                </div>
+            </div>
         </div>
+        
         
         
     <main class="container-lg">
