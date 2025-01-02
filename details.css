@@ -1,0 +1,80 @@
+/* Estilos específicos para a seção de Informações */
+.col-12.col-md-6.mb-3 {
+    background: linear-gradient(135deg); /* Gradiente de fundo */
+    border: none;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.col-12.col-md-6.mb-3:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    margin-bottom: 20px;
+    border-bottom: 3px solid #00bcd4; /* Linha de separação */
+    display: inline-block;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.athleteLabel {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+p.text-end {
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+ul.text-end {
+    padding-left: 0;
+    list-style: none;
+}
+
+ul.text-end li {
+    margin: 8px 0;
+}
+
+ul.text-end li a {
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+ul.text-end li a:hover {
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.img-thumbnail {
+    border: 5px solid #00bcd4;
+    border-radius: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    max-width: 80%;
+    margin: auto;
+    display: block;
+}
+
+#image1 {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.row {
+    margin-top: 20px;
+}
+
+hr {
+    border-top: 2px solid #00bcd4;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.athleteLabel, .text-end {
+    margin-bottom: 12px;
+}

@@ -28,6 +28,7 @@ var vm = function () {
     self.Philosophy = ko.observable('');
     self.Nationality_code = ko.observable('');
     self.Country = ko.observable('');
+    self.Medals = ko.observableArray([]);
 
     self.activate = function (id) {
         console.log('CALL: getAthletes...');
@@ -58,6 +59,7 @@ var vm = function () {
             self.Philosophy(formatValue(data.Philosophy));
             self.Nationality_code(formatValue(data.Nationality_code));
             self.Country(formatValue(data.Country));
+            self.Medals(formatValue(data.Medals))
         });
     };
 
