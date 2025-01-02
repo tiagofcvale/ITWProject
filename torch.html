@@ -19,7 +19,50 @@
             width: 100%;
             margin-bottom: 20px;
         }
-        
+        #progress-container {
+        width: 100%;
+        background-color: #e0e0e0;
+        height: 10px;
+        margin-top: 10px;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    #progress-bar {
+        width: 0%;
+        height: 100%;
+        transition: width 0.1s ease, background-color 0.1s ease;
+    }
+    .animated-button {
+    background-color: #0f78ce; /* Blue background */
+    border: none; /* Remove default border */
+    color: white; /* White text */
+    padding: 15px 32px; /* Padding inside the button */
+    text-align: center; /* Center text */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Inline block for button */
+    font-size: 16px; /* Font size */
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+/* Hover effect */
+.animated-button:hover {
+    background-color: #1853ac6e; /* Darker blue on hover */
+    transform: scale(1.1); /* Slightly enlarge button */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}
+
+/* Active effect when button is clicked */
+.animated-button:active {
+    background-color: #1c39da; /* Even darker blue on click */
+    transform: scale(1.05); /* Slightly reduce size on click */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Stronger shadow when clicked */
+}
+    
+
+
     </style>
     
 </head>
@@ -105,6 +148,16 @@
     <h1 style="text-align: center; margin-top: 10px;">Torch Route Map</h1>
     <hr>
         <div id="map"></div>
+        <div id="progress-container" style="width: 100%; background-color: #e0e0e0; height: 10px; margin-top: 10px;">
+            <div id="progress-bar" style="width: 0%; height: 100%; background-color: #4caf50;"></div>
+        </div>
+        <div>
+            <input type="file" id="iconUploader" />
+            <button id="startAnimation" class="animated-button" style=" justify-content: center; align-items: center; display: flex; margin-left: 500px;">Start Animation</button>
+
+        </div>
+        
+        
     <main class="container-lg">
         <table class="table table-striped table-sm small">
             <thead class="table-secondary">
