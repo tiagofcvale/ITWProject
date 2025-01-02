@@ -40,16 +40,32 @@ var vm = function () {
         return list;
     };
     self.toggleFavourite = function (id, name) {
-        const existingIndex = self.favourites().findIndex(fav => fav.id === id && fav.name === name);
+        // Recupera os favoritos existentes do localStorage
+        let existingFavs = [];
+        try {
+            existingFavs = JSON.parse(localStorage.getItem("fav")) || [];
+        } catch (e) {
+            existingFavs = [];
+        }
     
+        // Atualiza os favoritos no observableArray
+        const existingIndex = self.favourites().findIndex(fav => fav.id === id && fav.name === name);
         if (existingIndex === -1) {
             self.favourites.push({ id: id, name: name });
         } else {
             self.favourites.splice(existingIndex, 1);
         }
     
-        localStorage.setItem("fav", JSON.stringify(self.favourites()));
+        // Mescla os favoritos existentes no localStorage com os favoritos atuais
+        const updatedFavs = [...existingFavs, ...ko.toJS(self.favourites())].filter(
+            (fav, index, selfArray) =>
+                selfArray.findIndex(f => f.id === fav.id && f.name === fav.name) === index // Remove duplicados
+        );
+    
+        // Salva os favoritos mesclados no localStorage
+        localStorage.setItem("fav", JSON.stringify(updatedFavs));
     };
+    
     
     self.SetFavourites = function () {
         let storage;
