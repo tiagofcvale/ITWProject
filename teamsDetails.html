@@ -197,17 +197,28 @@
 
         <div class="row">
             <div class="col-12 col-md-6 mb-3" style="max-width: 100%; flex: content;">
-                <div style="float: left">
-                    <p class="teamLabel">Medals</p>
+                <div>
+                    <p class="teamLabel"><h5>Medals</h5></p>
+                    <hr />
                 </div>
-                <div style="float: right;">
-                    <ul class="text-end" data-bind="foreach: Medals">
-                        <li>
-                            <p class="text-end" data-bind="text: Medal_Type"></p>
-                            <p class="text-end" data-bind="text: Sport_name"></p>
-                            <p class="text-end" data-bind="text: Competition_name"></p>
-                            <p class="text-end" data-bind="text: Team_name"></p>
-                        </li>
+                <div>
+                    <ul data-bind="foreach: Medals">
+                        <p>
+                            <span>Medal Type: </span>
+                            <span class="text-end" style="float: right;" data-bind="text: Medal_Type"></span>
+                          </p>
+                          <p>
+                            <span>Sport: </span>
+                            <span class="text-end" style="float: right;" data-bind="text: Sport_name"></span>
+                          </p>
+                          <p>
+                            <span>Competition: </span>
+                            <span class="text-end" style="float: right;" data-bind="text: Competition_name"></span>
+                          </p>
+                          <p>
+                            <span>Team Name: </span>
+                            <span class="text-end" style="float: right;" data-bind="text: Team_name"></span>
+                          </p>
                     </ul>
                 </div>
             </div>
