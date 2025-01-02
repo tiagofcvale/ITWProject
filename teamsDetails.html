@@ -97,27 +97,41 @@
         </div>
         <div class="row">
             <div class="col-12 col-md-6 mb-3" style="max-width: 100%; flex: content;">
-                <h3 style="text-align: center;">Informations</h3>
-                <hr/>
-                <div style="float: left">
-                    <p class="teamLabel">Id</p>
-                    <p class="teamLabel">Name</p>
-                    <p class="teamLabel">Sex</p>
-                    <p class="teamLabel">Athletes Num</p>
-                    <p class="teamLabel">Coaches Num</p>
-
-
+                <div>
+                    <p class="teamLabel text-center" style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">
+                        Informations
+                    </p>
+                    <hr />
                 </div>
-                <div style="float: right;">
-                    <p class="text-end" data-bind="text: Id"></p>
-                    <p class="text-end" data-bind="text: Name"></p>
-                    <p class="text-end" data-bind="text: Sex"></p>
-                    <p class="text-end" data-bind="text: Num_athletes"></p>
-                    <p class="text-end" data-bind="text: Num_coaches"></p>
+                <div>
+                    <ul>
+                        <p>
+                            <span>Team Id: </span>
+                            <span class="text-end" style="float: right;" data-bind="text: Id"></span>
+                        </p>
+                        <p>
+                            <span>Team Name: </span>
+                            <span class="text-end" style="float: right;" data-bind="text: Name"></span>
+                        </p>
+                        <p>
+                            <span>Team Sex: </span>
+                            <span class="text-end" style="float: right;" data-bind="text: Sex"></span>
+                        </p>
+                        <p>
+                            <span>Athletes Number: </span>
+                            <span class="text-end" style="float: right;" data-bind="text: Num_athletes"></span>
+                        </p>
+                        <p>
+                            <span>Coaches Number: </span>
+                            <span class="text-end" style="float: right;" data-bind="text: Num_coaches"></span>
+                        </p>
+                    </ul>
                 </div>
             </div>
         </div>
+        
 
+        <!-- ko if: Athletes && Athletes().length > 0 -->
         <div class="row">
             <div class="col-12 col-md-6 mb-3" style="max-width: 100%; flex: content;">
                 <div style="float: left">
@@ -137,8 +151,9 @@
                 </div>
             </div>
         </div>
-        
+        <!-- /ko -->
 
+        <!-- ko if: Coaches && Coaches().length > 0 -->
         <div class="row">
             <div class="col-12 col-md-6 mb-3" style="max-width: 100%; flex: content;">
                 <div style="float: left">
@@ -157,7 +172,8 @@
                 </div>
             </div>
         </div>
-
+        <!-- /ko -->
+        
         <div class="row">
             <div class="col-12 col-md-6 mb-3" style="max-width: 100%; flex: content;">
                 <div style="float: left">
@@ -194,7 +210,8 @@
                 </div>
             </div>
         </div>
-
+        	
+        <!-- ko if: Medals && Medals().length > 0 -->
         <div class="row">
             <div class="col-12 col-md-6 mb-3" style="max-width: 100%; flex: content;">
                 <div>
@@ -222,7 +239,8 @@
                     </ul>
                 </div>
             </div>
-            </div>
+        </div>
+        <!-- /ko -->
         </div>
     </div>
         <!--Voltar-->
