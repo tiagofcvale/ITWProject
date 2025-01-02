@@ -26,7 +26,7 @@ var vm = function () {
     self.Athletes = ko.observableArray([]);
     self.NOC = ko.observable('');
     self.Coaches = ko.observableArray([]);
-    self.Sport = ko.observable({});
+    self.Sport = ko.observable('');
     self.Medals = ko.observableArray([]);
 
     self.formatValue = function(value) {
