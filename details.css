@@ -6,11 +6,26 @@
     padding: 25px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
     transition: transform 0.3s, box-shadow 0.3s;
+    max-width: 100%; /* Garante que a largura seja 100% */
+    height: auto;
 }
 
 .col-12.col-md-6.mb-3:hover {
-    transform: scale(1.02);
+    transform: scale(1.004); 
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+
+.col-12.col-md-6.mb-3 {
+    max-width: 100%; 
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .col-12.col-md-6.mb-3 {
+        max-width: 300px;
+        max-height: 200px;
+    }
 }
 
 h1 {
