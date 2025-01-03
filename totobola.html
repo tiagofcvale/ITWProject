@@ -18,9 +18,10 @@
         }
 
         .bannerTop {
-            height: 50px;
+            height: 70px;
             background: linear-gradient(90deg, #005bbb, #ee334e);
             margin-bottom: 20px;
+            position: relative;
         }
 
         .container {
@@ -153,17 +154,17 @@
     </nav>
     <style>
         .quiz-button {
-            position: fixed;
-            top: 58px;
-            left: 50%;
-            transform: translateX(-50%);
+            position: absolute; 
+            top: 95px;
+            left: 50%; 
+            transform: translate(-50%, -50%); 
             background-color: #005bbb;
             border: none;
             padding: 10px 20px;
             border-radius: 30px;
             font-size: 16px;
             cursor: pointer;
-            z-index: 10;
+            z-index: 10; 
         }
 
         .quiz-button:hover {
@@ -171,7 +172,7 @@
         }
     </style>
     <a href="quiz.html">
-        <button class="quiz-button">Go to Quiz</button>
+        <button class="quiz-button">Go to Quiz  <i class="fa fa-gamepad" aria-hidden="true"></i></button>
     </a>
     
     <div class="bannerTop"></div>
