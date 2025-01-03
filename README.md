@@ -17,3 +17,5 @@ Correção de erros de formatação de dados nos Technical Officials Details, Co
 Adição de conteúdo aos detalhes dos Atletas, dos Comités, e das Teams.
 
 Adicionado uma animação na Torch route e adição de ficheiro
+
+Alteração no Css das tabelas, cards e eventos
