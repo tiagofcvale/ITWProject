@@ -199,3 +199,14 @@ document.getElementById("start-button").addEventListener("click", function () {
     document.getElementById("quiz-intro").style.display = "none";
     document.getElementById("quiz").style.display = "block";
 });
+document.addEventListener('DOMContentLoaded', function () {
+    const navbar = document.querySelector('.navbar');
+
+    document.addEventListener('mousemove', function (event) {
+        if (event.clientY < 50) {
+            navbar.classList.remove('navbar-hidden');
+        } else {
+            navbar.classList.add('navbar-hidden');
+        }
+    });
+});
