@@ -6,7 +6,7 @@ function ajaxHelper(uri, method, data) {
         contentType: 'application/json',
         data: data ? JSON.stringify(data) : null,
         error: function (jqXHR, textStatus, errorThrown) {
-            console.error(`AJAX Call [${uri}] Fail: ${textStatus}`, errorThrown);
+            console.log(`AJAX Call [${uri}] Fail: ${textStatus}`, errorThrown);
             hideLoading();
         }
     });
@@ -29,110 +29,149 @@ function encodeForUrl(value) {
     return encodeURIComponent(value).replace(/'/g, '%27');
 }
 
+
+function removeFav(Id, Name = '') {
+    console.log("Removing favorite:", Id, Name);
+
+    let selector;
+
+    // Sanitiza o ID e o Nome para construir o seletor correto
+    if (Name) {
+        const sanitizedId = sanitizeId(Id);
+        const sanitizedName = sanitizeId(Name);
+        selector = `#fav-${sanitizedId}-${sanitizedName}`;
+    } else {
+        const sanitizedId = sanitizeId(Id);
+        selector = `#fav-${sanitizedId}`;
+    }
+
+    // Remove o elemento da tabela
+    $(selector).remove();
+
+    // Recupera os favoritos do localStorage
+    let fav = JSON.parse(localStorage.getItem("fav") || "[]");
+
+    console.log("Current favorites before removal:", fav);
+
+    // Filtra os favoritos para remover o item correspondente
+    const updatedFav = fav.filter(item => {
+        // Ajuste para cobrir todos os casos possíveis
+        if (Name) {
+            return !(item.SportId === Id && item.Name === Name);
+        } else if (item.Id) {
+            return item.Id !== Id;
+        } else if (item.SportId) {
+            return item.SportId !== Id;
+        }
+        return true; // Mantém itens que não correspondem a nenhum caso
+    });
+
+    console.log("Favorites after filtering:", updatedFav);
+
+    // Atualiza o localStorage com os favoritos restantes
+    localStorage.setItem("fav", JSON.stringify(updatedFav));
+
+    // Verifica se o localStorage foi atualizado corretamente
+    const finalFav = JSON.parse(localStorage.getItem("fav"));
+    console.log("Updated favorites in localStorage:", finalFav);
+
+    // Exibe uma mensagem se todos os favoritos foram removidos
+    if (updatedFav.length === 0) {
+        $("#noadd, #nofav").show();
+    }
+}
+
+
+
+
 function sanitizeId(id) {
     return id.toString().replace(/[^a-zA-Z0-9_-]/g, '');
 }
 
 function appendToTable(tableId, rowContent) {
     $(`#${tableId}`).show().append(rowContent);
-    $('#noadd, #nofav').hide();
+    $('#noadd, #nofav').hide(); 
 }
 
-function showNoFavoritesMessage() {
-    $('#noadd, #nofav').show();
-    console.log("No favorites to display.");
-}
+$(document).ready(function () {
+    showLoading()
+    let fav = JSON.parse(localStorage.getItem("fav") || "[]");
+    console.log("Favorites:", fav);
 
-function processFavorites(fav, endpoints) {
-    if (!fav.length) {
-        showNoFavoritesMessage();
-        return;
-    }
+    const endpoints = {
+        athletes: "http://192.168.160.58/Paris2024/API/Athletes/",
+        coaches: "http://192.168.160.58/Paris2024/API/Coaches/",
+        officials: "http://192.168.160.58/Paris2024/API/Technical_officials/",
+        venues: "http://192.168.160.58/Paris2024/api/Venues/",
+        sports: "http://192.168.160.58/Paris2024/api/Sports/",
+        teams: "http://192.168.160.58/Paris2024/API/Teams/",
+        competitions: "http://192.168.160.58/Paris2024/api/Competitions"
+    };
+    hideLoading()
+    ajaxHelper(endpoints.competitions, 'GET').done(response => {
+        const competitions = response.Competitions;
+        console.log("Loaded competitions:", competitions);
 
-    fav.forEach(item => {
-        console.log(`Processing favorite item:`, item);
+        fav.forEach(item => {
+            console.log(`Processing favorite item:`, item);
+        
+            Object.keys(endpoints).forEach(key => {
+                let url;
+        
+                if (key === "competitions") {
+                    const { id: sportId, name } = item;
+        
+                    if (!sportId || !name) {
+                        console.error(`Invalid competition data:`, item);
+                        return;
+                    }
+        
+                    const encodedSportId = encodeForUrl(sportId);
+                    const encodedName = encodeForUrl(name);
+        
+                    url = `${endpoints[key]}?sportId=${encodedSportId}&name=${encodedName}`;
 
-        Object.keys(endpoints).forEach(key => {
-            let url;
-
-            if (key === "competitions") {
-                const { id: sportId, name } = item; // Garantir que você tem a ID do esporte (sportId) e o nome da competição
-                
-                if (!sportId || !name) {
-                    console.error(`Invalid competition data:`, item);
-                    return;
+                } else {
+                    url = `${endpoints[key]}${item}`;
                 }
-            
-                const encodedSportId = encodeForUrl(sportId);
-                const encodedName = encodeForUrl(name);
-            
-                // URL corrigida para usar sportId e name da competição
-                url = `${endpoints[key]}?sportId=${encodedSportId}&name=${encodedName}`;
-            
-                // Requisição AJAX para buscar as competições
-                ajaxHelper(url, 'GET')
-                    .done(data => {
-                        if (!data) {
-                            console.error(`No data returned for ${key} with sportId: ${sportId} and name: ${name}`);
-                            return;
-                        }
-            
-                        // Acessando os dados da competição
-                        const competitionData = data; // Aqui data é o objeto retornado pela API
-                        const photo = competitionData.Photo || 'Images/PersonNotFound.png'; // Usando uma foto padrão
-                        const sportInfo = competitionData.SportInfo ? competitionData.SportInfo.Name : 'Sport Info Not Available'; // Nome do esporte
-                        const description = competitionData.Tag || 'No description available'; // Descrição (ou Tag)
-            
-                        // Lista de atletas, caso haja
-                        const athletes = competitionData.Athletes && competitionData.Athletes.length > 0
-                            ? competitionData.Athletes.map(athlete => athlete.Name).join(", ")
-                            : 'No athletes available';
-            
-                        // Construindo a linha para adicionar à tabela
-                        const row = `
-                            <tr id="fav-${sanitizeId(sportId)}-${encodeURIComponent(name)}">
-                                <td class="align-middle">${competitionData.SportId || sportId}</td>
-                                <td class="align-middle">${competitionData.Tag || name}</td>
-                                <td class="align-middle">${competitionData.Name || name}</td>
-                                <td class="align-middle">
-                                    <img style="height: 100px; width: 100px;" src="${photo}" alt="Competition Photo">
-                                </td>
-                                <td class="text-end align-middle">
-                                    <a class="btn btn-default btn-light btn-xs" 
-                                       href="competitionsDetails.html?sportId=${sportId}&name=${encodedName}">
-                                       <i class="fa fa-eye" title="Show details"></i>
-                                    </a>
-                                    <a class="btn btn-default btn-sm btn-favourite" 
-                                       onclick="removeFav('${sportId}', '${encodedName}')">
-                                       <i class="fa fa-heart text-danger" title="Remove from favorites"></i>
-                                    </a>
-                                </td>
-                            </tr>`;
-            
-                        // Adicionando a linha à tabela correspondente
-                        appendToTable(`table-favourites-${key}`, row);
-                    })
-                    .fail((jqXHR, textStatus, errorThrown) => {
-                        console.error(`Failed to fetch data for competition with sportId ${sportId} and name ${name}: ${textStatus}`, errorThrown);
-                    });
-            }
-            
-            
-             else {
-                url = `${endpoints[key]}${item}`;
-            }
-
-            ajaxHelper(url, 'GET')
-                .done(data => {
+        
+                ajaxHelper(url, 'GET').done(data => {
                     if (!data) {
                         console.error(`No data returned for ${key} with ID:`, item);
                         return;
                     }
-
+        
                     const photo = data.Photo || data.Pictogram || 'Images/PersonNotFound.png';
                     let row;
+        
+                    if (key === "competitions") {
+                        const encodedSportId = encodeURIComponent(data.SportId);
+                        const encodedName = encodeURIComponent(data.Name);
+                        var name= data.Name
+                        console.log("sportId",encodedSportId)
+                        console.log("name",encodedName)
+                        row = `
+                            <tr id="fav-${sanitizeId(encodedSportId)}-${sanitizeId(name)}">
+                                <td class="align-middle">${encodedSportId}</td>
+                                <td class="align-middle">${data.Name}</td>
+                                <td class="align-middle">${data.Tag || "N/A"}</td>
+                                <td class="align-middle">
+                                    <img style="height: 100px; width: 100px;" src="${photo}" alt="Image">
+                                </td>
+                                <td class="text-end align-middle">
+                                    <a class="btn btn-default btn-light btn-xs" 
+                                    href="competitionsDetails.html?sportId=${encodedSportId}&name=${encodedName}">
+                                    <i class="fa fa-eye" title="Show details"></i>
+                                    </a>
+                                    <a class="btn btn-default btn-sm btn-favourite" 
+                                    onclick="removeFav('${encodedSportId}', '${name}')">
+                                    <i class="fa fa-heart text-danger" title="Remove from favorites"></i>
+                                    </a>
+                                </td>
+                            </tr>`;
 
-                    if (key === "venues") {
+                            appendToTable("table-favourites-competitions", row);
+                    } else if (key === "Venues"){
                         row = `
                             <tr id="fav-${sanitizeId(item)}">
                                 <td class="align-middle">${data.Id || item}</td>
@@ -174,28 +213,7 @@ function processFavorites(fav, endpoints) {
                                     </a>
                                 </td>
                             </tr>`;
-                        appendToTable(`table-favourites-technical_officials`, row);
-                    } else if (key === "sports") {
-                        row = `
-                            <tr id="fav-${sanitizeId(item)}">
-                                <td class="align-middle">${data.Id || item}</td>
-                                <td class="align-middle">${data.Name || "N/A"}</td>
-                                <td class="align-middle"><a href="${data.Sport_url}"><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
-                                <td class="align-middle">
-                                    <img style="height: 100px; width: 100px;" class="card-img-top" src="${data.Pictogram}" id="image1" onerror="this.onerror=null; this.src='Images/PersonNotFound.png';">
-                                </td>
-                                <td class="text-end align-middle">
-                                    <a class="btn btn-default btn-light btn-xs" 
-                                       href="${key}Details.html?id=${item}">
-                                       <i class="fa fa-eye" title="Show details"></i>
-                                    </a>
-                                    <a class="btn btn-default btn-sm btn-favourite" 
-                                       onclick="removeFav('${item}')">
-                                       <i class="fa fa-heart text-danger" title="Remove from favorites"></i>
-                                    </a>
-                                </td>
-                            </tr>`;
-                        appendToTable(`table-favourites-${key}`, row);
+                            appendToTable(`table-favourites-technical_officials`, row);
                     } else {
                         row = `
                             <tr id="fav-${sanitizeId(item)}">
@@ -207,7 +225,7 @@ function processFavorites(fav, endpoints) {
                                 </td>
                                 <td class="text-end align-middle">
                                     <a class="btn btn-default btn-light btn-xs" 
-                                       href="${key}Details.html?id=${item}">
+                                       href="${key}Details.html?Sportid=${item}">
                                        <i class="fa fa-eye" title="Show details"></i>
                                     </a>
                                     <a class="btn btn-default btn-sm btn-favourite" 
@@ -216,40 +234,18 @@ function processFavorites(fav, endpoints) {
                                     </a>
                                 </td>
                             </tr>`;
-                        appendToTable(`table-favourites-${key}`, row);
+                            appendToTable(`table-favourites-${key}`, row);
                     }
-                })
-                .fail((jqXHR, textStatus, errorThrown) => {
+                }).fail((jqXHR, textStatus, errorThrown) => {
                     console.error(`Failed to fetch data for ${key}: ${textStatus}`, errorThrown);
                 });
+            });
         });
+        
+        
+        
     });
-}
 
-
-$(document).ready(function () {
-    showLoading();
-
-    let fav;
-    try {
-        fav = JSON.parse(localStorage.getItem("fav") || "[]");
-    } catch (error) {
-        console.error("Error parsing favorites from localStorage:", error);
-        fav = [];
-    }
-
-    console.log("Favorites:", fav);
-
-    const endpoints = {
-        athletes: "http://192.168.160.58/Paris2024/API/Athletes/",
-        coaches: "http://192.168.160.58/Paris2024/API/Coaches/",
-        officials: "http://192.168.160.58/Paris2024/API/Technical_officials/",
-        venues: "http://192.168.160.58/Paris2024/api/Venues/",
-        sports: "http://192.168.160.58/Paris2024/api/Sports/",
-        teams: "http://192.168.160.58/Paris2024/API/Teams/",
-        competitions: "http://192.168.160.58/Paris2024/api/Competitions"
-    };
-
-    processFavorites(fav, endpoints);
     hideLoading();
 });
+
