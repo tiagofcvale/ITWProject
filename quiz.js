@@ -138,7 +138,7 @@ function loadQuestion() {
 function checkAnswer(selectedIndex, selectedElement) {
     const correctAnswer = quizData[currentQuestionIndex].answer;
 
-    // Desabilita todas as opções
+    
     const options = document.querySelectorAll("#options li");
     options.forEach(option => option.style.pointerEvents = "none");
 
