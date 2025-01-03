@@ -91,21 +91,14 @@
 
     <div class="container">
         <div class="row">
-            <div class=" py-2 mb-2 col-3">
-                <h2 data-bind="text:displayName"></h2>
+            <div class="py-2 mb-2 col-3">
+                <h2 data-bind="text:displayName">Medal Filter</h2>
             </div>
-            <div class=" py-2 mb-2 col-3" style="text-align: end; display: flex; align-items: center; float: right; justify-content: flex-end;">
-                <!-- FilterBar -->
-                <select id="competitionFilter" 
-                        data-bind="value: selectedCompetition, 
-                                options: competitions, 
-                                optionsText: 'name', 
-                                optionsValue: $data, 
-                                event: { change: loadMedals }">
-                </select>
-
-
+            <div class="filter-bar py-2 mb-2 col-3 d-flex align-items-center justify-content-end">
+                
+                
             </div>
+            
             <div class="col-3" style="text-align: end; display: flex; align-items: center; float: right; justify-content: flex-end;">
                 <a class="btn btn-secondary" href="medalsTop25.html">Top 25 Athletes <i class="fa fa-star text-warning" aria-hidden="true"></i></a>
             </div>
