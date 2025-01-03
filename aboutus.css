@@ -75,15 +75,12 @@ main {
   }
 
   .card-front {
-    background-color: #f8f9fa;
     width: 300px;
     height: 400px;
     
   }
 
   .card-back {
-    background-color: #ffffff;
-    color: rgb(0, 0, 0);
     transform: rotateY(180deg);
   } 
   .card {
