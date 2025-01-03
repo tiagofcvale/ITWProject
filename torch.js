@@ -42,7 +42,7 @@ var vm = function () {
                 self.plotRoute();
             },
             error: function () {
-                alert('Erro ao carregar os dados da API!');
+                console.log('Erro ao carregar os dados da API!');
             }
         });
     };
@@ -125,7 +125,7 @@ var vm = function () {
                 };
                 reader.readAsDataURL(file);
             } else {
-                alert("Por favor, seleciona uma imagem primeiro!");
+                console.log("Por favor, seleciona uma imagem primeiro!");
             }
         });
     
@@ -135,7 +135,7 @@ var vm = function () {
                     currentMarker = L.marker(self.route[0], { icon: blueIcon }).addTo(self.map);
                     moveToNextPoint();
                 } else {
-                    alert("Não há uma rota disponível para animar!");
+                    console.log("Não há uma rota disponível para animar!");
                 }
             } else {
                 alert("A animação já está a decorrer!");
@@ -218,7 +218,7 @@ function ajaxHelper(uri, method, data) {
         contentType: 'application/json',
         data: data ? JSON.stringify(data) : null,
         error: function (jqXHR, textStatus, errorThrown) {
-            alert("AJAX Call[" + uri + "] Fail...");
+            console.log("AJAX Call[" + uri + "] Fail...");
         }
     });
 }
