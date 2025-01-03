@@ -114,21 +114,28 @@
                 <hr />
                 <p><span class="athleteLabel">Country</span> <span data-bind="text: Country" style="float: right;"></span></p>
                 <hr />
-                <p><span class="athleteLabel">Sports</span></p>
-                <ul class="text-end" data-bind="foreach: Sports">
-                    <li>
-                        <a data-bind="text: Name, attr: { href:'sportsDetails.html?id=' + Id }"></a>
-                    </li>
-                </ul>
+                <p style="padding: 0px;">
+                    <span class="athleteLabel" style="padding: 0px;">Sports
+                        <ul class="text-end" data-bind="foreach: Sports" style="padding: 0px;">
+                            <li style="padding: 0px;">
+                                <a style="padding: 0px;" data-bind="text: Name, attr: { href:'sportsDetails.html?id=' + Id }"></a>
+                            </li>
+                        </ul>
+                    </span>
+                </p>
                 <hr />
-                <p><span class="athleteLabel">Competitions</span></p>
-                <ul class="text-end" data-bind="foreach: Competitions">
-                    <li>
-                        <a data-bind="text: Name, attr: { href: 'competitionsDetails.html?sportId=' + SportId + '&name=' + Name }"></a>
-                    </li>
-                </ul>
+                <p style="padding: 0px;">
+                    <span class="athleteLabel" style="padding: 0px;">Competitions
+                        <ul class="text-end" data-bind="foreach: Competitions" style="padding: 0px;">
+                            <li style="padding: 0px;">
+                                <a atyle="flo" style="padding: 0px;" data-bind="text: Name, attr: { href: 'competitionsDetails.html?sportId=' + SportId + '&name=' + Name }"></a>
+                            </li>
+                        </ul>
+                    </span>
+                </p>
                 <hr />
-                <p><span class="athleteLabel">Medals</span></p>
+                <!-- ko if: Medals && Medals().length > 0 -->
+                <p><span class="athleteLabel">Medals</span>
                 <ul class="text-end" data-bind="foreach: Medals">
                     <li>
                         <p class="text-end" data-bind="text: Medal_Type"></p>
@@ -142,7 +149,8 @@
                             <i class="fa fa-external-link" aria-hidden="true"></i>
                         </a></p>
                     </li>
-                </ul>
+                </ul></p>
+                <!-- /ko -->
             </div>
             
             
