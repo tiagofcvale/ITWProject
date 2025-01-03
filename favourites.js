@@ -235,14 +235,14 @@ $(document).ready(function () {
                                 </td>
                             </tr>`;
                             appendToTable(`table-favourites-${key}`, row);
-                    } else if (key === "coaches") {
+                    } else if (key === "sports") {
                         row = `
                             <tr id="fav-${sanitizeId(item)}">
                                 <td class="align-middle">${data.Id || item}</td>
                                 <td class="align-middle">${data.Name || "N/A"}</td>
-                                <td class="align-middle">${data.Sex || "N/A"}</td>
+                                <td class="align-middle"><a href="${data.Sport_url}"><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
                                 <td class="align-middle">
-                                    <img style="height: 100px; width: 100px;" class="card-img-top" src="${data.Photo}" id="image1" onerror="this.onerror=null; this.src='Images/PersonNotFound.png';">
+                                    <img style="height: 100px; width: 100px;" class="card-img-top" src="${data.Pictogram}" id="image1" onerror="this.onerror=null; this.src='Images/PersonNotFound.png';">
                                 </td>
                                 <td class="text-end align-middle">
                                     <a class="btn btn-default btn-light btn-xs" 
