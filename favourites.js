@@ -171,15 +171,12 @@ $(document).ready(function () {
                             </tr>`;
 
                             appendToTable("table-favourites-competitions", row);
-                    } else if (key === "Venues"){
+                    } else if (key === "venues"){
                         row = `
                             <tr id="fav-${sanitizeId(item)}">
                                 <td class="align-middle">${data.Id || item}</td>
                                 <td class="align-middle">${data.Name || "N/A"}</td>
                                 <td class="align-middle"><a href="${data.Url}"><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
-                                <td class="align-middle">
-                                    <img style="height: 100px; width: 100px;" src="${photo}" alt="Photo">
-                                </td>
                                 <td class="text-end align-middle">
                                     <a class="btn btn-default btn-light btn-xs" 
                                        href="${key}Details.html?id=${item}">
@@ -244,6 +241,24 @@ $(document).ready(function () {
                                 <td class="align-middle">
                                     <img style="height: 100px; width: 100px;" class="card-img-top" src="${data.Pictogram}" id="image1" onerror="this.onerror=null; this.src='Images/PersonNotFound.png';">
                                 </td>
+                                <td class="text-end align-middle">
+                                    <a class="btn btn-default btn-light btn-xs" 
+                                       href="${key}Details.html?id=${item}">
+                                       <i class="fa fa-eye" title="Show details"></i>
+                                    </a>
+                                    <a class="btn btn-default btn-sm btn-favourite" 
+                                       onclick="removeFav('${item}')">
+                                       <i class="fa fa-heart text-danger" title="Remove from favorites"></i>
+                                    </a>
+                                </td>
+                            </tr>`;
+                            appendToTable(`table-favourites-${key}`, row);
+                    } else if (key === "teams") {
+                        row = `
+                            <tr id="fav-${sanitizeId(item)}">
+                                <td class="align-middle">${data.Id || item}</td>
+                                <td class="align-middle">${data.Name || "N/A"}</td>
+                                <td class="align-middle">${data.Sex || "N/A"}</td>
                                 <td class="text-end align-middle">
                                     <a class="btn btn-default btn-light btn-xs" 
                                        href="${key}Details.html?id=${item}">
